@@ -4,7 +4,7 @@ const Explored = () => {
             <div>
                 <div className="flex justify-between mb-6">
                     <p className="text-[28px] text-[#424447]">Explore By Skills</p>
-                    <a className="btn px-4 text-[16px] border-blue-300 bg-white text-[#0079C1]">Explore All</a>
+                    <a className="btn px-4 text-[16px] border-blue-300 roboto font-normal bg-white text-[#0079C1]">Explore All</a>
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-6">
