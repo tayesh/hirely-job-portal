@@ -7,7 +7,7 @@ const Featured = () => {
             <div>
                 <div className="flex justify-between mb-6">
                     <p className="text-[28px] nunito">Featured Companies</p>
-                    <a className="btn px-4 roboto text-[15px] border-blue-300 bg-white text-[#0079C1]">Explore All</a>
+                    <a className="btn px-4 roboto text-[15px] font-normal border-blue-300 bg-white text-[#0079C1]">Explore All</a>
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-10">

@@ -6,7 +6,7 @@ const LiveJobs = () => {
             <div>
                 <div className="flex justify-between mb-6">
                         <p className="ml-4 text-[28px] nunito">Live Jobs <span className="text-red-600"> (1,169) </span></p>
-                        <a className="btn px-4 roboto text-[15px] border-blue-300 bg-white text-[#0079C1]">Explore All</a>
+                        <a className="btn px-4 roboto font-normal text-[15px] border-blue-300 bg-white text-[#0079C1]">Explore All</a>
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
