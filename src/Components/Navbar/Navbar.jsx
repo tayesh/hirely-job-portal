@@ -1,9 +1,36 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+    const navlinkStyles = ({ isActive }) => ({
+        border: isActive ? "2px solid #DCEFFF" : "2px solid white",
+        backgroundColor: isActive ? "#DCEFFF" : "white",
+        color: isActive ? "#00457C" : "black",
+        fontWeight: isActive ? "normal" : "normal",
+        padding: "8px 16px",
+        borderRadius: "5px",
+        textDecoration: "none"
+    });
+
+    const links = (
+        <>
+            <NavLink to="/" style={navlinkStyles}>
+                <li className="epilogue text-[16px]">Home</li>
+            </NavLink>
+            <NavLink to="/findjob" style={navlinkStyles}>
+                <li className="epilogue text-[16px]">Find Job</li>
+            </NavLink>
+            <NavLink to="/coursepage" style={navlinkStyles}>
+                <li className="epilogue text-[16px]">Courses</li>
+            </NavLink>
+            <NavLink to="/support" style={navlinkStyles}>
+                <li className="epilogue text-[16px]">Get Support</li>
+            </NavLink>
+        </>
+    );
+
     return (
         <div>
-            <div className="navbar bg-base-100 px-8">
+            <div className="navbar bg-base-100 shadow-2xl px-8 ">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -23,22 +50,16 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="epilogue menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li className="epilogue text-[16px]"><a>Home</a></li>
-                            <li className="epilogue text-[16px]"><a>Find Job</a></li>
-                            <li className="epilogue text-[16px]"><a>Courses</a></li>
-                            <li className="epilogue text-[16px]"><a>Get Support</a></li>
+                            {links}
                         </ul>
                     </div>
-                    <Link to="/">
-                        <a className="belanosima text-[40px]">Hire<span className="text-blue-500 belanosima">ly</span></a>
-                    </Link>
+                    <NavLink to="/" className="belanosima text-[40px]">
+                        Hire<span className="text-[#0079C1] belanosima">ly</span>
+                    </NavLink>
                 </div>
                 <div className="mr-[200px] navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal gap-8 px-1">
-                        <li className="epilogue text-[16px]"><a>Home</a></li>
-                        <li className="epilogue text-[16px]"><a>Find Job</a></li>
-                        <li className="epilogue text-[16px]"><a>Courses</a></li>
-                        <li className="epilogue text-[16px]"><a>Get Support</a></li>
+                        {links}
                     </ul>
                 </div>
                 <div className="navbar-end gap-6">

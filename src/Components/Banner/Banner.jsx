@@ -18,15 +18,23 @@ const Banner = () => {
                         <div className="flex gap-6 justify-center bg-white mx-28 py-4 items-center h-16 rounded-lg">
                             <div className="dropdown dropdown-right">
                                 <div tabIndex={0} role="button" className="btn text-md w-[400px] flex justify-between bg-white poppins text-[18px] font-normal text-[#424447]">Skills <span className="text-2xl"><RiArrowDropDownLine /></span></div>
-                                {/* <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box ">
-                                    
-                                </ul> */}
+                                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box ">
+                                    <li>HTML</li>
+                                    <li>CSS</li>
+                                    <li>Javascript</li>
+                                    <li>React</li>
+                                    <li>MongoDB</li>
+                                </ul>
                             </div>
                             <div className="dropdown dropdown-right">
                                 <div tabIndex={0} role="button" className="btn text-md w-[400px] flex justify-between bg-white text-[18px] font-normal poppins text-[#424447]">Country <span className="text-2xl"><RiArrowDropDownLine /></span></div>
-                                {/* <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box ">
-                                
-                                </ul> */}
+                                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box ">
+                                    <li>Bangladesh</li>
+                                    <li>India</li>
+                                    <li>USA</li>
+                                    <li>UK</li>
+                                    <li>Australia</li>
+                                </ul>
                             </div>
                             <button className="btn bg-[#0275D8] text-white text-[15px] font-normal roboto rounded-md">SEARCH JOB</button>
                         </div>
