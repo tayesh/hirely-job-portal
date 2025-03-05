@@ -29,8 +29,8 @@ const Navbar = () => {
     );
 
     return (
-        <div className="shadow-xl ">
-            <div className="navbar bg-base-100 shadow-2xl px-8 ">
+        <div className="">
+            <div className="navbar bg-base-100 shadow-lg px-8 ">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,12 +63,10 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-6">
-                    <a className="btn font-normal bg-white text-[#0079C1] border-[#0079C1]">Login</a>
-                    <NavLink to="/register">
-                    <a className="btn font-normal bg-[#0079C1] text-white">Register</a>
-                    </NavLink>
-                    <a className="btn font-normal bg-[#F2F2F2] text-[#424447]">For Agency</a>
-                    <a className="btn font-normal bg-white text-[#0079C1] border-[#0079C1]">English</a>
+                    <NavLink to="/login"><a  className="btn bg-white text-[#0079C1] border-[#0079C1]">Login</a></NavLink>
+                    <a className="btn bg-[#0079C1] text-white">Register</a>
+                    <a className="btn bg-[#F2F2F2] text-[#424447]">For Agency</a>
+                    <a className="btn bg-white text-[#0079C1] border-[#0079C1]">English</a>
                 </div>
             </div>
         </div>

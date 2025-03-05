@@ -4,7 +4,7 @@ import Home from "../Home/Home";
 import FindJob from "../Find Job/FindJob";
 import CoursesPage from "../CoursesPage/CoursesPage";
 import Support from "../Support/Support";
-import Registration from "../Authentication/Registration/Registration";
+import Login from "../Login/Login";
 
 const router = createBrowserRouter([
     {
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
           element: <Support></Support>
         },
         {
-          path: "/register",
-          element: <Registration></Registration>
+          path:"/login",
+          element:<Login></Login>
         }
       ]
     },
