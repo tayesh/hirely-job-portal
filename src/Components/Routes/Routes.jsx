@@ -5,6 +5,7 @@ import FindJob from "../Find Job/FindJob";
 import CoursesPage from "../CoursesPage/CoursesPage";
 import Support from "../Support/Support";
 import Login from "../Login/Login";
+import Agency from "../Agency/Agency";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         {
           path:"/login",
           element:<Login></Login>
+        },
+        {
+          path:"/agency",
+          element:<Agency></Agency>
         }
       ]
     },

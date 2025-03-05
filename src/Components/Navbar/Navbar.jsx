@@ -65,7 +65,7 @@ const Navbar = () => {
                 <div className="navbar-end gap-6">
                     <NavLink to="/login"><a  className="btn bg-white text-[#0079C1] border-[#0079C1]">Login</a></NavLink>
                     <a className="btn bg-[#0079C1] text-white">Register</a>
-                    <a className="btn bg-[#F2F2F2] text-[#424447]">For Agency</a>
+                    <NavLink to="/agency"><a className="btn bg-[#F2F2F2] text-[#424447]">For Agency</a></NavLink>
                     <a className="btn bg-white text-[#0079C1] border-[#0079C1]">English</a>
                 </div>
             </div>
