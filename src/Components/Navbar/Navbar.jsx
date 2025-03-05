@@ -63,10 +63,12 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-6">
-                    <a className="btn bg-white text-[#0079C1] border-[#0079C1]">Login</a>
-                    <a className="btn bg-[#0079C1] text-white">Register</a>
-                    <a className="btn bg-[#F2F2F2] text-[#424447]">For Agency</a>
-                    <a className="btn bg-white text-[#0079C1] border-[#0079C1]">English</a>
+                    <a className="btn bg-white font-normal text-[#0079C1] border-[#0079C1]">Login</a>
+                    <NavLink to="/registration">
+                    <a className="btn bg-[#0079C1] font-normal text-white">Register</a>
+                    </NavLink>
+                    <a className="btn bg-[#F2F2F2] font-normal text-[#424447]">For Agency</a>
+                    <a className="btn bg-white font-normal text-[#0079C1] border-[#0079C1]">English</a>
                 </div>
             </div>
         </div>
