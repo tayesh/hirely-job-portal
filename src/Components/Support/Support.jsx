@@ -1,11 +1,7 @@
-import Contact from "./Contact";
-import Cover from "./Cover";
-
 const Support = () => {
     return (
         <div>
-            <Cover></Cover>
-            <Contact></Contact>
+            Support
         </div>
     );
 };
