@@ -1,7 +1,11 @@
+import Contact from "./Contact";
+import Cover from "./Cover";
+
 const Support = () => {
     return (
         <div>
-            Support
+            <Cover></Cover>
+            <Contact></Contact>
         </div>
     );
 };
