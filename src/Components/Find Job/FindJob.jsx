@@ -4,22 +4,59 @@ import { CiGrid2H } from "react-icons/ci";
 import FindJobCard from './FindJobCard';
 
 const FindJob = () => {
-    const [jobs,setJobs] =useState([])
-    useEffect(()=>{
+    const [jobs, setJobs] = useState([])
+    useEffect(() => {
         fetch('fake.json')
-        .then(res=>res.json())
-        .then(data=>{
-            setJobs(data);
-        })
-    },[])
+            .then(res => res.json())
+            .then(data => {
+                setJobs(data);
+            })
+    }, [])
+
+    const [formData, setFormData] = useState({
+        Skills: "",
+        JobTitle: "",
+        Country: "",
+        Industry: "",
+        Experience: "",
+        Salary: "",
+        Currency: "",
+        Negotiable: false,
+        ExpireSoon: false
+    });
+
+    const handleChange = (event) => {
+        const { name, type, value, checked } = event.target;
+        const updatedData = {
+            ...formData,
+            [name]: type === "checkbox" ? checked : value
+        };
+        setFormData(updatedData);
+    };
+    const handleSearch = () => {
+        console.log(formData);
+    }
+    const resetFilters = () => {
+        setFormData({
+            Skills: "",
+            JobTitle: "",
+            Country: "",
+            Industry: "",
+            Experience: "",
+            Salary: "",
+            Currency: "",
+            Negotiable: false,
+            ExpireSoon: false
+        });
+    };
     return (
-        <div className='grid grid-cols-5  bg-gray-50'>
+        <div className='grid grid-cols-5  bg-gray-50 pb-5'>
             {/* Quick Search */}
-            <div className='flex flex-col items-center bg-white'>
+            <div className='flex flex-col items-center bg-white pb-5 h-fit'>
                 <div className='flex justify-between items-center my-4 w-[80%]'>
                     <p className='text-[14px] '>Quick Search</p>
                     <div className='flex items-center'>
-                        <p className='text-[9px] w-[91px]'>CLEAR FILTER</p>
+                        <p onClick={resetFilters} className='text-[9px] w-[91px]'>CLEAR FILTER</p>
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="32" height="32" fill="#E5F5FF" />
                             <path d="M7 21V23H13V21H7ZM7 9V11H17V9H7ZM17 25V23H25V21H17V19H15V25H17ZM11 13V15H7V17H11V19H13V13H11ZM25 17V15H15V17H25ZM19 13H21V11H25V9H21V7H19V13Z" fill="black" />
@@ -28,70 +65,129 @@ const FindJob = () => {
 
                     </div>
                 </div>
-                <div className='flex flex-col gap-4 items-center justify-center w-full text-gray-400'>
+                <div className="flex flex-col gap-4 items-center justify-center w-full text-gray-400">
                     {/* Select Skills */}
-                    <select className="select select-bordered w-[80%] ">
-                        <option disabled selected>Select Skills</option>
+                    <select
+                        name="Skills"
+                        className="select select-bordered w-[80%]"
+                        value={formData.Skills}
+                        onChange={handleChange}
+                    >
+                        <option disabled value="">
+                            Select Skills
+                        </option>
                         <option>Han Solo</option>
                         <option>Greedo</option>
                     </select>
 
                     {/* Job Title */}
-                    <input type="text" placeholder="Type here" className="input input-bordered w-[80%]" />
+                    <input
+                        type="text"
+                        name="JobTitle"
+                        placeholder="Type here"
+                        value={formData.JobTitle}
+                        className="input input-bordered w-[80%]"
+                        onChange={handleChange}
+                    />
 
                     {/* Select Country */}
-                    <select className="select select-bordered w-[80%] ">
-                        <option disabled selected>Select Country</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                    <select
+                        name="Country"
+                        className="select select-bordered w-[80%]"
+                        value={formData.Country}
+                        onChange={handleChange}
+                    >
+                        <option disabled value="">
+                            Select Country
+                        </option>
+                        <option>USA</option>
+                        <option>UK</option>
                     </select>
 
                     {/* Industry */}
-                    <select className="select select-bordered w-[80%] ">
-                        <option disabled selected>Industry</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                    <select
+                        name="Industry"
+                        className="select select-bordered w-[80%]"
+                        value={formData.Industry}
+                        onChange={handleChange}
+                    >
+                        <option disabled value="">
+                            Industry
+                        </option>
+                        <option>Tech</option>
+                        <option>Finance</option>
                     </select>
 
                     {/* Experience */}
-                    <select className="select select-bordered w-[80%] ">
-                        <option disabled selected>Experience</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                    <select
+                        name="Experience"
+                        className="select select-bordered w-[80%]"
+                        value={formData.Experience}
+                        onChange={handleChange}
+                    >
+                        <option disabled value="">
+                            Experience
+                        </option>
+                        <option>1-3 years</option>
+                        <option>4-6 years</option>
                     </select>
-                    {/* Salary Currency */}
-                    <div className='flex w-[80%] justify-between gap-2'>
-                        {/* Salary */}
-                        <select className="select select-bordered ">
-                            <option disabled selected>Salary</option>
-                            <option>Han Solo</option>
-                            <option>Greedo</option>
-                        </select>
-                        {/* Currency */}
-                        <select className="select select-bordered ">
-                            <option disabled selected>Currency</option>
-                            <option>Han Solo</option>
-                            <option>Greedo</option>
+
+                    {/* Salary & Currency */}
+                    <div className="flex w-[80%] justify-between gap-2">
+                        <select
+                            name="Salary"
+                            className="select select-bordered"
+                            value={formData.Industry}
+                            onChange={handleChange}
+                        >
+                            <option disabled value="">
+                                Salary
+                            </option>
+                            <option>50,000</option>
+                            <option>100,000</option>
                         </select>
 
+                        <select
+                            name="Currency"
+                            className="select select-bordered"
+                            value={formData.Currency}
+                            onChange={handleChange}
+                        >
+                            <option disabled value="">
+                                Currency
+                            </option>
+                            <option>USD</option>
+                            <option>EUR</option>
+                        </select>
                     </div>
 
-                </div>
-                <div className='flex flex-col gap-5 mt-5 mb-10 items-center'>
-                    <label className="label cursor-pointer">
-
-                        <input type="checkbox" defaultChecked className="checkbox border-[3px] border-black rounded" />
-                        <span className="label-text">Negotiable</span>
-                    </label>
-                    <label className="label cursor-pointer">
-
-                        <input type="checkbox" defaultChecked className="checkbox border-[3px] border-black rounded" />
-                        <span className="label-text">Expire Soon</span>
-                    </label>
+                    {/* Checkboxes */}
+                    <div className='flex flex-col gap-5 mt-5 mb-10 items-center'>
+                        <label className="label cursor-pointer">
+                            <input
+                                type="checkbox"
+                                name="Negotiable"
+                                className="checkbox border-[3px] border-black rounded"
+                                checked={formData.Negotiable}
+                                onChange={handleChange}
+                            />
+                            <span className="label-text">Negotiable</span>
+                        </label>
+                        <label className="label cursor-pointer">
+                            <input
+                                type="checkbox"
+                                name="ExpireSoon"
+                                className="checkbox border-[3px] border-black rounded"
+                                checked={formData.ExpireSoon}
+                                onChange={handleChange}
+                            />
+                            <span className="label-text">Expire Soon</span>
+                        </label>
+                    </div>
                 </div>
                 <div className='flex flex-col items-center gap-5 w-full'>
                     <hr className='w-[80%]' />
-                    <button className='flex justify-center items-center gap-2 p-2 rounded bg-[#0079C1] w-[80%] shadow-lg'>
+                    <button onClick={handleSearch} className='flex justify-center items-center gap-2 p-2 rounded bg-[#0079C1] w-[80%] shadow-lg'>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M10.9167 9.66667H10.2583L10.025 9.44167C10.8417 8.49167 11.3333 7.25833 11.3333 5.91667C11.3333 2.925 8.90833 0.5 5.91667 0.5C2.925 0.5 0.5 2.925 0.5 5.91667C0.5 8.90833 2.925 11.3333 5.91667 11.3333C7.25833 11.3333 8.49167 10.8417 9.44167 10.025L9.66667 10.2583V10.9167L13.8333 15.075L15.075 13.8333L10.9167 9.66667ZM5.91667 9.66667C3.84167 9.66667 2.16667 7.99167 2.16667 5.91667C2.16667 3.84167 3.84167 2.16667 5.91667 2.16667C7.99167 2.16667 9.66667 3.84167 9.66667 5.91667C9.66667 7.99167 7.99167 9.66667 5.91667 9.66667Z" fill="white" />
                         </svg>
@@ -120,7 +216,7 @@ const FindJob = () => {
                         </select>
                         <FiGrid className='text-[30px] text-[#0275D8] border-[#0275D8] border-2 rounded' />
                         <CiGrid2H className='text-[30px] border-black border-2 rounded' />
-                     
+
 
 
 
@@ -128,7 +224,7 @@ const FindJob = () => {
                 </div>
                 <div className='grid grid-cols-2 gap-4 mt-4'>
                     {
-                        jobs.map(item=><FindJobCard object={item}></FindJobCard>)
+                        jobs.map(item => <FindJobCard object={item}></FindJobCard>)
 
                     }
 
