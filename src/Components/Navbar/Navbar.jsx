@@ -29,7 +29,7 @@ const Navbar = () => {
     );
 
     return (
-        <div>
+        <div className="shadow-xl">
             <div className="navbar bg-base-100 shadow-2xl px-8 ">
                 <div className="navbar-start">
                     <div className="dropdown">
