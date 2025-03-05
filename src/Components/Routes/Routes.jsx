@@ -4,7 +4,6 @@ import Home from "../Home/Home";
 import FindJob from "../Find Job/FindJob";
 import CoursesPage from "../CoursesPage/CoursesPage";
 import Support from "../Support/Support";
-import Registration from "../Authentication/Registration/Registration";
 
 const router = createBrowserRouter([
     {
@@ -26,10 +25,6 @@ const router = createBrowserRouter([
         {
           path:"/support",
           element: <Support></Support>
-        },
-        {
-          path:"/registration",
-          element:<Registration></Registration>
         }
       ]
     },
