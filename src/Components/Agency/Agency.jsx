@@ -38,7 +38,7 @@ const Agency = () => {
     const [eye, setEye] = useState(false);
 
     return (
-        <div className='w-full relative h-[130vh] flex justify-center items-center'>
+        <div className='w-full py-8 relative min-h-screen flex justify-center items-center'>
             <div className='w-full absolute h-[50vh] bg-[#D9D9D9] -z-10 top-0'></div>
             <div className='bg-white flex flex-col gap-5 pt-10 rounded-lg items-center w-[800px]'>
                 <p className=' font-semibold'>Post your jobs easily</p>
