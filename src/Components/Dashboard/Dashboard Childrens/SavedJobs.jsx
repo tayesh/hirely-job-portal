@@ -1,11 +1,12 @@
 import React from 'react';
 
-const FindJobCardtable = () => {
+const SavedJobs = () => {
     return (
         <div>
+            Saved Jobs
             
         </div>
     );
 };
 
-export default FindJobCardtable;
+export default SavedJobs;
