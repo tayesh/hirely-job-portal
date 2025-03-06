@@ -12,4 +12,4 @@ const Support = () => {
     );
 };
 
-export default Support;Support
+export default Support;
