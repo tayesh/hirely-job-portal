@@ -40,8 +40,7 @@ const Registration = () => {
         <div className="bg-white h-[910px] relative flex justify-center items-center">
             <div className="bg-[#D9D9D9] h-[323px] w-full absolute top-0 left-0"></div>
 
-            {/* Registration Form */}
-            <div className="relative z-10 bg-white w-[800px] h-[805px]   rounded-[22px]  mt-[22px] mx-[200px]">
+            <div className="relative z-10 bg-white w-[800px] h-[805px]   rounded-[22px]  mx-[200px]">
                 <h2 className="text-center poppins text-[14px] mt-[56px] font-normal text-[#000000DE]">
                     Create your account & find your dream job today!
                 </h2>

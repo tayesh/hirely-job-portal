@@ -5,6 +5,7 @@ import { FaBriefcase } from "react-icons/fa6";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { FaLocationDot } from "react-icons/fa6";
 import { CiClock2 } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 
 const FindJobCard = ({ object }) => {
@@ -20,10 +21,7 @@ const FindJobCard = ({ object }) => {
                     <div className='border-[#0275D8] border-2 rounded w-[50px] h-[30px] flex justify-center items-center'>
                         <FaRegThumbsUp className='text-[24px]  text-[#0275D8] ' />
                     </div>
-
-
                 </div>
-
             </div>
             <div className='flex gap-4 items-center text-[18px]'>
 
@@ -58,11 +56,11 @@ const FindJobCard = ({ object }) => {
 
             </div>
             <div className='flex justify-between'>
-                <button className='text-[18px] border-2 border-[#1976D280] text-[#1976D2] py-2 px-3 rounded'>View Details</button>
+                <Link to={`/findjob/${jobTitle}`}>
+                    <button className='text-[18px] border-2 border-[#1976D280] text-[#1976D2] py-2 px-3 rounded'>View Details</button>
+                </Link>
                 <button className='text-[18px]  text-[#ffffff] bg-[#00A264] py-2 px-3 rounded shadow-[0px_3px_2px_rgba(0,0,0,0.5)]'>Apply Now</button>
             </div>
-
-
 
         </div>
     );
