@@ -7,6 +7,7 @@ import Support from "../Support/Support";
 import Login from "../Login/Login";
 import Agency from "../Agency/Agency";
 import Registration from "../Registration/Registration";
+import JobDetails from "../JobDetails/JobDetails";
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         {
           path:"/register",
           element: <Registration></Registration>
+        },
+        {
+          path:"/jobdetails",
+          element:<JobDetails></JobDetails>
         }
       ]
     },
