@@ -7,7 +7,7 @@ import Support from "../Support/Support";
 import Login from "../Login/Login";
 import Agency from "../Agency/Agency";
 import Registration from "../Registration/Registration";
-import JobDetails from "../JobDetails/JobDetails";
+import Dashboard from "../Dashboard/Dashboard";
 
 
 const router = createBrowserRouter([
@@ -44,8 +44,8 @@ const router = createBrowserRouter([
           element: <Registration></Registration>
         },
         {
-          path:"/jobdetails",
-          element:<JobDetails></JobDetails>
+          path:"/dashboard",
+          element:<Dashboard></Dashboard>
         }
       ]
     },
