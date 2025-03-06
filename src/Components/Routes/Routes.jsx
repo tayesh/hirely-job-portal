@@ -6,7 +6,8 @@ import CoursesPage from "../CoursesPage/CoursesPage";
 import Support from "../Support/Support";
 import Login from "../Login/Login";
 import Agency from "../Agency/Agency";
-import Registration from "../Authentication/Registration/Registration";
+import Registration from "../Registration/Registration";
+
 
 const router = createBrowserRouter([
     {
