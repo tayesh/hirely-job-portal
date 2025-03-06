@@ -5,7 +5,6 @@ import FindJobCard from './FindJobCard';
 import SearchJobsByBenefits from './SearchJobsByBenefits'; // Import the modal component
 
 const FindJob = () => {
-    const [gridView, setGridView] = useState(true)
     const [jobs, setJobs] = useState([]);
     const [isBenefitsModalOpen, setIsBenefitsModalOpen] = useState(false); // State to control modal visibility
 
@@ -16,11 +15,6 @@ const FindJob = () => {
                 setJobs(data);
             });
     }, []);
-    const [selectedValue, setSelectedValue] = useState('');
-
-    const handleselectChange = (event) => {
-        setSelectedValue(event.target.value);
-    };
 
     const [formData, setFormData] = useState({
         Skills: "",
@@ -236,46 +230,21 @@ const FindJob = () => {
                     <h2 className='text-[20px]'>We Found <span className='text-[#0275D8]'>(2170)</span> jobs</h2>
                     <div className='flex gap-4 items-center'>
                         <p>Sort by:</p>
-                        <select
-                            className="select select-bordered w-[108px]"
-                            value={selectedValue}
-                            onChange={handleselectChange}
-                        >
-                            <option value="" disabled hidden>
-                                Select
-                            </option>
-                            <option value="Latest Jobs">Latest Jobs</option>
-                            <option value="Salary Low to High">Salary Low to High</option>
-                            <option value="Salary High to Low">Salary High to Low</option>
+                        <select className="select select-bordered w-[108px]">
+                            <option disabled selected>Select</option>
+                            <option>Han Solo</option>
+                            <option>Greedo</option>
                         </select>
-                        <FiGrid
-                            onClick={() => setGridView(true)}
-                            className={`text-[30px] border-2 rounded ${gridView ? 'text-[#0275D8] border-[#0275D8]' : 'text-black border-black'
-                                }`}
-                        />
-                        <CiGrid2H
-                            onClick={() => setGridView(false)}
-                            className={`text-[30px] border-2 rounded ${!gridView ? 'text-[#0275D8] border-[#0275D8]' : 'text-black border-black'
-                                }`}
-                        />
+                        <FiGrid className='text-[30px] text-[#0275D8] border-[#0275D8] border-2 rounded' />
+                        <CiGrid2H className='text-[30px] border-black border-2 rounded' />
                     </div>
                 </div>
 
-                {
-                    gridView ?
-                        <div className='grid grid-cols-2 gap-4 mt-4'>
-                            {jobs.map((item) => (
-                                <FindJobCard key={item.id} object={item} />
-                            ))}
-                        </div>
-                        :
-                        <div className='grid grid-cols-1 gap-4 mt-4'>
-                            {jobs.map((item) => (
-                                <FindJobCard key={item.id} object={item} />
-                            ))}
-                        </div>
-
-                }
+                <div className='grid grid-cols-2 gap-4 mt-4'>
+                    {jobs.map((item) => (
+                        <FindJobCard key={item.id} object={item} />
+                    ))}
+                </div>
             </div>
 
             {/* Modal for Search By Benefits */}
