@@ -6,6 +6,7 @@ import CoursesPage from "../CoursesPage/CoursesPage";
 import Support from "../Support/Support";
 import Login from "../Login/Login";
 import Agency from "../Agency/Agency";
+import Registration from "../Authentication/Registration/Registration";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         {
           path:"/agency",
           element:<Agency></Agency>
+        },
+        {
+          path:"/register",
+          element: <Registration></Registration>
         }
       ]
     },

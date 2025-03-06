@@ -14,16 +14,16 @@ const Navbar = () => {
     const links = (
         <>
             <NavLink to="/" style={navlinkStyles}>
-                <li className="epilogue text-[16px]">Home</li>
+                <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
             <NavLink to="/findjob" style={navlinkStyles}>
-                <li className="epilogue text-[16px]">Find Job</li>
+                <li className="epilogue font-normal text-[16px]">Find Job</li>
             </NavLink>
             <NavLink to="/coursepage" style={navlinkStyles}>
-                <li className="epilogue text-[16px]">Courses</li>
+                <li className="epilogue font-normal text-[16px]">Courses</li>
             </NavLink>
             <NavLink to="/support" style={navlinkStyles}>
-                <li className="epilogue text-[16px]">Get Support</li>
+                <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
         </>
     );
@@ -58,15 +58,15 @@ const Navbar = () => {
                     </NavLink>
                 </div>
                 <div className="mr-[200px] navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal gap-8 px-1">
+                    <ul className="menu font-normal menu-horizontal gap-8 px-1">
                         {links}
                     </ul>
                 </div>
-                <div className="navbar-end gap-6">
-                    <NavLink to="/login"><a  className="btn bg-white text-[#0079C1] border-[#0079C1]">Login</a></NavLink>
-                    <a className="btn bg-[#0079C1] text-white">Register</a>
-                    <NavLink to="/agency"><a className="btn bg-[#F2F2F2] text-[#424447]">For Agency</a></NavLink>
-                    <a className="btn bg-white text-[#0079C1] border-[#0079C1]">English</a>
+                <div className="navbar-end  gap-4">
+                    <NavLink to="/login"><a  className="btn font-normal bg-white text-[#0079C1] border-[#0079C1]">Login</a></NavLink>
+                    <NavLink to="/register"><a className="btn bg-[#0079C1] text-white font-normal">Register</a></NavLink>
+                    <NavLink to="/agency"><a className="btn font-normal w-28 bg-[#F2F2F2] text-[#424447]">For Agency</a></NavLink>
+                    <a className="btn bg-white text-[#0079C1] font-normal border-[#0079C1]">English</a>
                 </div>
             </div>
         </div>
