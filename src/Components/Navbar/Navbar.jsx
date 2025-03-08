@@ -25,6 +25,10 @@ const Navbar = () => {
             <NavLink to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
+            {/* <NavLink to="/dashboard" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Dashboard</li>
+            </NavLink> */}
+
         </>
     );
 

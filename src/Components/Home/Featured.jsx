@@ -1,116 +1,104 @@
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { IoLocationOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Featured = () => {
+    const [companies, setCompanies] = useState([]); // State to store all company data
+    const [loading, setLoading] = useState(true); // State to handle loading state
+    const [showAll, setShowAll] = useState(false); // State to toggle between showing 3 or all companies
+
+    // Fetch company data from the API
+    useEffect(() => {
+        fetch("http://localhost:5000/companies")
+            .then((response) => response.json())
+            .then((data) => {
+                setCompanies(data); // Set the fetched data to state
+                setLoading(false); // Set loading to false
+            })
+            .catch((error) => {
+                console.error("Error fetching companies:", error);
+                setLoading(false); // Set loading to false in case of error
+            });
+    }, []);
+
+    // Show a loading message while data is being fetched
+    if (loading) {
+        return <div className="text-center mt-8">Loading...</div>;
+    }
+
+    // Determine which companies to display
+    const displayedCompanies = showAll ? companies : companies.slice(0, 3);
+
     return (
         <div className="mx-16 mb-[70px]">
             <div>
                 <div className="flex justify-between mb-6">
                     <p className="text-[28px] nunito">Featured Companies</p>
-                    <a className="btn px-4 roboto text-[15px] font-normal border-blue-300 bg-white text-[#0079C1]">Explore All</a>
+                    <a
+                        onClick={() => setShowAll(!showAll)} // Toggle showAll state
+                        className="btn px-4 roboto text-[15px] font-normal border-blue-300 bg-white text-[#0079C1] cursor-pointer"
+                    >
+                        {showAll ? "Show Less" : "Explore All"}
+                    </a>
                 </div>
             </div>
             <div className="grid grid-cols-3 gap-10">
-                <div className="card bg-base-200 shadow-xl">
-                    <figure>
+                {displayedCompanies.map((company, index) => (
+                    <div key={index} className="card bg-base-200 shadow-xl">
+                        <figure>
+                            <img
+                                src={company.Company_Image}
+                                alt={company.Company_Name}
+                                className="h-[194px] w-full"
+                            />
+                        </figure>
                         <img
-                            src="https://i.ibb.co.com/67Sfrqs7/f1.png"
-                            alt="Shoes" className="h-[194px] w-full" />
-                    </figure>
-                    <img className=" py-1.5 px-3 rounded-2xl absolute ml-4 mt-[-6.5px]" src="https://i.ibb.co.com/mF1Znn0B/Frame.png" />
-
-                    <button className="flex items-center roboto gap-2 bg-[#0079C1] text-white w-24 py-1.5 px-3 rounded-2xl absolute mt-44 ml-64"><IoIosAddCircleOutline /> Follow</button>
-                    <div className="card-body">
-                        <div className="flex items-center gap-2">
-                            <figure>
-                                <img
-                                    src="https://i.ibb.co.com/nMDn28rx/l1.png"
-                                    alt="Shoes" className="h-[44px]" />
-                            </figure>
-                            <p className="text-[#45494B] text-[16px]">Pathao</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <img src="https://i.ibb.co.com/kgxXvRXh/location.png" alt="" />
-                            <p className="text-[#45494B] text-[12px]">Dhaka North City Corporat, Dhaka</p>
-                        </div>
-                        <div className="flex justify-between items-center">
+                            className="py-1.5 px-3 rounded-2xl absolute ml-4 mt-[-6.5px]"
+                            src="https://i.ibb.co.com/mF1Znn0B/Frame.png"
+                            alt="Frame"
+                        />
+                        <button className="flex items-center roboto gap-2 bg-[#0079C1] text-white w-24 py-1.5 px-3 rounded-2xl absolute mt-44 ml-64">
+                            <IoIosAddCircleOutline /> Follow
+                        </button>
+                        <div className="card-body">
                             <div className="flex items-center gap-2">
-                                <img src="https://i.ibb.co.com/TBGnh33M/jobopen.png" alt="" />
-                                <p className="text-[#0079C1] text-[12px] poppins">Job Opening(1)</p>
+                                <figure>
+                                    <img
+                                        src={company.Logo_Image}
+                                        alt={company.Company_Name}
+                                        className="h-[44px]"
+                                    />
+                                </figure>
+                                <p className="text-[#45494B] text-[16px]">{company.Company_Name}</p>
                             </div>
-                            <div className="card-actions justify-end">
-                                <button className="btn text-white h-[40px] epilogue text-[12px] font-normal bg-[#1976D2]">View Profile</button>
+                            <div className="flex items-center gap-2">
+                                <img
+                                    src="https://i.ibb.co.com/kgxXvRXh/location.png"
+                                    alt="Location"
+                                />
+                                <p className="text-[#45494B] text-[12px]">{company.Location}</p>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-2">
+                                    <img
+                                        src="https://i.ibb.co.com/TBGnh33M/jobopen.png"
+                                        alt="Job Openings"
+                                    />
+                                    <p className="text-[#0079C1] text-[12px] poppins">
+                                        Job Opening ({company.Job_Opening})
+                                    </p>
+                                </div>
+                                <div className="card-actions justify-end">
+                                    <Link to={`/companyprofile/${company._id}`}>
+                                        <button className="btn text-white h-[40px] epilogue text-[12px] font-normal bg-[#1976D2]">
+                                            View Profile
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="card bg-base-200 shadow-xl">
-                    <figure>
-                        <img
-                            src="https://i.ibb.co.com/0yr7Z8wW/f2.png"
-                            alt="Shoes" className="h-[194px] w-full" />
-                    </figure>
-                    <img className=" py-1.5 px-3 rounded-2xl absolute ml-4 mt-[-6.5px]" src="https://i.ibb.co.com/mF1Znn0B/Frame.png" />
-
-                    <button className="flex items-center gap-2 roboto bg-[#0079C1] text-white w-24 py-1.5 px-3 rounded-2xl absolute mt-44 ml-64"><IoIosAddCircleOutline /> Follow</button>
-                    <div className="card-body">
-                        <div className="flex items-center gap-2">
-                            <figure>
-                                <img
-                                    src="https://i.ibb.co.com/0yr7Z8wW/f2.png"
-                                    alt="Shoes" className="h-[44px] " />
-                            </figure>
-                            <p className="text-[#45494B] text-[16px]">GoZayaan Limited</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <img src="https://i.ibb.co.com/kgxXvRXh/location.png" alt="" />
-                            <p className="text-[#45494B] text-[12px]">Dhaka North City Corporat, Dhaka</p>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <div className="flex items-center gap-2">
-                                <img src="https://i.ibb.co.com/TBGnh33M/jobopen.png" alt="" />
-                                <p className="text-[#0079C1] text-[12px] poppins">Job Opening(1)</p>
-                            </div>
-                            <div className="card-actions justify-end">
-                                <button className="btn text-white h-[40px]  epilogue text-[12px] font-normal bg-[#1976D2]">View Profile</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="card bg-base-200 shadow-xl">
-                    <figure>
-                        <img
-                            src="https://i.ibb.co.com/3Yz4gdTh/f3.png"
-                            alt="Shoes" className="h-[194px] w-full" />
-                    </figure>
-
-                    <img className=" py-1.5 px-3 rounded-2xl absolute ml-4 mt-[-6.5px]" src="https://i.ibb.co.com/mF1Znn0B/Frame.png" />
-
-                    <button className="flex items-center gap-2 bg-[#0079C1] text-white w-24 py-1.5 px-3 rounded-2xl absolute mt-44 ml-64"><IoIosAddCircleOutline /> Follow</button>
-                    <div className="card-body">
-                        <div className="flex items-center gap-2">
-                            <figure>
-                                <img
-                                    src="https://i.ibb.co.com/gbnLBq6Q/l3.jpg"
-                                    alt="Shoes" className="h-[44px] " />
-                            </figure>
-                            <p className="text-[#45494B] text-[16px]">Heguang Electronic Distribution Company Ltd.</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <img src="https://i.ibb.co.com/kgxXvRXh/location.png" alt="" />
-                            <p className="text-[#45494B] text-[12px]">Dhaka North City Corporat, Dhaka</p>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <div className="flex items-center gap-2">
-                                <img src="https://i.ibb.co.com/TBGnh33M/jobopen.png" alt="" />
-                                <p className="text-[#0079C1] text-[12px] poppins">Job Opening(1)</p>
-                            </div>
-                            <div className="card-actions justify-end">
-                                <button className="btn text-white epilogue text-[12px] font-normal h-[40px]  bg-[#1976D2]">View Profile</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

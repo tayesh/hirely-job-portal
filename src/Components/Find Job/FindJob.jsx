@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { FiGrid } from "react-icons/fi";
 import { CiGrid2H } from "react-icons/ci";
 import FindJobCard from './FindJobCard';
-import SearchJobsByBenefits from './SearchJobsByBenefits'; // Import the modal component
+import SearchJobsByBenefits from './SearchJobsByBenefits'; 
 
 const FindJob = () => {
     const [jobs, setJobs] = useState([]);
     const [isBenefitsModalOpen, setIsBenefitsModalOpen] = useState(false); // State to control modal visibility
-
     useEffect(() => {
-        fetch('fake.json')
+        fetch('http://localhost:5000/jobs')
             .then(res => res.json())
             .then(data => {
                 setJobs(data);

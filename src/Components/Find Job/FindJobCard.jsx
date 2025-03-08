@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 
 const FindJobCard = ({ object }) => {
-    const { jobTitle, vacancy, deadline, salary } = object
+    const { jobTitle, vacancy, deadline, salary , _id} = object
     return (
         <div className=' bg-white p-[30px] space-y-6'>
             <div className='flex justify-between '>
@@ -56,7 +56,7 @@ const FindJobCard = ({ object }) => {
 
             </div>
             <div className='flex justify-between'>
-                <Link to={`/findjob/${jobTitle}`}>
+                <Link to={`/jobdetails/${_id}`}>
                     <button className='text-[18px] border-2 border-[#1976D280] text-[#1976D2] py-2 px-3 rounded'>View Details</button>
                 </Link>
                 <button className='text-[18px]  text-[#ffffff] bg-[#00A264] py-2 px-3 rounded shadow-[0px_3px_2px_rgba(0,0,0,0.5)]'>Apply Now</button>

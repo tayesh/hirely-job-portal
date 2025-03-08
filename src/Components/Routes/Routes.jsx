@@ -20,6 +20,7 @@ import Recruiting from "../Dashboard/Dashboard Childrens/Recruiting";
 import Message from "../Support/Message";
 import GetAJobAlert from "../Dashboard/Dashboard Childrens/GetAJobAlert";
 import Settings from "../Dashboard/Dashboard Childrens/Settings";
+import CompanyProfile from "../Home/CompanyProfile";
 
 
 const router = createBrowserRouter([
@@ -29,11 +30,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>
+        element: <Home></Home>,
+        loader:()=> fetch('http://localhost:5000/jobs'),
       },
       {
         path: "/findjob",
-        element: <FindJob></FindJob>
+        element: <FindJob></FindJob>,
       },
       {
         path: "/coursepage",
@@ -56,13 +58,14 @@ const router = createBrowserRouter([
         element: <Registration></Registration>
       },
       {
-        path: "/findjob/:jobTitle",
-        element: <JobDetails></JobDetails>,
-        loader: async ({ params }) => {
-          const res = await fetch('/fake.json');
-          const jobs = await res.json();
-          return jobs.find(job => job.jobTitle === params.jobTitle) || null;
-        }
+        path:'/jobdetails/:id',
+        element:<JobDetails></JobDetails>,
+        loader:({params})=> fetch(`http://localhost:5000/jobs/${params.id}`)
+      },
+      {
+        path:'/companyprofile/:id',
+        element:<CompanyProfile></CompanyProfile>,
+        loader:({params})=> fetch(`http://localhost:5000/companies/${params.id}`)
       },
       {
         path: "/more-info/:courseId",
