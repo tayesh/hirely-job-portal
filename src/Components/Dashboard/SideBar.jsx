@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import SideBarLink from './SideBarLink'
 
 const SideBar = () => {
-    
     const SideBarLinks=[
         {
             title:"Dashboard",
@@ -61,8 +60,7 @@ const SideBar = () => {
             title:"Logout",
             icon:"https://i.ibb.co.com/YTQsHq71/image.png",
             path:"/dashboard"
-        },
-        
+        }
     ]
 
 

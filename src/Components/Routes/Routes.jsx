@@ -21,6 +21,15 @@ import Message from "../Support/Message";
 import GetAJobAlert from "../Dashboard/Dashboard Childrens/GetAJobAlert";
 import Settings from "../Dashboard/Dashboard Childrens/Settings";
 import CompanyProfile from "../Home/CompanyProfile";
+import EmployerHome from "../Employer/EmployerHome";
+import Candidate from "../Candidate/Candidate";
+import EmployeeDashboard from "../EmployeeDashBoard/EmployeeDashboard";
+import EmployeeDashboardCh from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeDashboardCh";
+import EmployeeMessage from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeMessage";
+import EmployeeTalentCh from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeTalentCh";
+import EmployeeNotifiCh from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeNotifiCh";
+import EmployeeAccSettCh from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeAccSettCh";
+import CompanyProfilech from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/CompanyProfilech";
 
 
 const router = createBrowserRouter([
@@ -31,7 +40,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader:()=> fetch('http://localhost:5000/jobs'),
+        loader: () => fetch('https://hirely-job-portal-server.vercel.app/jobs'),
       },
       {
         path: "/findjob",
@@ -39,7 +48,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/coursepage",
-        element: <CoursesPage></CoursesPage>
+        element: <CoursesPage></CoursesPage>,
+        loader: () => fetch('https://hirely-job-portal-server.vercel.app/courses')
       },
       {
         path: "/support",
@@ -58,26 +68,64 @@ const router = createBrowserRouter([
         element: <Registration></Registration>
       },
       {
-        path:'/jobdetails/:id',
-        element:<JobDetails></JobDetails>,
-        loader:({params})=> fetch(`http://localhost:5000/jobs/${params.id}`)
+        path: '/jobdetails/:id',
+        element: <JobDetails></JobDetails>,
+        loader: ({ params }) => fetch(`https://hirely-job-portal-server.vercel.app/jobs/${params.id}`)
       },
       {
-        path:'/companyprofile/:id',
-        element:<CompanyProfile></CompanyProfile>,
-        loader:({params})=> fetch(`http://localhost:5000/companies/${params.id}`)
+        path: '/companyprofile/:id',
+        element: <CompanyProfile></CompanyProfile>,
+        loader: ({ params }) => fetch(`https://hirely-job-portal-server.vercel.app/companies/${params.id}`)
       },
       {
         path: "/more-info/:courseId",
         element: <MoreInfo />,
         loader: async ({ params }) => {
           const { courseId } = params;
-          const response = await fetch(`http://localhost:5000/courses/${courseId}`);
+          const response = await fetch(`https://hirely-job-portal-server.vercel.app/courses/${courseId}`);
           if (!response.ok) {
             throw new Error("Course not found");
           }
           return response.json();
         }
+      },
+      {
+        path: "/employeehome",
+        element: <EmployerHome></EmployerHome>
+      },
+      {
+        path: "/candidate",
+        element: <Candidate></Candidate>
+      },
+      {
+        path: "/employeedashboard",
+        element: <EmployeeDashboard></EmployeeDashboard>,
+        children: [
+          {
+            path: "/employeedashboard",
+            element: <EmployeeDashboardCh></EmployeeDashboardCh>
+          },
+          {
+            path: "messages",
+            element: <EmployeeMessage></EmployeeMessage>
+          },
+          {
+            path:"talentmanagement",
+            element:<EmployeeTalentCh></EmployeeTalentCh>
+          },
+          {
+            path:"notifications",
+            element:<EmployeeNotifiCh></EmployeeNotifiCh>
+          },
+          {
+            path:"settings",
+            element:<EmployeeAccSettCh></EmployeeAccSettCh>
+          },
+          {
+            path:"companyprofile",
+            element:<CompanyProfilech></CompanyProfilech>
+          }
+        ]
       },
       {
         path: "/dashboard",

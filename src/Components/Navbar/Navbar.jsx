@@ -25,9 +25,16 @@ const Navbar = () => {
             <NavLink to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
-            {/* <NavLink to="/dashboard" style={navlinkStyles}>
-                <li className="epilogue font-normal text-[16px]">Dashboard</li>
-            </NavLink> */}
+            <NavLink to="/employeedashboard" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Emp Dash</li>
+            </NavLink>
+            <NavLink to="/employeehome" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Emp Home</li>
+            </NavLink>
+            <NavLink to="/candidate" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Candidate</li>
+            </NavLink>
+
 
         </>
     );
@@ -62,7 +69,7 @@ const Navbar = () => {
                     </NavLink>
                 </div>
                 <div className="mr-[200px] navbar-center hidden lg:flex">
-                    <ul className="menu font-normal menu-horizontal gap-8 px-1">
+                    <ul className="menu font-normal menu-horizontal gap-1 px-1">
                         {links}
                     </ul>
                 </div>
