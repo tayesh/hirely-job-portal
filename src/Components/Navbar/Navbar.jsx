@@ -25,7 +25,7 @@ const Navbar = () => {
             <NavLink to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
-            <NavLink to="/employeedashboard" style={navlinkStyles}>
+            {/* <NavLink to="/employeedashboard" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Emp Dash</li>
             </NavLink>
             <NavLink to="/employeehome" style={navlinkStyles}>
@@ -33,9 +33,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink to="/candidate" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Candidate</li>
-            </NavLink>
-
-
+            </NavLink> */}
         </>
     );
 

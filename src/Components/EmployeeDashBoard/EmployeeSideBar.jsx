@@ -11,7 +11,7 @@ const EmployeeSideBar = () => {
         },
         {
             title: "New Job Post",
-            icon: "https://i.ibb.co.com/1tSLgMMr/add.png",
+            icon: "https://i.ibb.co.com/nNKd1r0F/add-symbol.png",
             path: "/employeedashboard/newjobpost"
         },
         {

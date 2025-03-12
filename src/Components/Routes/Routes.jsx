@@ -30,6 +30,7 @@ import EmployeeTalentCh from "../EmployeeDashBoard/EmployeeDashboardChild/Employ
 import EmployeeNotifiCh from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeNotifiCh";
 import EmployeeAccSettCh from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeAccSettCh";
 import CompanyProfilech from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/CompanyProfilech";
+import AgencyVarification from "../EmployeeDashBoard/AgencyVarification";
 
 
 const router = createBrowserRouter([
@@ -124,6 +125,10 @@ const router = createBrowserRouter([
           {
             path:"companyprofile",
             element:<CompanyProfilech></CompanyProfilech>
+          },
+          {
+            path:"agencyverification",
+            element: <AgencyVarification></AgencyVarification>
           }
         ]
       },
