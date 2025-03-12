@@ -1,79 +1,43 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { IoEyeOffOutline } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { UserContext } from '../AuthContext/UserContext';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [eye, setEye] = useState(false); 
-    const [contactMethod, setContactMethod] = useState('email'); 
-    const [email, setEmail] = useState(''); 
-    const [phone, setPhone] = useState(''); 
-    const [password, setPassword] = useState(''); 
-    const [error, setError] = useState(''); 
+    const [eye, setEye] = useState(false); // State to toggle password visibility
+    const [contactMethod, setContactMethod] = useState('email'); // Default to 'email'
+    const [email, setEmail] = useState(''); // State for email input
+    const [phone, setPhone] = useState(''); // State for phone input
+    const [password, setPassword] = useState(''); // State for password input
 
-    const {setUser,setIsLoggedIn}=useContext(UserContext);
-    const nav = useNavigate();
-
-
-
+    // Handle contact method change (email or phone)
     const handleContactMethodChange = (event) => {
         setContactMethod(event.target.value);
     };
 
+    // Handle email input change
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
 
+    // Handle phone input change
     const handlePhoneChange = (event) => {
         setPhone(event.target.value);
     };
 
+    // Handle password input change
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
 
-    const validateEmail = (email) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    };
-
-    const handleSignIn = async () => {
-        setError(''); 
-
-        if (contactMethod === 'email' && !validateEmail(email)) {
-            setError('Please enter a valid email address.');
-            return;
+    // Handle form submission
+    const handleSignIn = () => {
+        if (contactMethod === 'email') {
+            console.log("Email:", email);
+        } else if (contactMethod === 'phone') {
+            console.log("Phone:", phone);
         }
-
-        const user = {
-            [contactMethod]: contactMethod === 'email' ? email : phone,
-            password,
-        };
-
-        try {
-            const response = await fetch('http://localhost:5000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user),
-            });
-
-            if (!response.ok) {
-                throw new Error('Login failed. Please check your credentials.');
-            }
-
-            const data = await response.json();
-            console.log('Login successful:', data);
-            setUser(data.user);
-            setIsLoggedIn(true);
-            nav("/");
-
-        } catch (error) {
-            setError(error.message);
-        }
+        console.log("Password:", password);
     };
 
     return (
@@ -95,6 +59,7 @@ const Login = () => {
                             value="email"
                             checked={contactMethod === 'email'} // Default checked
                             onChange={handleContactMethodChange}
+                            
                         />
                         <label htmlFor="email">Email Address</label>
                     </div>
@@ -159,9 +124,6 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Error Message */}
-                {error && <p className='text-red-500'>{error}</p>}
 
                 {/* Sign In Button */}
                 <button

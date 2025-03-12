@@ -9,7 +9,6 @@ const Dashboard = () => {
             <div className='col-span-10 pb-10'>
                 <Outlet></Outlet>
             </div>
-            
         </div>
     );
 };
