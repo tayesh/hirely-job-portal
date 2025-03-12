@@ -9,7 +9,7 @@ const Featured = () => {
 
     // Fetch company data from the API
     useEffect(() => {
-        fetch("https://hirely-job-portal-server.vercel.app/companies")
+        fetch("http://localhost:5000/companies")
             .then((response) => response.json())
             .then((data) => {
                 setCompanies(data); // Set the fetched data to state
