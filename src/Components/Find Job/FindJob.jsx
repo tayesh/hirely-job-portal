@@ -8,7 +8,7 @@ const FindJob = () => {
     const [jobs, setJobs] = useState([]);
     const [isBenefitsModalOpen, setIsBenefitsModalOpen] = useState(false); // State to control modal visibility
     useEffect(() => {
-        fetch('https://hirely-job-portal-server.vercel.app/jobs')
+        fetch('http://localhost:5000/jobs')
             .then(res => res.json())
             .then(data => {
                 setJobs(data);

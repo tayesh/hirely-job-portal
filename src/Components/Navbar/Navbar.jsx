@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../AuthContext/UserContext";
 
 const Navbar = () => {
     const navlinkStyles = ({ isActive }) => ({
@@ -10,6 +12,12 @@ const Navbar = () => {
         borderRadius: "5px",
         textDecoration: "none"
     });
+
+
+    const { isLoggedIn, user } = useContext(UserContext)
+
+    const nav = useNavigate();
+
 
     const links = (
         <>
@@ -25,15 +33,10 @@ const Navbar = () => {
             <NavLink to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
-            {/* <NavLink to="/employeedashboard" style={navlinkStyles}>
-                <li className="epilogue font-normal text-[16px]">Emp Dash</li>
-            </NavLink>
-            <NavLink to="/employeehome" style={navlinkStyles}>
-                <li className="epilogue font-normal text-[16px]">Emp Home</li>
-            </NavLink>
-            <NavLink to="/candidate" style={navlinkStyles}>
-                <li className="epilogue font-normal text-[16px]">Candidate</li>
+            {/* <NavLink to="/dashboard" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Dashboard</li>
             </NavLink> */}
+
         </>
     );
 
@@ -67,14 +70,34 @@ const Navbar = () => {
                     </NavLink>
                 </div>
                 <div className="mr-[200px] navbar-center hidden lg:flex">
-                    <ul className="menu font-normal menu-horizontal gap-1 px-1">
+                    <ul className="menu font-normal menu-horizontal gap-8 px-1">
                         {links}
+                        {
+                            isLoggedIn ?
+                                <div className="flex gap-5 justify-center items-center ">
+                                    <img onClick={()=>nav("/dashboard/getjobalert")} className="w-10 mx-10 cursor-pointer" src="https://i.ibb.co.com/MDPGFFLj/5954d2569e42aff975cf471cc740f66c.png" alt="" />
+                                    <img onClick={()=>nav("/dashboard")}  className="w-14 p-[2px] border-2 rounded-full cursor-pointer" src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" />
+                                    <div>
+                                        <h2 className="text-[20px]">{user.name}</h2>
+                                        <p className="text-[15px] text-gray-600">{user.userRoll}</p>
+                                    </div>
+                                </div>
+                                :
+                                <></>
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end  gap-4">
-                    <NavLink to="/login"><a  className="btn font-normal bg-white text-[#0079C1] border-[#0079C1]">Login</a></NavLink>
-                    <NavLink to="/register"><a className="btn bg-[#0079C1] text-white font-normal">Register</a></NavLink>
-                    <NavLink to="/agency"><a className="btn font-normal w-28 bg-[#F2F2F2] text-[#424447]">For Agency</a></NavLink>
+                    {isLoggedIn ?
+                        <></>
+                        :
+                        <>
+                            <NavLink to="/login"><a className="btn font-normal bg-white text-[#0079C1] border-[#0079C1]">Login</a></NavLink>
+                            <NavLink to="/register"><a className="btn bg-[#0079C1] text-white font-normal">Register</a></NavLink>
+                            <NavLink to="/agency"><a className="btn font-normal w-28 bg-[#F2F2F2] text-[#424447]">For Agency</a></NavLink>
+                        </>
+
+                    }
                     <a className="btn bg-white text-[#0079C1] font-normal border-[#0079C1]">English</a>
                 </div>
             </div>

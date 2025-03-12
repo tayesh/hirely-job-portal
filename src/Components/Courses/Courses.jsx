@@ -12,7 +12,7 @@ const Courses = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch("https://hirely-job-portal-server.vercel.app/courses"); // Fetch data from your API
+                const response = await fetch("http://localhost:5000/courses"); // Fetch data from your API
                 if (!response.ok) {
                     throw new Error("Failed to fetch courses");
                 }
@@ -36,7 +36,8 @@ const Courses = () => {
             ? courses.filter((course) => course.category === "DIPLOMA") // Filter for diplomas
             : activeTab === "Top Certificates"
             ? courses.filter((course) => course.category === "CERTIFICATE") // Filter for certificates
-            : []; 
+            : []; // Default to empty array for "New Courses" (since newCourses is not implemented)
+
     if (loading) {
         return <p className="text-center text-[18px] text-gray-500">Loading courses...</p>;
     }

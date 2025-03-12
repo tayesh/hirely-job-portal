@@ -6,9 +6,10 @@ import { RiGraduationCapFill } from "react-icons/ri";
 import { FaLocationDot } from "react-icons/fa6";
 import { CiClock2 } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import { FaHeart } from "react-icons/fa";
 
 
-const FindJobCard = ({ object }) => {
+const FindJobCard = ({ object ,saved}) => {
     const { jobTitle, vacancy, deadline, salary , _id} = object
     return (
         <div className=' bg-white p-[30px] space-y-6'>
@@ -16,7 +17,11 @@ const FindJobCard = ({ object }) => {
                 <h2 className='text-[22px] text-[#0275D8]'>{jobTitle}</h2>
                 <div className='flex gap-2'>
                     <div className='border-[#0275D8] border-2 rounded w-[50px] h-[30px] flex justify-center items-center'>
+                       {
+                        saved?
+                        <FaHeart className='text-[24px] fill-red-600  text-[#0275D8] ' />:
                         <FaRegHeart className='text-[24px]  text-[#0275D8] ' />
+                       }
                     </div>
                     <div className='border-[#0275D8] border-2 rounded w-[50px] h-[30px] flex justify-center items-center'>
                         <FaRegThumbsUp className='text-[24px]  text-[#0275D8] ' />
