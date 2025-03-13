@@ -2,17 +2,17 @@ const steps = [
     {
         title: "Register/Login",
         description: "• If you're already an employer with us, simply log in to your account. <br /> • If you're new, register for an account—it takes less than a minute!",
-        image: "https://via.placeholder.com/150"
+        image: "https://i.ibb.co.com/N6B3FdBL/login.jpg"
     },
     {
         title: "Choose or Create a Job Post",
         description: "• Click 'Post A Job' from the menu and select 'Post a Sponsored Job.' Choose your desired start date for the sponsorship. The job will automatically run for 7 days from the chosen date. <br /> • Select an existing job post or create a new one, If you create a new job, you'll be redirected back to the same page to proceed. <br /> • Add a few benefits of the job details and upload a banner for your ad to make it stand out. <br /> • Once done, click 'Continue with Payment.'",
-        image: "https://via.placeholder.com/150"
+        image: "https://i.ibb.co.com/99rWW159/apply.jpg"
     },
     {
         title: "Make Payment and Publish Job",
         description: "Pay using any major payment methods in Bangladesh, including Bank Transfer, Credit/Debit Card, bKash, or other Mobile Financial Services (MFS). <br /> • Once payment is successful, your job will be published and will be visible to job seekers.",
-        image: "https://via.placeholder.com/150"
+        image: "https://i.ibb.co.com/nNsXbGfp/p.jpg"
     }
 ];
 

@@ -8,40 +8,40 @@ const EmployeeDashboardCh = () => {
             <div className="grid grid-cols-3 gap-4 mx-6 py-4 h-[40vh] mb-[100px]">
                 {/* First Row */}
                 <div className="flex items-center gap-5 shadow-md shadow-gray-400 h-fit px-5 py-2 rounded">
-                    <img className="mt-1" src="https://i.ibb.co.com/h0WYFVJ/image.png" alt="" />
+                    <img className="mt-1 h-10" src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" />
                     <div className="mt-0">
-                        <h2 className="text-lg mt-0">Applied Jobs</h2>
-                        <p className="text-base">Applied Jobs</p>
+                        <h2 className="text-[20px] poppins mt-0">Today’s Applicant</h2>
+                        <p className="text-[20px] poppins font-semibold text-[#0079C1]">69</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-5 shadow-md shadow-gray-400 h-fit px-5 py-2 rounded">
-                    <img className="mt-1" src="https://i.ibb.co.com/zVqCnJDN/image.png" alt="" />
+                    <img className="mt-1 h-10" src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" />
                     <div className="mt-0">
-                        <h2 className="text-lg mt-0">Saved Jobs</h2>
-                        <p className="text-base">Jobs Saved</p>
+                        <h2 className="text-[20px] poppins mt-0">Applied Candidate</h2>
+                        <p className="text-[20px] poppins font-semibold text-[#0079C1]">34</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-5 shadow-md shadow-gray-400 h-fit px-5 py-2 rounded">
                     <img className="mt-1" src="https://i.ibb.co.com/Yv8hvNT/image.png" alt="" />
                     <div className="mt-0">
-                        <h2 className="text-lg mt-0">Followed Company</h2>
-                        <p className="text-base">Following</p>
+                        <h2 className="text-[20px] poppins mt-0">Published Jobs</h2>
+                        <p className="text-[20px] poppins font-semibold text-[#0079C1]">78</p>
                     </div>
                 </div>
 
                 {/* Second Row */}
                 <div className="flex items-center gap-5 shadow-md shadow-gray-400 h-fit px-5 py-2 rounded">
-                    <img className="mt-1" src="https://i.ibb.co.com/Yv8hvNT/image.png" alt="" />
+                    <img className="mt-1 h-10" src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" />
                     <div className="mt-0">
-                        <h2 className="text-lg mt-0">Followed Company</h2>
-                        <p className="text-base">Following</p>
+                        <h2 className="text-[20px] poppins mt-0">Applicant Shortlist</h2>
+                        <p className="text-[20px] poppins font-semibold text-[#0079C1]">22</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-5 shadow-md shadow-gray-400 h-fit px-5 py-2 rounded">
-                    <img className="mt-1" src="https://i.ibb.co.com/Yv8hvNT/image.png" alt="" />
+                    <img className="mt-1 h-10" src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" />
                     <div className="mt-0">
-                        <h2 className="text-lg mt-0">Followed Company</h2>
-                        <p className="text-base">Following</p>
+                        <h2 className="text-[20px] poppins mt-0">Selected Candidate</h2>
+                        <p className="text-[20px] poppins font-semibold text-[#0079C1]">17</p>
                     </div>
                 </div>
                 {/* Empty div for the third column in the second row */}

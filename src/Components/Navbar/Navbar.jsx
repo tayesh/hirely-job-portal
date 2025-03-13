@@ -21,7 +21,7 @@ const Navbar = () => {
 
     const links = (
         <>
-            <NavLink to="/" style={navlinkStyles}>
+            {/* <NavLink to="/" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
             <NavLink to="/findjob" style={navlinkStyles}>
@@ -36,6 +36,25 @@ const Navbar = () => {
             {/* <NavLink to="/dashboard" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Dashboard</li>
             </NavLink> */}
+            <NavLink to="/employeehome" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Home</li>
+            </NavLink>
+            <NavLink to="/employeestart" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">How to Start</li>
+            </NavLink>
+            <NavLink to="/employeepricing" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Pricing</li>
+            </NavLink>
+            <NavLink to="/candidate" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Candidate</li>
+            </NavLink>
+            <NavLink to="/employeerecruit" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Direct Recruiting</li>
+            </NavLink>
+            <NavLink to="/support" style={navlinkStyles}>
+                <li className="epilogue font-normal text-[16px]">Get Support</li>
+            </NavLink>
+
 
         </>
     );
@@ -70,13 +89,13 @@ const Navbar = () => {
                     </NavLink>
                 </div>
                 <div className="mr-[200px] navbar-center hidden lg:flex">
-                    <ul className="menu font-normal menu-horizontal gap-8 px-1">
+                    <ul className="menu font-normal menu-horizontal gap-6 px-1">
                         {links}
                         {
                             isLoggedIn ?
                                 <div className="flex gap-5 justify-center items-center ">
-                                    <img onClick={()=>nav("/dashboard/getjobalert")} className="w-10 mx-10 cursor-pointer" src="https://i.ibb.co.com/MDPGFFLj/5954d2569e42aff975cf471cc740f66c.png" alt="" />
-                                    <img onClick={()=>nav("/dashboard")}  className="w-14 p-[2px] border-2 rounded-full cursor-pointer" src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" />
+                                    <img onClick={() => nav("/dashboard/getjobalert")} className="w-10 mx-10 cursor-pointer" src="https://i.ibb.co.com/MDPGFFLj/5954d2569e42aff975cf471cc740f66c.png" alt="" />
+                                    <img onClick={() => nav("/dashboard")} className="w-14 p-[2px] border-2 rounded-full cursor-pointer" src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" />
                                     <div>
                                         <h2 className="text-[20px]">{user.name}</h2>
                                         <p className="text-[15px] text-gray-600">{user.userRoll}</p>
@@ -87,8 +106,8 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
-                <div className="navbar-end  gap-4">
-                    {isLoggedIn ?
+                <div className="navbar-end ">
+                    {/* {isLoggedIn ?
                         <></>
                         :
                         <>
@@ -98,7 +117,9 @@ const Navbar = () => {
                         </>
 
                     }
-                    <a className="btn bg-white text-[#0079C1] font-normal border-[#0079C1]">English</a>
+                    <a className="btn bg-white text-[#0079C1] font-normal border-[#0079C1]">English</a> */}
+                    <img onClick={() => nav("/employeedashboard")} className="w-14 p-[2px] border-2 rounded-full cursor-pointer" src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" />
+
                 </div>
             </div>
         </div>
