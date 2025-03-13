@@ -1,5 +1,8 @@
 import { IoCameraOutline } from "react-icons/io5";
 import EmployeeSideBarLink from "./EmployeeSideBarLink";
+import { useContext } from "react";
+import { UserContext } from "../AuthContext/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeSideBar = () => {
     const SideBarLinks = [
@@ -74,12 +77,17 @@ const EmployeeSideBar = () => {
             icon: "https://i.ibb.co.com/KxM2rMr3/settings.png",
             path: "/employeedashboard/settings"
         },
-        {
-            title: "Logout",
-            icon: "https://i.ibb.co.com/TxhtqncY/logout.png",
-            path: "/employeedashboard/logout"
-        }
+        
     ];
+
+    const {logout}=useContext(UserContext);
+        const nav = useNavigate()
+    
+        const handleLogOut = () => {
+            logout(() => {
+                nav("/"); // Navigate to the home page after logout
+            });
+        };
     return (
         <div className='col-span-2 pt-20'>
             <div className='flex flex-col items-center mb-20'>
@@ -101,6 +109,10 @@ const EmployeeSideBar = () => {
                 {
                     SideBarLinks.map(item => <EmployeeSideBarLink object={item}></EmployeeSideBarLink>)
                 }
+                <div onClick={handleLogOut} className=' flex  items-center gap-4 cursor-pointer' >
+                    <img className='w-[35px]' src="https://i.ibb.co.com/YTQsHq71/image.png" alt="" />
+                    <p className='text-xl'>Logout</p>
+                </div>
             </div>
 
         </div>

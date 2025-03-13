@@ -6,54 +6,61 @@ import { UserContext } from '../AuthContext/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [eye, setEye] = useState(false); 
-    const [contactMethod, setContactMethod] = useState('email'); 
-    const [email, setEmail] = useState(''); 
-    const [phone, setPhone] = useState(''); 
-    const [password, setPassword] = useState(''); 
-    const [error, setError] = useState(''); 
+    const [eye, setEye] = useState(false); // Toggle password visibility
+    const [contactMethod, setContactMethod] = useState('email'); // Toggle between email and phone
+    const [email, setEmail] = useState(''); // Email input
+    const [phone, setPhone] = useState(''); // Phone input
+    const [password, setPassword] = useState(''); // Password input
+    const [error, setError] = useState(''); // Error message
 
-    const {setUser,setIsLoggedIn}=useContext(UserContext);
+    const { setUser, setIsLoggedIn, login } = useContext(UserContext); // Use login function from context
     const nav = useNavigate();
 
-
-
+    // Handle contact method change (email or phone)
     const handleContactMethodChange = (event) => {
         setContactMethod(event.target.value);
     };
 
+    // Handle email input change
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
 
+    // Handle phone input change
     const handlePhoneChange = (event) => {
         setPhone(event.target.value);
     };
 
+    // Handle password input change
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
 
+    // Validate email format
     const validateEmail = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     };
 
+    // Handle sign-in
     const handleSignIn = async () => {
-        setError(''); 
+        setError(''); // Clear previous errors
 
+        // Validate email if contact method is email
         if (contactMethod === 'email' && !validateEmail(email)) {
             setError('Please enter a valid email address.');
             return;
         }
 
+        // Prepare user data for login
         const user = {
             [contactMethod]: contactMethod === 'email' ? email : phone,
             password,
         };
 
         try {
-            const response = await fetch('http://localhost:5000/api/login', {
+            // Send login request to the server
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,18 +68,24 @@ const Login = () => {
                 body: JSON.stringify(user),
             });
 
+            // Handle response errors
             if (!response.ok) {
-                throw new Error('Login failed. Please check your credentials.');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Login failed. Please check your credentials.');
             }
 
+            // Parse response data
             const data = await response.json();
-            console.log('Login successful:', data);
-            setUser(data.user);
-            setIsLoggedIn(true);
-            nav("/");
+
+            // Update user context and state
+            login(data.user); // Use the login function from context to update state and localStorage
+            data.user.userRoll==="ADMIN"?
+            nav("/employeehome")
+            :
+            nav("/")// Redirect to home page after successful login
 
         } catch (error) {
-            setError(error.message);
+            setError(error.message); // Display error message
         }
     };
 
@@ -185,7 +198,9 @@ const Login = () => {
                 {/* Register Link */}
                 <h2 className='mt-10'>
                     Don't have an account yet?{' '}
-                    <span className='text-[#1976D2] cursor-pointer'>Register here</span>
+                    <span className='text-[#1976D8] cursor-pointer' onClick={() => nav("/register")}>
+                        Register here
+                    </span>
                 </h2>
             </div>
         </div>

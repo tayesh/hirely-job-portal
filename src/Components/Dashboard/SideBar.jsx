@@ -95,7 +95,7 @@ const SideBar = () => {
                 {
                     SideBarLinks.map(item => <SideBarLink object={item}></SideBarLink>)
                 }
-                <div onClick={handleLogOut} className=' flex  items-center gap-4' >
+                <div onClick={handleLogOut} className=' flex  items-center gap-4 cursor-pointer' >
                     <img className='w-[35px]' src="https://i.ibb.co.com/YTQsHq71/image.png" alt="" />
                     <p className='text-xl'>Logout</p>
                 </div>

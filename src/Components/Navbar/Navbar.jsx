@@ -10,18 +10,16 @@ const Navbar = () => {
         fontWeight: isActive ? "normal" : "normal",
         padding: "8px 16px",
         borderRadius: "5px",
-        textDecoration: "none"
+        textDecoration: "none",
     });
 
-
-    const { isLoggedIn, user } = useContext(UserContext)
-
+    const { isLoggedIn, user } = useContext(UserContext);
     const nav = useNavigate();
 
-
-    const links = (
+    // Common links for all users
+    const commonLinks = (
         <>
-            {/* <NavLink to="/" style={navlinkStyles}>
+            <NavLink to="/" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
             <NavLink to="/findjob" style={navlinkStyles}>
@@ -33,9 +31,12 @@ const Navbar = () => {
             <NavLink to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
-            {/* <NavLink to="/dashboard" style={navlinkStyles}>
-                <li className="epilogue font-normal text-[16px]">Dashboard</li>
-            </NavLink> */}
+        </>
+    );
+
+    // Links for ADMIN users
+    const adminLinks = (
+        <>
             <NavLink to="/employeehome" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
@@ -54,14 +55,19 @@ const Navbar = () => {
             <NavLink to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
-
-
         </>
+    );
+
+    // Links for logged-in users (non-ADMIN)
+    const loggedInUserLinks = (
+        <NavLink to="/dashboard" style={navlinkStyles}>
+            <li className="epilogue font-normal text-[16px]">Dashboard</li>
+        </NavLink>
     );
 
     return (
         <div className="">
-            <div className="navbar bg-base-100 shadow-lg px-8 ">
+            <div className="navbar bg-base-100 shadow-lg px-8">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -75,13 +81,15 @@ const Navbar = () => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth="2"
-                                    d="M4 6h16M4 12h8m-8 6h16" />
+                                    d="M4 6h16M4 12h8m-8 6h16"
+                                />
                             </svg>
                         </div>
                         <ul
                             tabIndex={0}
                             className="epilogue menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            {links}
+                            {user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
+                            {isLoggedIn && user?.userRoll !== "ADMIN" && loggedInUserLinks}
                         </ul>
                     </div>
                     <NavLink to="/" className="belanosima text-[40px]">
@@ -90,36 +98,64 @@ const Navbar = () => {
                 </div>
                 <div className="mr-[200px] navbar-center hidden lg:flex">
                     <ul className="menu font-normal menu-horizontal gap-6 px-1">
-                        {links}
-                        {
-                            isLoggedIn ?
-                                <div className="flex gap-5 justify-center items-center ">
-                                    <img onClick={() => nav("/dashboard/getjobalert")} className="w-10 mx-10 cursor-pointer" src="https://i.ibb.co.com/MDPGFFLj/5954d2569e42aff975cf471cc740f66c.png" alt="" />
-                                    <img onClick={() => nav("/dashboard")} className="w-14 p-[2px] border-2 rounded-full cursor-pointer" src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" />
-                                    <div>
-                                        <h2 className="text-[20px]">{user.name}</h2>
-                                        <p className="text-[15px] text-gray-600">{user.userRoll}</p>
-                                    </div>
+                        {user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
+                        {isLoggedIn && user?.userRoll !== "ADMIN" && loggedInUserLinks}
+                        {isLoggedIn && user?.userRoll !== "ADMIN" && (
+                            <div className="flex gap-5 justify-center items-center">
+                                <img
+                                    onClick={() => nav("/dashboard/getjobalert")}
+                                    className="w-10 mx-10 cursor-pointer"
+                                    src="https://i.ibb.co.com/MDPGFFLj/5954d2569e42aff975cf471cc740f66c.png"
+                                    alt=""
+                                />
+                                <img
+                                    onClick={() => nav("/dashboard")}
+                                    className="w-14 p-[2px] border-2 rounded-full cursor-pointer"
+                                    src="https://i.ibb.co.com/S4J9jhj1/image.png"
+                                    alt=""
+                                />
+                                <div>
+                                    <h2 className="text-[20px]">{user.name}</h2>
+                                    <p className="text-[15px] text-gray-600">{user.userRoll}</p>
                                 </div>
-                                :
-                                <></>
-                        }
+                            </div>
+                        )}
                     </ul>
                 </div>
-                <div className="navbar-end ">
-                    {/* {isLoggedIn ?
-                        <></>
-                        :
+                <div className="navbar-end">
+                    {user?.userRoll === "ADMIN" ? (
+                        <img
+                            onClick={() => nav("/employeedashboard")}
+                            className="w-14 p-[2px] border-2 rounded-full cursor-pointer"
+                            src="https://i.ibb.co.com/S4J9jhj1/image.png"
+                            alt=""
+                        />
+                    ) : isLoggedIn ? (
+                        <a className="btn bg-white text-[#0079C1] mr-5 font-normal border-[#0079C1]">
+                            English
+                        </a>
+                    ) : (
                         <>
-                            <NavLink to="/login"><a className="btn font-normal bg-white text-[#0079C1] border-[#0079C1]">Login</a></NavLink>
-                            <NavLink to="/register"><a className="btn bg-[#0079C1] text-white font-normal">Register</a></NavLink>
-                            <NavLink to="/agency"><a className="btn font-normal w-28 bg-[#F2F2F2] text-[#424447]">For Agency</a></NavLink>
+                            <NavLink to="/login">
+                                <a className="btn font-normal bg-white w-28 mr-5 text-[#0079C1] border-[#0079C1]">
+                                    Login
+                                </a>
+                            </NavLink>
+                            <NavLink to="/register">
+                                <a className="btn bg-[#0079C1] w-28 mr-5 text-white font-normal">
+                                    Register
+                                </a>
+                            </NavLink>
+                            <NavLink to="/agency">
+                                <a className="btn font-normal w-28 mr-5 bg-[#F2F2F2] text-[#424447]">
+                                    For Agency
+                                </a>
+                            </NavLink>
+                            <a className="btn bg-white text-[#0079C1] mr-5 font-normal border-[#0079C1]">
+                                English
+                            </a>
                         </>
-
-                    }
-                    <a className="btn bg-white text-[#0079C1] font-normal border-[#0079C1]">English</a> */}
-                    <img onClick={() => nav("/employeedashboard")} className="w-14 p-[2px] border-2 rounded-full cursor-pointer" src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" />
-
+                    )}
                 </div>
             </div>
         </div>
