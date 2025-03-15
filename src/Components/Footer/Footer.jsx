@@ -1,5 +1,6 @@
 import { CiLocationOn, CiMail } from "react-icons/ci";
 import { FaPhoneAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -7,9 +8,15 @@ const Footer = () => {
             <footer className="footer flex justify-between bg-neutral text-neutral-content p-10">
                 <nav>
                     <h6 className="footer-title space-y-4 text-[#0275D8] text-[18px] epilogue font-normal">For Job Seekers</h6>
-                    <a className="link epilogue text-[17px] font-normal link-hover">Register as Candidate</a>
+                    <Link to="/register">
+                        <a className="link epilogue text-[17px] font-normal link-hover">Register as Candidate</a>
+                    </Link>
+                    <Link to="/login">
                     <a className="link epilogue text-[17px] font-normal link-hover">Login</a>
+                    </Link>
+                    <Link to="/findjob">
                     <a className="link epilogue text-[17px] font-normal link-hover">Find Jobs</a>
+                    </Link>
                     <a className="link epilogue text-[17px] font-normal link-hover">Anonymous Jobs</a>
                     <a className="link epilogue text-[17px] font-normal link-hover">Download Hirely App</a>
                 </nav>

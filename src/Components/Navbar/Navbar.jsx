@@ -92,11 +92,11 @@ const Navbar = () => {
                             {isLoggedIn && user?.userRoll !== "ADMIN" && loggedInUserLinks}
                         </ul>
                     </div>
-                    <NavLink to="/" className="belanosima text-[40px]">
+                    <NavLink to="/" className="belanosima text-[40px] mr-6">
                         Hire<span className="text-[#0079C1] belanosima">ly</span>
                     </NavLink>
                 </div>
-                <div className="mr-[200px] navbar-center hidden lg:flex">
+                <div className="mr-[50px] navbar-center hidden lg:flex">
                     <ul className="menu font-normal menu-horizontal gap-6 px-1">
                         {user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
                         {isLoggedIn && user?.userRoll !== "ADMIN" && loggedInUserLinks}
@@ -110,13 +110,13 @@ const Navbar = () => {
                                 />
                                 <img
                                     onClick={() => nav("/dashboard")}
-                                    className="w-14 p-[2px] border-2 rounded-full cursor-pointer"
+                                    className="w-10 p-[2px] border-2 rounded-full cursor-pointer"
                                     src="https://i.ibb.co.com/S4J9jhj1/image.png"
                                     alt=""
                                 />
                                 <div>
-                                    <h2 className="text-[20px]">{user.name}</h2>
-                                    <p className="text-[15px] text-gray-600">{user.userRoll}</p>
+                                    <h2 className="text-[15px]">{user.name}</h2>
+                                    <p className="text-[11px] text-gray-600">{user.userRoll}</p>
                                 </div>
                             </div>
                         )}

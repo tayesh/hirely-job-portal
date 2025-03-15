@@ -25,7 +25,7 @@ const EmployeeSideBar = () => {
         {
             title: "Applied Jobs",
             icon: "https://i.ibb.co.com/99mMhNxv/a3c415ecce352a368e708cb12d4f62d4.png",
-            path: "/employeedashboard/appliedjobs"
+            path: "/employeedashboard/allapplied"
         },
         {
             title: "Saved Jobs",

@@ -1,10 +1,83 @@
+import { useContext } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { CiHeart } from "react-icons/ci";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { UserContext } from "../AuthContext/UserContext";
+import useApply from "../hooks/useApply";
 
 const JobDetails = () => {
     const job = useLoaderData();
     console.log(job);
+    const { jobTitle, vacancy, company, deadline, salary, _id } = job;
+
+     const { user } = useContext(UserContext);
+        const { refetch } = useApply(); 
+        const navigate = useNavigate();
+        const location = useLocation();
+    
+        const handleAddtoApplied = async (product) => {
+            if (user && user.email) {
+                console.log(user.email, product);
+    
+                const appliedItem = {
+                    applyId: _id,
+                    email: user.email,
+                    name:user.name,
+                    jobTitle,
+                    company,
+                    salary,
+                    deadline,
+                    status:'Applied'
+                };
+    
+                try {
+                    const response = await fetch("http://localhost:5000/applied", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(appliedItem),
+                    });
+    
+                    const data = await response.json();
+    
+                    if (response.ok && data.insertedId) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: `${jobTitle} Applied`,
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        refetch();
+                    } else {
+                        throw new Error("Failed to apply");
+                    }
+                } catch (error) {
+                    console.error("Error applying for the job:", error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong while applying.",
+                    });
+                }
+            } else {
+                Swal.fire({
+                    title: "Want to Apply?",
+                    text: "You have to Log in to Apply to the Cart!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Log In!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate("/login", { state: { from: location } });
+                    }
+                });
+            }
+        };
     return (
         <div className="p-6 px-[73px] bg-white shadow-lg rounded-lg">
             <div>
@@ -21,7 +94,7 @@ const JobDetails = () => {
                     <div className="flex justify-between items-center">
                         <p className="text-[14px] text-[#72737C] poppins">{job.company}</p>
                         <div className="flex items-center gap-[44px]">
-                            <button className="bg-[#00A264] w-[131px] px-3 h-[37px] rounded-[4px] epilogue text-[14px] text-white">Apply Now</button>
+                            <button onClick={() => handleAddtoApplied(job)} className="bg-[#00A264] w-[131px] px-3 h-[37px] rounded-[4px] epilogue text-[14px] text-white">Apply Now</button>
                             <div className="flex gap-2">
                                 <button className="text-[#0079C1] h-[30px] w-[50px] text-[20px] btn border-[#0079C1] bg-white"><CiHeart /></button>
                                 <button className="text-[#0079C1] h-[30px] w-[50px] text-[20px] btn border-[#0079C1] bg-white"><AiOutlineLike /></button>

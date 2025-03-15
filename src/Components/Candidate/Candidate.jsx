@@ -1,70 +1,78 @@
+import { useEffect, useState } from "react";
+
 const Candidate = () => {
-    const data = [
-        { id: 1, idNumber: "362809", name: "Saikat Islam", passport: "362809", mobile: "01905209098", deposit: "৳1000", refund: "৳00", updated: true },
-        { id: 2, idNumber: "362809", name: "Fabian Rokon", passport: "362809", mobile: "01905209098", deposit: "৳1000", refund: "৳00", updated: true },
-      ];
-    
-    return (
-        <div className="min-h-screen">
-            <div className="flex gap-[72px] mb-16 mt-9 justify-center">
-                <div className="flex px-6  gap-3 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] rounded-md">
-                    <img src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" className="h-10" />
-                    <div>
-                        <p className="poppins text-[20px] font-normal text-[#000000]">Applied Candidate</p>
-                        <p className="poppins text-[#0079C1] text-[20px] font-normal">22</p>
-                    </div>
-                </div>
-                <div className="flex px-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] gap-3 rounded-md">
-                    <img src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" className="h-10" />
-                    <div>
-                        <p className="poppins text-[20px] font-normal text-[#000000]">Selected Candidate</p>
-                        <p className="poppins text-[20px] font-normal text-[#0079C1]">11</p>
-                    </div>
-                </div>
-                <div className="flex px-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] gap-3 rounded-md">
-                    <img src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" className="h-10" />
-                    <div>
-                        <p className="poppins text-[20px] font-normal text-[#000000]">Applicant Shortlist</p>
-                        <p className="poppins text-[20px] font-normal text-[#0079C1]">11</p>
-                    </div>
-                </div>
-            </div>
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/users")
+      .then((res) => res.json())
+      .then((users) => {
+        const candidates = users.filter((user) => user.userRoll === "Candidate");
+
+        if (candidates.length > 0) {
+          let randomId = Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit random ID
+          const updatedCandidates = candidates.map((user, index) => ({
+            ...user,
+            idNumber: randomId + index, // Increase ID for each user
+          }));
+
+          setData(updatedCandidates);
+        }
+      })
+      .catch((error) => console.error("Error fetching candidates:", error));
+  }, []);
+
+  return (
+    <div className="min-h-screen">
+      {/* Summary Section */}
+      <div className="flex gap-[72px] mb-16 mt-9 justify-center">
+        {[
+          { label: "Applied Candidate", count: 22 },
+          { label: "Selected Candidate", count: 11 },
+          { label: "Applicant Shortlist", count: 11 },
+        ].map((item, index) => (
+          <div key={index} className="flex px-6 gap-3 shadow-lg rounded-md">
+            <img src="https://i.ibb.co.com/gFwZV5rx/applicant.png" alt="" className="h-10" />
             <div>
-            <div className="overflow-x-auto">
-      <table className="table ">
-        <thead className="bg-[#0079C1]   ">
-          <tr >
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">SL NO.</th>
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">ID Number</th>
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">Applicant Name</th>
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">Passport No.</th>
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">Mobile No.</th>
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">Deposit</th>
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">Refund</th>
-            <th className="text-white text-center border-r border-white font-normal text-[20px] poppins">Updated</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={item.id} className="text-center">
-              <td className="text-black text-center font-normal text-[16px] poppins">{index + 1}</td>
-              <td className="text-black text-center font-normal text-[16px] poppins">{item.idNumber}</td>
-              <td className="text-black text-center font-normal text-[16px] poppins">{item.name}</td>
-              <td className="text-black text-center font-normal text-[16px] poppins">{item.passport}</td>
-              <td className="text-black text-center font-normal text-[16px] poppins">{item.mobile}</td>
-              <td className="text-black text-center font-normal text-[16px] poppins">{item.deposit}</td>
-              <td className="text-black text-center font-normal text-[16px] poppins">{item.refund}</td>
-              <td className="text-black text-center font-normal text-[16px] poppins">
-                <input type="checkbox" checked={item.updated} readOnly />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+              <p className="poppins text-[20px] font-normal text-black">{item.label}</p>
+              <p className="poppins text-[20px] font-normal text-[#0079C1]">{item.count}</p>
             </div>
-        </div>
-    );
+          </div>
+        ))}
+      </div>
+
+      {/* Table Section */}
+      <div className="overflow-x-auto">
+        <table className="table w-full">
+          <thead className="bg-[#DCEFFF] ">
+            <tr>
+              {["SL NO.", "ID Number", "Applicant Name", "Passport No.", "Mobile No.", "Deposit", "Refund", "Updated"].map((heading, i) => (
+                <th key={i} className="text-black text-center border-r border-white font-normal text-[20px] poppins">
+                  {heading}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={item.id} className="text-center">
+                <td className="text-black text-[16px] poppins">{index + 1}</td>
+                <td className="text-black text-[16px] poppins">{item.idNumber}</td>
+                <td className="text-black text-[16px] poppins">{item.name}</td>
+                <td className="text-black text-[16px] poppins">{item.passport || "362809"}</td>
+                <td className="text-black text-[16px] poppins">{item.phoneNumber}</td>
+                <td className="text-black text-[16px] poppins">৳1000</td>
+                <td className="text-black text-[16px] poppins">৳00</td>
+                <td className="text-black text-[16px] poppins">
+                  <input type="checkbox" checked={item.updated} readOnly />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default Candidate;

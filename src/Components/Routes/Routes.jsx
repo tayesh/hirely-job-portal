@@ -31,6 +31,7 @@ import EmployeeNotifiCh from "../EmployeeDashBoard/EmployeeDashboardChild/Employ
 import EmployeeAccSettCh from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeAccSettCh";
 import CompanyProfilech from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/CompanyProfilech";
 import AgencyVarification from "../EmployeeDashBoard/AgencyVarification";
+import EmployeeApliedJobs from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeApliedJobs";
 
 
 const router = createBrowserRouter([
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
           {
             path:"agencyverification",
             element: <AgencyVarification></AgencyVarification>
+          },
+          {
+            path:"allapplied",
+            element:<EmployeeApliedJobs></EmployeeApliedJobs>
           }
         ]
       },
