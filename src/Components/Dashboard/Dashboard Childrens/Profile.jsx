@@ -133,7 +133,7 @@ const Profile = () => {
             <dialog id="BasicDetails" className="modal">
                 <div className="modal-box w-11/12 max-w-5xl rounded-2xl">
                     <h2 className='text-xl font-medium text-center mb-10'>Basic Details</h2>
-                   <BasicDetails></BasicDetails>
+                   <BasicDetails modalID={"BasicDetails"}></BasicDetails>
                     
                 </div>
             </dialog>
@@ -141,7 +141,7 @@ const Profile = () => {
             <dialog id="PersonalInfo" className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
                     <h3 className="text-xl font-medium text-center mb-10">Personal Info!</h3>
-                    <PersonalInformation></PersonalInformation>
+                    <PersonalInformation modalID={"PersonalInfo"}></PersonalInformation>
                     
                 </div>
             </dialog>
@@ -149,7 +149,7 @@ const Profile = () => {
             <dialog id="Education" className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
                 <h3 className="text-xl font-medium text-center mb-10">Personal Info!</h3>
-                <Education></Education>
+                <Education modalID={"Education"}></Education>
                     
                 </div>
             </dialog>
@@ -157,7 +157,7 @@ const Profile = () => {
             <dialog id="KeySkils"a className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
                     <h3 className="text-xl font-medium text-center mb-10">Key Skils!</h3>
-                    <KeySkills></KeySkills>
+                    <KeySkills modalID={"KeySkils"}></KeySkills>
                     
                 </div>
             </dialog>
