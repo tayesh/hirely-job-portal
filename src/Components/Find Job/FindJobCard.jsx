@@ -33,7 +33,7 @@ const FindJobCard = ({ object }) => {
             };
 
             try {
-                const response = await fetch("http://localhost:5000/applied", {
+                const response = await fetch("https://hirely-job-portal-server.vercel.app/applied", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

@@ -18,7 +18,7 @@ const AppliedJobs = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/applied/${id}`, {
+                fetch(`https://hirely-job-portal-server.vercel.app/applied/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',

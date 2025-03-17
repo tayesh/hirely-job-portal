@@ -40,7 +40,7 @@ const Navbar = () => {
             <NavLink to="/employeehome" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
-            <NavLink to="/employeestart" style={navlinkStyles}>
+            <NavLink to="/howtostart" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">How to Start</li>
             </NavLink>
             <NavLink to="/employeepricing" style={navlinkStyles}>

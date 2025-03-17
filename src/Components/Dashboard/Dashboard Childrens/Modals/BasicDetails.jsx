@@ -37,7 +37,7 @@ const BasicDetails = ({modalID}) => {
 
         // Send data to backend
         try {
-            const response = await fetch('http://localhost:5000/update-user-details', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/update-user-details', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

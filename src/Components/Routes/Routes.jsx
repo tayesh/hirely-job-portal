@@ -32,7 +32,7 @@ import EmployeeAccSettCh from "../EmployeeDashBoard/EmployeeDashboardChild/Emplo
 import CompanyProfilech from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/CompanyProfilech";
 import AgencyVarification from "../EmployeeDashBoard/AgencyVarification";
 import EmployeeApliedJobs from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeApliedJobs";
-import CandidateProfile from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/CandidateProfile";
+import HowtoStart from "../EmployeeDashBoard/HowtoStart";
 
 
 const router = createBrowserRouter([
@@ -97,12 +97,12 @@ const router = createBrowserRouter([
         element: <EmployerHome></EmployerHome>
       },
       {
-        path: "/candidate-profile/:email",
-        element: <CandidateProfile></CandidateProfile>
-      },
-      {
         path: "/candidate",
         element: <Candidate></Candidate>
+      },
+      {
+        path:"/howtostart",
+        element:<HowtoStart></HowtoStart>
       },
       {
         path: "/employeedashboard",
@@ -117,30 +117,29 @@ const router = createBrowserRouter([
             element: <EmployeeMessage></EmployeeMessage>
           },
           {
-            path: "talentmanagement",
-            element: <EmployeeTalentCh></EmployeeTalentCh>
+            path:"talentmanagement",
+            element:<EmployeeTalentCh></EmployeeTalentCh>
           },
           {
-            path: "notifications",
-            element: <EmployeeNotifiCh></EmployeeNotifiCh>
+            path:"notifications",
+            element:<EmployeeNotifiCh></EmployeeNotifiCh>
           },
           {
-            path: "settings",
-            element: <EmployeeAccSettCh></EmployeeAccSettCh>
+            path:"settings",
+            element:<EmployeeAccSettCh></EmployeeAccSettCh>
           },
           {
-            path: "companyprofile",
-            element: <CompanyProfilech></CompanyProfilech>
+            path:"companyprofile",
+            element:<CompanyProfilech></CompanyProfilech>
           },
           {
-            path: "agencyverification",
+            path:"agencyverification",
             element: <AgencyVarification></AgencyVarification>
           },
           {
-            path: "allapplied",
-            element: <EmployeeApliedJobs></EmployeeApliedJobs>
-          },
-
+            path:"allapplied",
+            element:<EmployeeApliedJobs></EmployeeApliedJobs>
+          }
         ]
       },
       {
