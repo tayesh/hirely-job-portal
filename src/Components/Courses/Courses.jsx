@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 const Courses = () => {
     const [activeTab, setActiveTab] = useState("Popular Courses");
-    const [courses, setCourses] = useState([]); // State to store fetched courses
-    const [loading, setLoading] = useState(true); // State to handle loading
-    const [error, setError] = useState(null); // State to handle errors
+    const [courses, setCourses] = useState([]); 
+    const [loading, setLoading] = useState(true); 
+    const [error, setError] = useState(null); 
     const navigate = useNavigate();
 
-    // Fetch courses from the API
     useEffect(() => {
         const fetchCourses = async () => {
             try {
@@ -17,21 +16,20 @@ const Courses = () => {
                     throw new Error("Failed to fetch courses");
                 }
                 const data = await response.json();
-                setCourses(data); // Set the fetched courses
+                setCourses(data); 
             } catch (error) {
-                setError(error.message); // Set error message if something goes wrong
+                setError(error.message); 
             } finally {
-                setLoading(false); // Set loading to false after fetching
+                setLoading(false); 
             }
         };
 
         fetchCourses();
     }, []);
 
-    // Filter courses based on the active tab
     const filteredCourses =
         activeTab === "Popular Courses"
-            ? courses // Show all courses for "Popular Courses"
+            ? courses 
             : activeTab === "Top Diplomas"
             ? courses.filter((course) => course.category === "DIPLOMA") // Filter for diplomas
             : activeTab === "Top Certificates"

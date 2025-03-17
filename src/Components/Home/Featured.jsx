@@ -1,14 +1,11 @@
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../AuthContext/UserContext";
 
 const Featured = () => {
     const [companies, setCompanies] = useState([]); // State to store all company data
     const [loading, setLoading] = useState(true); // State to handle loading state
     const [showAll, setShowAll] = useState(false); // State to toggle between showing 3 or all companies
-
-    const {user}=useContext(UserContext);
 
     // Fetch company data from the API
     useEffect(() => {
@@ -31,38 +28,6 @@ const Featured = () => {
 
     // Determine which companies to display
     const displayedCompanies = showAll ? companies : companies.slice(0, 3);
-
-
-    const handleCompanyFollow = async (id) => {
-        const object = {
-            email: user.email, // Assuming `user` is defined and contains the logged-in user's email
-            companyId: id
-        };
-    
-        console.log(object);
-    
-        try {
-            const response = await fetch('http://localhost:5000/followCompany', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(object)
-            });
-    
-            const data = await response.json(); // Parse the JSON response from the server
-    
-            if (response.ok) {
-                alert('Company followed successfully!');
-                console.log(data.message); // Log the success message from the backend
-            } else {
-                alert('Failed to follow company: ' + data.message); // Show the error message from the backend
-            }
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('An error occurred while trying to follow the company.');
-        }
-    };
 
     return (
         <div className="mx-16 mb-[70px]">
@@ -92,7 +57,7 @@ const Featured = () => {
                             src="https://i.ibb.co.com/mF1Znn0B/Frame.png"
                             alt="Frame"
                         />
-                        <button onClick={() => handleCompanyFollow(company._id)} className="flex items-center roboto gap-2 bg-[#0079C1] text-white w-24 py-1.5 px-3 rounded-2xl absolute mt-44 ml-64">
+                        <button className="flex items-center roboto gap-2 bg-[#0079C1] text-white w-24 py-1.5 px-3 rounded-2xl absolute mt-44 ml-64">
                             <IoIosAddCircleOutline /> Follow
                         </button>
                         <div className="card-body">

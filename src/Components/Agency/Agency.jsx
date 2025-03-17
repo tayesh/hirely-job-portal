@@ -74,9 +74,9 @@ const Agency = () => {
                 </div>
 
 
-                {/* Input Fields */}
+              
                 <div className='space-y-5 flex flex-col'>
-                    {/* Email or Phone Input */}
+          
 
                     <input
                         className='w-[500px] border-2 p-4'
@@ -119,7 +119,7 @@ const Agency = () => {
                         />
                     </div>
 
-                    {/* Password Input */}
+                
                     <div className='relative flex flex-col'>
                         <label className='text-[14px]'  >Password <span className='text-[#FF0000]'> *</span></label>
                         <input
@@ -140,7 +140,7 @@ const Agency = () => {
                             />
                         )}
 
-                        {/* Forgot Password Link */}
+                 
                         <div className='w-[500px] flex justify-end'>
                             <p className='text-[#0275D8] cursor-pointer'>Forgot Password?</p>
                         </div>
@@ -157,7 +157,7 @@ const Agency = () => {
                     </div>
                 </div>
 
-                {/* Sign In Button */}
+         
                 <button
                     className='w-[250px] bg-[#1976D2] text-white py-2 rounded shadow-lg hover:bg-[#1565C0]'
 
@@ -165,10 +165,10 @@ const Agency = () => {
                     SIGN IN
                 </button>
 
-                {/* OR Divider */}
+            
                 <p>OR</p>
 
-                {/* Sign In with Google Button */}
+            
                 <div className='relative'>
                     <button className='w-[250px] border-[1px] py-2 rounded hover:bg-gray-100'>
                         Sign in with Google

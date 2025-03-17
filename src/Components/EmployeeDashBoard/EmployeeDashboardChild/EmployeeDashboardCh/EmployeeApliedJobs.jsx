@@ -51,9 +51,10 @@ const EmployeeApliedJobs = () => {
                             <th className="border border-gray-300 px-4 py-2">Candidate Name</th>
                             <th className="border border-gray-300 px-4 py-2">Email</th>
                             <th className="border border-gray-300 px-4 py-2">Company</th>
+                            <th className="border border-gray-300 px-4 py-2">Profile</th>
                             <th className="border border-gray-300 px-4 py-2">Status</th>
                             <th className="border border-gray-300 px-4 py-2">Actions</th>
-                            <th className="border border-gray-300 px-4 py-2">Profile</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +65,18 @@ const EmployeeApliedJobs = () => {
                                 <td className="border border-gray-300 px-4 py-2">{job.name}</td>
                                 <td className="border border-gray-300 px-4 py-2">{job.email}</td>
                                 <td className="border border-gray-300 px-4 py-2">{job.company}</td>
+                                <td className="border border-gray-300 px-4 py-2">
+                                    <button onClick={() => window.location.href = `/candidate-profile/${job.email}`}>
+                                        <div className="flex justify-center">
+                                            <img
+                                                className="w-10 border-2 rounded-full cursor-pointer"
+                                                src="https://i.ibb.co.com/S4J9jhj1/image.png"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <p className="text-[12px]">View Profile</p>
+                                    </button>
+                                </td>
                                 <td className="border border-gray-300 px-4 py-2">{job.status}</td>
                                 <td className="border border-gray-300 px-4 py-2">
                                     <select
@@ -78,14 +91,7 @@ const EmployeeApliedJobs = () => {
                                         <option value="Rejected">Rejected</option>
                                     </select>
                                 </td>
-                                <td className="border border-gray-300 px-4 py-2">
-                                    <button
-                                        className="px-4 py-1 bg-blue-500 text-white rounded"
-                                        onClick={() => window.location.href = `/candidate-profile/${job.applyId}`}
-                                    >
-                                        View Profile
-                                    </button>
-                                </td>
+
                             </tr>
                         ))}
                     </tbody>

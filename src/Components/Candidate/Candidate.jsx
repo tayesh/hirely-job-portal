@@ -10,10 +10,10 @@ const Candidate = () => {
         const candidates = users.filter((user) => user.userRoll === "Candidate");
 
         if (candidates.length > 0) {
-          let randomId = Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit random ID
+          let randomId = Math.floor(100000 + Math.random() * 900000); 
           const updatedCandidates = candidates.map((user, index) => ({
             ...user,
-            idNumber: randomId + index, // Increase ID for each user
+            idNumber: randomId + index, 
           }));
 
           setData(updatedCandidates);
@@ -24,7 +24,6 @@ const Candidate = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Summary Section */}
       <div className="flex gap-[72px] mb-16 mt-9 justify-center">
         {[
           { label: "Applied Candidate", count: 22 },
@@ -41,7 +40,7 @@ const Candidate = () => {
         ))}
       </div>
 
-      {/* Table Section */}
+
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead className="bg-[#DCEFFF] ">
