@@ -88,8 +88,8 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="epilogue menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            {user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
-                            {isLoggedIn && user?.userRoll !== "ADMIN" && loggedInUserLinks}
+                            {user?.userRoll === "AGENCY" ? adminLinks : commonLinks}
+                            
                         </ul>
                     </div>
                     <NavLink to="/" className="belanosima text-[40px] mr-6">
@@ -98,9 +98,9 @@ const Navbar = () => {
                 </div>
                 <div className="mr-[50px] navbar-center hidden lg:flex">
                     <ul className="menu font-normal menu-horizontal gap-6 px-1">
-                        {user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
-                        {isLoggedIn && user?.userRoll !== "ADMIN" && loggedInUserLinks}
-                        {isLoggedIn && user?.userRoll !== "ADMIN" && (
+                        {user?.userRoll === "AGENCY" ? adminLinks : commonLinks}
+                       
+                        {isLoggedIn && user?.userRoll !== "AGENCY" && (
                             <div className="flex gap-5 justify-center items-center">
                                 <img
                                     onClick={() => nav("/dashboard/getjobalert")}
@@ -123,7 +123,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    {user?.userRoll === "ADMIN" ? (
+                    {user?.userRoll === "AGENCY" ? (
                         <img
                             onClick={() => nav("/employeedashboard")}
                             className="w-14 p-[2px] border-2 rounded-full cursor-pointer"

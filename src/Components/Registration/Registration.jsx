@@ -100,6 +100,8 @@ const Registration = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('User registered successfully:', data);
+
+                
                 const authUser={
                     name:user.name,
                     phoneNumber:user.phoneNumber,
