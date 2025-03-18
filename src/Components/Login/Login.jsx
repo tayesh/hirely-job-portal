@@ -13,7 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState(''); // Password input
     const [error, setError] = useState(''); // Error message
 
-    const { setUser, setIsLoggedIn, login } = useContext(UserContext); // Use login function from context
+    const { tempUser,setTempUser, login } = useContext(UserContext); // Use login function from context
     const nav = useNavigate();
 
     // Handle contact method change (email or phone)
@@ -76,13 +76,25 @@ const Login = () => {
 
             // Parse response data
             const data = await response.json();
+            if (data.user.OTPverified) {
+                login(data.user); // Use the login function from context to update state and localStorage
+                data.user.userRoll === "ADMIN" ?
+                    nav("/employeehome")
+                    :
+                    nav("/")
+
+            }
+            else {
+                setTempUser(data.user);
+                console.log(data.user);
+                console.log(tempUser); // Store the user data temporarily
+
+                // Navigate to the OTP verification page
+                nav("/otp");
+            }
 
             // Update user context and state
-            login(data.user); // Use the login function from context to update state and localStorage
-            data.user.userRoll==="ADMIN"?
-            nav("/employeehome")
-            :
-            nav("/")// Redirect to home page after successful login
+            // Redirect to home page after successful login
 
         } catch (error) {
             setError(error.message); // Display error message

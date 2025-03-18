@@ -42,7 +42,7 @@ const Registration = () => {
     const [termsChecked, setTermsChecked] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const {isLoggedIn,setIsLoggedIn,setUser}= useContext(UserContext);
+    const {tempUser,setTempUser}= useContext(UserContext);
     
     const nav = useNavigate();
 
@@ -88,7 +88,7 @@ const Registration = () => {
             console.log("Original Password:", password);
     
             // Send the user object to the backend using fetch POST
-            const response = await fetch('https://hirely-job-portal-server.vercel.app/register', {
+            const response = await fetch('http://localhost:5000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,16 +101,14 @@ const Registration = () => {
                 const data = await response.json();
                 console.log('User registered successfully:', data);
 
+                setTempUser(data.user);
+                console.log(data.user);
+                console.log(tempUser); // Store the user data temporarily
+
+                // Navigate to the OTP verification page
+                nav("/otp");
                 
-                const authUser={
-                    name:user.name,
-                    phoneNumber:user.phoneNumber,
-                    email:user.email,
-                    userRoll:user.userRoll
-                }
-                setUser(authUser);
-                setIsLoggedIn(true);
-                nav("/");
+
                 
                 
                 setErrorMessage(""); // Clear any error messages

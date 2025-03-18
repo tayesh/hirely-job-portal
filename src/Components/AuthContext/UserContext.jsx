@@ -8,6 +8,7 @@ export const UserProvider = ({ children }) => {
         const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
         return storedIsLoggedIn ? JSON.parse(storedIsLoggedIn) : false;
     });
+    const [tempUser,setTempUser]= useState(null);
 
     const [user, setUser] = useState(() => {
         const storedUser = localStorage.getItem("user");
@@ -44,6 +45,8 @@ export const UserProvider = ({ children }) => {
 
     // Provide the context value to children
     const value = {
+        tempUser,
+        setTempUser,
         isLoggedIn,
         user,
         setIsLoggedIn,
