@@ -33,6 +33,11 @@ import CompanyProfilech from "../EmployeeDashBoard/EmployeeDashboardChild/Employ
 import AgencyVarification from "../EmployeeDashBoard/AgencyVarification";
 import EmployeeApliedJobs from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeApliedJobs";
 import HowtoStart from "../EmployeeDashBoard/HowtoStart";
+import PricingEmp from "../EmployeeDashBoard/EmployeeDashboardChild/PricingEmp";
+import Direct from "../EmployeeDashBoard/Direct";
+import EmployeeAddjob from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeAddjob";
+import EmployeepostedJob from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeepostedJob";
+import CandidateProfile from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/CandidateProfile";
 
 
 const router = createBrowserRouter([
@@ -105,6 +110,18 @@ const router = createBrowserRouter([
         element:<HowtoStart></HowtoStart>
       },
       {
+        path:"/employeepricing",
+        element:<PricingEmp></PricingEmp>
+      },
+      {
+        path:"/employeerecruit",
+        element:<Direct></Direct>
+      },
+      {
+        path: "/users/email/:email",
+        element: <CandidateProfile></CandidateProfile>
+    },
+      {
         path: "/employeedashboard",
         element: <EmployeeDashboard></EmployeeDashboard>,
         children: [
@@ -139,6 +156,14 @@ const router = createBrowserRouter([
           {
             path:"allapplied",
             element:<EmployeeApliedJobs></EmployeeApliedJobs>
+          },
+          {
+            path: "newjobpost",
+            element: <EmployeeAddjob></EmployeeAddjob>
+          },
+          {
+            path:"postedjob",
+            element:<EmployeepostedJob></EmployeepostedJob>
           }
         ]
       },

@@ -28,39 +28,9 @@ const EmployeeSideBar = () => {
             path: "/employeedashboard/allapplied"
         },
         {
-            title: "Saved Jobs",
-            icon: "https://i.ibb.co.com/tMG2BSs2/saved.png",
-            path: "/employeedashboard/savedjobs"
-        },
-        {
-            title: "Saved Profiles",
-            icon: "https://i.ibb.co.com/S1SXBjw/company.png",
-            path: "/employeedashboard/savedprofiles"
-        },
-        {
-            title: "Talent Management",
-            icon: "https://i.ibb.co.com/VWr2f75y/talent.png",
-            path: "/employeedashboard/talentmanagement"
-        },
-        {
             title: "Messages",
             icon: "https://i.ibb.co.com/xK31SZQN/message.png",
             path: "/employeedashboard/messages"
-        },
-        {
-            title: "Company Profile",
-            icon: "https://i.ibb.co.com/S1SXBjw/company.png",
-            path: "/employeedashboard/companyprofile"
-        },
-        {
-            title: "Agency Verification",
-            icon: "https://i.ibb.co.com/ZnmmSXw/agency.png",
-            path: "/employeedashboard/agencyverification"
-        },
-        {
-            title: "Pricing Packages",
-            icon: "https://i.ibb.co.com/3YjM8w1K/pricing.png",
-            path: "/employeedashboard/pricingpackages"
         },
         {
             title: "Billing Details",

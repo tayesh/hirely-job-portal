@@ -105,7 +105,6 @@ const Registration = () => {
                     phoneNumber:user.phoneNumber,
                     email:user.email,
                     userRoll:user.userRoll
-
                 }
                 setUser(authUser);
                 setIsLoggedIn(true);

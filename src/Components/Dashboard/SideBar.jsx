@@ -34,14 +34,9 @@ const SideBar = () => {
             path: "/dashboard/savedjobs"
         },
         {
-            title: "Company",
+            title: "Followed Companies",
             icon: "https://i.ibb.co.com/3mRS5cNS/00ebb177f6cf4c54344d592ec43d4df7.png",
             path: "/dashboard/company"
-        },
-        {
-            title: "Recruiting",
-            icon: "https://i.ibb.co.com/ZzF5RPxQ/31f168d98938f89f5a93fc69f2adeafa.png",
-            path: "/dashboard/recruiting"
         },
         {
             title: "Message",
@@ -58,8 +53,6 @@ const SideBar = () => {
             icon: "https://i.ibb.co.com/PG8kJ1WJ/image.png",
             path: "/dashboard/settings"
         },
-        
-
     ]
 
     const {logout}=useContext(UserContext);

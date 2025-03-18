@@ -6,7 +6,7 @@ import SearchJobsByBenefits from './SearchJobsByBenefits';
 
 const FindJob = () => {
     const [jobs, setJobs] = useState([]);
-    const [isBenefitsModalOpen, setIsBenefitsModalOpen] = useState(false); // State to control modal visibility
+    // const [isBenefitsModalOpen, setIsBenefitsModalOpen] = useState(false); // State to control modal visibility
     useEffect(() => {
         fetch('https://hirely-job-portal-server.vercel.app/jobs')
             .then(res => res.json())
@@ -54,15 +54,14 @@ const FindJob = () => {
         });
     };
 
-    // Handle search by benefits
-    const handleBenefitsSearch = (selectedBenefits) => {
-        console.log("Selected Benefits:", selectedBenefits);
-        // Add logic to filter jobs based on selected benefits
-        const filteredJobs = jobs.filter((job) =>
-            selectedBenefits.every((benefit) => job.benefits.includes(benefit))
-        );
-        setJobs(filteredJobs); // Update the jobs state with filtered results
-    };
+    // const handleBenefitsSearch = (selectedBenefits) => {
+    //     console.log("Selected Benefits:", selectedBenefits);
+    //     // Add logic to filter jobs based on selected benefits
+    //     const filteredJobs = jobs.filter((job) =>
+    //         selectedBenefits.every((benefit) => job.benefits.includes(benefit))
+    //     );
+    //     setJobs(filteredJobs); // Update the jobs state with filtered results
+    // };
 
     return (
         <div className='grid grid-cols-5 bg-gray-50 pb-5'>
@@ -80,7 +79,6 @@ const FindJob = () => {
                 </div>
 
                 <div className="flex flex-col gap-4 items-center justify-center w-full text-gray-400">
-                    {/* Select Skills */}
                     <select
                         name="Skills"
                         className="select select-bordered w-[80%]"
@@ -209,7 +207,7 @@ const FindJob = () => {
                         <p className='text-white'>Search</p>
                     </button>
 
-                    {/* Button to open the modal */}
+                    {/* Button to open the modal
                     <button
                         onClick={() => setIsBenefitsModalOpen(true)}
                         className='flex justify-center items-center gap-2 p-2 rounded bg-[#E5F5FF] w-[80%] shadow-lg'
@@ -219,7 +217,7 @@ const FindJob = () => {
                             <path d="M14.2241 0.000687124C14.5453 0.154452 14.7341 0.418048 14.8803 0.735188C15.113 1.23905 15.3752 1.72986 15.6134 2.23166C15.6418 2.30259 15.6899 2.36389 15.7522 2.4083C15.8143 2.45271 15.8879 2.47836 15.9642 2.48221C16.5765 2.55978 17.1875 2.65314 17.7991 2.73894C18.1519 2.78837 18.4279 2.94489 18.5432 3.29978C18.6585 3.65468 18.5473 3.94299 18.2865 4.19218C17.8492 4.61435 17.425 5.05024 16.9774 5.46142C16.8092 5.61588 16.7715 5.76347 16.8126 5.97695C16.9211 6.53229 17.0069 7.09243 17.1078 7.64915C17.1765 8.02462 17.1635 8.37746 16.8236 8.62462C16.4838 8.87169 16.1551 8.80238 15.8118 8.61223C15.2895 8.32254 14.7519 8.06308 14.2288 7.77546C14.1653 7.73446 14.0913 7.71269 14.0157 7.71269C13.9401 7.71269 13.8661 7.73446 13.8025 7.77546C13.2602 8.06992 12.7091 8.34862 12.1661 8.64177C11.8379 8.81954 11.5167 8.84769 11.205 8.61839C10.8934 8.38915 10.846 8.08708 10.9098 7.73492C11.0218 7.11714 11.1206 6.49933 11.238 5.88152C11.2532 5.81164 11.2485 5.73887 11.2242 5.67159C11.1999 5.6043 11.1571 5.54524 11.1007 5.50123C10.6614 5.08112 10.2351 4.64728 9.78754 4.2361C9.50054 3.97182 9.37562 3.66498 9.48823 3.29566C9.60077 2.92635 9.90008 2.78082 10.2632 2.7314C10.8645 2.64972 11.4645 2.5543 12.0672 2.47948C12.1483 2.47351 12.2261 2.44448 12.2912 2.39583C12.3564 2.34719 12.4064 2.28095 12.4352 2.20489C12.6727 1.7031 12.9348 1.21228 13.1628 0.705676C13.309 0.380297 13.506 0.12768 13.8492 0L14.2241 0.000687124ZM11.5578 7.91546C11.5578 8.13239 11.6677 8.15023 11.853 8.05277C12.4262 7.74938 13.0035 7.45488 13.5753 7.14872C13.7139 7.06895 13.8714 7.02789 14.0313 7.02982C14.1912 7.03176 14.3476 7.07662 14.4842 7.15971C15.008 7.44528 15.5386 7.71985 16.0692 7.99238C16.1729 8.04592 16.2834 8.16677 16.4063 8.083C16.5435 7.98892 16.4625 7.83246 16.4434 7.70954C16.3472 7.09999 16.2374 6.49178 16.1338 5.8829C16.1055 5.74122 16.1149 5.59458 16.1612 5.45771C16.2075 5.32083 16.2889 5.19855 16.3974 5.1031C16.858 4.66034 17.3131 4.21071 17.7702 3.76245C17.8389 3.69381 17.9535 3.63478 17.9035 3.50985C17.8533 3.38491 17.738 3.40755 17.6371 3.39245C17.0193 3.30183 16.3953 3.20436 15.7734 3.11786C15.6141 3.10251 15.462 3.04404 15.3334 2.94873C15.2048 2.85343 15.1047 2.7249 15.0437 2.57695C14.7794 2.01886 14.5007 1.46765 14.2199 0.916423C14.1725 0.821008 14.1513 0.676845 14.0037 0.688515C13.8856 0.698125 13.8575 0.821685 13.8128 0.9123C13.5342 1.47519 13.2571 2.03853 12.9815 2.60234C12.9223 2.74018 12.8275 2.85984 12.707 2.94908C12.5864 3.03833 12.4442 3.09397 12.2952 3.11032C11.6732 3.19475 11.0526 3.29292 10.4321 3.38491C10.325 3.40138 10.1877 3.37186 10.1383 3.50641C10.0888 3.64095 10.2131 3.70892 10.29 3.78099C10.7307 4.21392 11.1742 4.64454 11.6203 5.07288C11.7395 5.17945 11.8278 5.31607 11.8762 5.46846C11.9245 5.62086 11.9309 5.78344 11.8949 5.93919C11.7755 6.59407 11.6725 7.24483 11.5578 7.91546Z" fill="#0079C1" />
                         </svg>
                         <p className='text-[#0079C1]'>Search By Benefits</p>
-                    </button>
+                    </button> */}
                 </div>
             </div>
 
@@ -246,12 +244,12 @@ const FindJob = () => {
                 </div>
             </div>
 
-            {/* Modal for Search By Benefits */}
+            {/* Modal for Search By Benefits
             <SearchJobsByBenefits
                 isOpen={isBenefitsModalOpen}
                 onClose={() => setIsBenefitsModalOpen(false)}
                 onSearch={handleBenefitsSearch}
-            />
+            /> */}
         </div>
     );
 };
