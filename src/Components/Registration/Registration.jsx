@@ -100,15 +100,13 @@ const Registration = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('User registered successfully:', data);
-
+              
                 setTempUser(data.user);
                 console.log(data.user);
                 console.log(tempUser); // Store the user data temporarily
 
                 // Navigate to the OTP verification page
                 nav("/otp");
-                
-
                 
                 
                 setErrorMessage(""); // Clear any error messages

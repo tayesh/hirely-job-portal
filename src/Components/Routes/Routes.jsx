@@ -38,6 +38,10 @@ import Direct from "../EmployeeDashBoard/Direct";
 import EmployeeAddjob from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeAddjob";
 import EmployeepostedJob from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeepostedJob";
 import CandidateProfile from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/CandidateProfile";
+import OTPverification from "../Agency/OTPverification";
+import AccountCreated from "../Agency/AccountCreated";
+import VerifyAccount from "../Agency/VerifyAccount";
+import Verified from "../Agency/Verified";
 
 
 const router = createBrowserRouter([
@@ -70,6 +74,22 @@ const router = createBrowserRouter([
       {
         path: "/agency",
         element: <Agency></Agency>
+      },
+      {
+        path: "/otp",
+        element: <OTPverification></OTPverification>
+      },
+      {
+        path: "/accCreated",
+        element: <AccountCreated></AccountCreated>
+      },
+      {
+        path: "/verifyacc",
+        element: <VerifyAccount></VerifyAccount>
+      },
+      {
+        path: "/verified",
+        element:<Verified></Verified>
       },
       {
         path: "/register",
