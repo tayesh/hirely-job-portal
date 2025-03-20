@@ -5,7 +5,7 @@ import Footer from "../Footer/Footer";
 const Root = () => {
     return (
         <div>
-            <div className="epilogue">
+            <div className="epilogue mb-[76px]">
             <Navbar></Navbar>
             </div>
             <Outlet></Outlet>

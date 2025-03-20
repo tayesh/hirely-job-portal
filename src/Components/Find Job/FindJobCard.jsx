@@ -120,6 +120,12 @@ const FindJobCard = ({ object }) => {
             }
         }
     };
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
 
     // Handle applying for the job
     const handleAddtoApplied = async (product) => {
@@ -219,7 +225,7 @@ const FindJobCard = ({ object }) => {
                 <p>Deadline: {deadline}</p>
             </div>
             <div className='flex justify-between'>
-                <Link to={`/jobdetails/${_id}`}>
+                <Link onClick={scrollToTop} to={`/jobdetails/${_id}`}>
                     <button className='text-[18px] border-2 border-[#1976D280] text-[#1976D2] py-2 px-3 rounded'>View Details</button>
                 </Link>
                 <button onClick={() => handleAddtoApplied(object)} className='text-[18px] text-[#ffffff] bg-[#00A264] py-2 px-3 rounded shadow-[0px_3px_2px_rgba(0,0,0,0.5)]'>Apply Now</button>

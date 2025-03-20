@@ -88,7 +88,7 @@ const Registration = () => {
             console.log("Original Password:", password);
     
             // Send the user object to the backend using fetch POST
-            const response = await fetch('http://localhost:5000/register', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -78,11 +78,14 @@ const Login = () => {
             const data = await response.json();
             if (data.user.OTPverified) {
                 login(data.user); // Use the login function from context to update state and localStorage
-                data.user.userRoll === "ADMIN" ?
-                    nav("/employeehome")
-                    :
-                    nav("/")
-
+            
+                if (data.user.userRoll === "ADMIN") {
+                    nav("/admindashboard"); // Redirect ADMIN to /admindashboard
+                } else if (data.user.userRoll === "AGENCY") {
+                    nav("/employeehome"); // Redirect AGENCY to /employeehome
+                } else {
+                    nav("/"); // Redirect all other users to the home page
+                }
             }
             else {
                 setTempUser(data.user);

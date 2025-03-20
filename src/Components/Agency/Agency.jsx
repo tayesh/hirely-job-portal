@@ -126,7 +126,7 @@ const Agency = () => {
             console.log("Original Password:", formData.password);
 
             // Send the agency object to the backend using fetch POST
-            const response = await fetch('http://localhost:5000/register/agency', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/register/agency', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

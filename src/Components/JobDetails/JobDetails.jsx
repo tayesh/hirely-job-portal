@@ -81,13 +81,13 @@ const JobDetails = () => {
     return (
         <div className="p-6 px-[73px] bg-white shadow-lg rounded-lg">
             <div>
-                <div className="flex items-center gap-8 mx-[112px] mb-8">
+                {/* <div className="flex items-center gap-8 mx-[112px] mb-8">
                     <a className="text-[18px] text-[#72737C] poppins">Job Details</a>
                     <a className="text-[18px] text-[#72737C] poppins">Company Details</a>
                     <a className="text-[18px] text-[#72737C] poppins">Opening</a>
                     <a className="text-[18px] text-[#72737C] poppins">Interview</a>
                     <a className="text-[18px] text-[#72737C] poppins">FAQ</a>
-                </div>
+                </div> */}
 
                 <div>
                     <h2 className="nunito text-[#0079C1] text-[36px]">{job.jobTitle}</h2>
@@ -95,10 +95,10 @@ const JobDetails = () => {
                         <p className="text-[14px] text-[#72737C] poppins">{job.company}</p>
                         <div className="flex items-center gap-[44px]">
                             <button onClick={() => handleAddtoApplied(job)} className="bg-[#00A264] w-[131px] px-3 h-[37px] rounded-[4px] epilogue text-[14px] text-white">Apply Now</button>
-                            <div className="flex gap-2">
+                            {/* <div className="flex gap-2">
                                 <button className="text-[#0079C1] h-[30px] w-[50px] text-[20px] btn border-[#0079C1] bg-white"><CiHeart /></button>
                                 <button className="text-[#0079C1] h-[30px] w-[50px] text-[20px] btn border-[#0079C1] bg-white"><AiOutlineLike /></button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="flex items-center gap-[65px] mt-[44px] mb-8">

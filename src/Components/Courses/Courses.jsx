@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -42,11 +42,11 @@ const Courses = () => {
     const filteredCourses =
         activeTab === "Popular Courses"
             ? [...courses]
-                  .sort((a, b) => b.learners - a.learners) 
-                  .slice(0, 10) 
+                .sort((a, b) => b.learners - a.learners)
+                .slice(0, 10)
             : activeTab === "New Courses"
-            ? [...courses].filter(isNewCourse) 
-            : [];
+                ? [...courses].filter(isNewCourse)
+                : [];
 
     if (loading) {
         return <p className="text-center text-[18px] text-gray-500">Loading courses...</p>;
@@ -56,6 +56,13 @@ const Courses = () => {
         return <p className="text-center text-[18px] text-red-500">Error: {error}</p>;
     }
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+
     return (
         <div className="mx-14 mb-[42px]">
             <div className="flex items-center justify-between mx-12 mb-8">
@@ -63,11 +70,10 @@ const Courses = () => {
                 {["Popular Courses", "New Courses"].map((tab) => (
                     <a
                         key={tab}
-                        className={`text-[20px] roboto cursor-pointer relative ${
-                            activeTab === tab
+                        className={`text-[20px] roboto cursor-pointer relative ${activeTab === tab
                                 ? "text-[#0091C7] font-normal after:content-[''] after:absolute after:left-1/2 after:bottom-[-3px] after:w-1/2 after:h-[3px] after:bg-[#0091C7] after:-translate-x-1/2 after:rounded-full"
                                 : "text-black"
-                        }`}
+                            }`}
                         onClick={() => setActiveTab(tab)}
                     >
                         {tab}
@@ -78,7 +84,7 @@ const Courses = () => {
                 slidesPerView={4}
                 spaceBetween={30}
                 autoplay={{
-                    delay: 1200,
+                    delay: 1600,
                     disableOnInteraction: false,
                 }}
                 modules={[Autoplay]}
@@ -103,12 +109,17 @@ const Courses = () => {
                                         <p className="text-[#747C82] text-[12px] roboto">{course.learners} learners</p>
                                     </div>
                                     <div className="flex justify-between gap-5">
+
                                         <button
                                             className="btn font-normal rounded-md text-[14px] roboto border-[#747C82] bg-white"
-                                            onClick={() => navigate(`/more-info/${course._id}`, { state: { course } })}
+                                            onClick={() => {
+                                                navigate(`/more-info/${course._id}`, { state: { course } })
+                                                scrollToTop()
+                                            }}
                                         >
                                             More Info
                                         </button>
+
                                         <button className="btn font-normal rounded-md text-[14px] roboto text-white bg-[#009B5D]">
                                             Take This Course
                                         </button>

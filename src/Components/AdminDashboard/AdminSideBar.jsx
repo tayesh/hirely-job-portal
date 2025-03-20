@@ -1,57 +1,58 @@
 import React, { useContext } from 'react';
 import { IoCameraOutline } from "react-icons/io5";
 import { NavLink, useNavigate } from 'react-router-dom';
-import SideBarLink from './SideBarLink'
 import { UserContext } from '../AuthContext/UserContext';
+import AdminSideBardLinks from './AdminSideBardLinks';
 
-const SideBar = () => {
+const AdminSideBar = () => {
 
     const SideBarLinks = [
         {
             title: "Dashboard",
             icon: "https://i.ibb.co.com/xqnMHPNc/dashboard-1.png",
-            path: "/dashboard",
+            path: "/admindashboard",
             w: "50px"
         },
         {
-            title: "Profile",
-            icon: "https://i.ibb.co.com/vxSV4JFP/image.png",
-            path: "/dashboard/profile"
-        },
-        {
-            title: "Create CV",
-            icon: "https://i.ibb.co.com/GQWmrQ48/image.png",
-            path: "/dashboard/createcv"
+            title: "Post a Job",
+            icon: "https://i.ibb.co.com/nNKd1r0F/add-symbol.png",
+            path: "/admindashboard/newjob"
         },
         {
             title: "Applied Jobs",
             icon: "https://i.ibb.co.com/99mMhNxv/a3c415ecce352a368e708cb12d4f62d4.png",
-            path: "/dashboard/appliedjobs"
+            path: "/admindashboard/allappliedjobs"
         },
+        
         {
-            title: "Saved Jobs",
-            icon: "https://i.ibb.co.com/rRhLknQb/bc4f7e1bb7957bb133982bf278f80c3f.png",
-            path: "/dashboard/savedjobs"
-        },
-        {
-            title: "Followed Companies",
+            title: "Companies",
             icon: "https://i.ibb.co.com/3mRS5cNS/00ebb177f6cf4c54344d592ec43d4df7.png",
-            path: "/dashboard/company"
+            path: "/admindashboard/allcompany"
+        },
+        {
+            title: "Agencies",
+            icon: "https://i.ibb.co.com/vxSV4JFP/image.png",
+            path: "/admindashboard/allagencies"
+        },
+        {
+            title: "Candidates",
+            icon: "https://i.ibb.co.com/vxSV4JFP/image.png",
+            path: "/admindashboard/allusers"
+        },
+        {
+            title: "All Jobs",
+            icon: "https://i.ibb.co.com/99mMhNxv/a3c415ecce352a368e708cb12d4f62d4.png",
+            path: "/admindashboard/alljobs"
         },
         {
             title: "Message",
             icon: "https://i.ibb.co.com/mFS4ycJY/e5fe06b2b901ba416af1480602df7613.png",
-            path: "/dashboard/message"
-        },
-        {
-            title: "Get Job Alert",
-            icon: "https://i.ibb.co.com/TxH5x7MJ/0fd2903a437626895f1a16d355618453.png",
-            path: "/dashboard/getjobalert"
+            path: "/admindashboard/message"
         },
         {
             title: "Settings",
             icon: "https://i.ibb.co.com/PG8kJ1WJ/image.png",
-            path: "/dashboard/settings"
+            path: "/admindashboard/adsettings"
         },
     ]
 
@@ -68,7 +69,7 @@ const SideBar = () => {
 
 
     return (
-        <div className='col-span-2 pt-20'>
+        <div className='col-span-2 pt-12'>
             <div className='flex flex-col items-center mb-20'>
                 <div className=' relative'>
                     <div className='flex justify-center items-center border-[4px] rounded-full'>
@@ -86,7 +87,7 @@ const SideBar = () => {
             </div>
             <div className='pl-12 space-y-5 my-5' >
                 {
-                    SideBarLinks.map(item => <SideBarLink  object={item}></SideBarLink>)
+                    SideBarLinks.map(item => <AdminSideBardLinks  object={item}></AdminSideBardLinks>)
                 }
                 <div onClick={handleLogOut} className=' flex  items-center gap-4 cursor-pointer' >
                     <img className='w-[35px]' src="https://i.ibb.co.com/YTQsHq71/image.png" alt="" />
@@ -98,4 +99,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default AdminSideBar;

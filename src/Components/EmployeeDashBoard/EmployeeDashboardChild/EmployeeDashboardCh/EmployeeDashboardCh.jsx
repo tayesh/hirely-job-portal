@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 
 const EmployeeDashboardCh = () => {
     return (
-        <div className="mt-9">
-            <div className="flex justify-between mx-5 ">
+        <div className="flex items-center justify-center">
+            <div className="my-48">
+            <div className="flex justify-between mb-12 mx-12">
                 <h2 className="poppins font-semibold text-[32px] text-[#000000]">Welcome to your Dashboard!</h2>
                 <Link to="/employeedashboard/newjobpost">
-                <p className="bg-[#0079C1] epilogue flex items-center py-2 px-4 gap-2 text-[20px] text-white rounded-md"><img className="h-6 w-6" src="https://i.ibb.co.com/1tSLgMMr/add.png" alt="" />New Job Post</p>
+                    <p className="bg-[#0079C1] epilogue flex items-center py-2 px-4 gap-2 text-[20px] text-white rounded-md"><img className="h-6 w-6" src="https://i.ibb.co.com/1tSLgMMr/add.png" alt="" />New Job Post</p>
                 </Link>
             </div>
             <div className="grid grid-cols-3 gap-4 mx-6 py-4 h-[40vh] mb-[100px]">
@@ -48,11 +49,12 @@ const EmployeeDashboardCh = () => {
                 </div>
                 <div></div>
             </div>
-            <h2 className="ml-6 text-[24px] font-semibold poppins text-black">This week's applicants.</h2>
+            {/* <h2 className="ml-6 text-[24px] font-semibold poppins text-black">This week's applicants.</h2>
             <div className="flex items-center justify-center pt-20">
                 <img src="https://i.ibb.co.com/HDLzFmFN/notfound.png" alt="" />
             </div>
-            <h2 className="text-center text-[32px] font-semibold poppins text-black">Candidate Not Found!</h2>
+            <h2 className="text-center text-[32px] font-semibold poppins text-black">Candidate Not Found!</h2> */}
+        </div>
         </div>
     );
 };

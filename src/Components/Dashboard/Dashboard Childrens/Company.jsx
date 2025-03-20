@@ -48,6 +48,13 @@ const Company = () => {
         }
     };
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+
     return (
         <div className='px-32 '>
             <div className='min-h-[930px] border-2 rounded-xl shadow-md mt-10 p-5'>
@@ -107,7 +114,7 @@ const Company = () => {
 
                                     </div>
                                     <div className=" flex justify-center">
-                                        <Link to={`/companyprofile/${company._id}`}>
+                                        <Link onClick={scrollToTop} to={`/companyprofile/${company._id}`}>
                                             <button className=" bg-blue-800 rounded-md text-white px-3 py-2">
                                                 View Profile
                                             </button>

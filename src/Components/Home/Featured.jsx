@@ -60,6 +60,13 @@ const Featured = () => {
         }
     };
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+
     return (
         <div className="mx-16 mb-[70px]">
             <div className="flex justify-between mb-6">
@@ -70,7 +77,7 @@ const Featured = () => {
                 slidesPerView={3}
                 spaceBetween={30}
                 autoplay={{
-                    delay: 1300,
+                    delay: 1500,
                     disableOnInteraction: false,
                 }}
                 modules={[Autoplay]}
@@ -130,7 +137,7 @@ const Featured = () => {
                                         </p>
                                     </div>
                                     <div className="card-actions justify-end">
-                                        <Link to={`/companyprofile/${company._id}`}>
+                                        <Link onClick={scrollToTop} to={`/companyprofile/${company._id}`}>
                                             <button className="btn text-white h-[40px] epilogue text-[12px] font-normal bg-[#1976D2]">
                                                 View Profile
                                             </button>

@@ -17,7 +17,7 @@ const Home = () => {
            <Explored></Explored>
            <Expire></Expire>
            <Post></Post>
-           <Looking></Looking>
+           {/* <Looking></Looking> */}
         </div>
     );
 };

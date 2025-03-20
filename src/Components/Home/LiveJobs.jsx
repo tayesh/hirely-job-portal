@@ -13,6 +13,13 @@ const LiveJobs = () => {
         return new Date(cleanedDateString);
     };
     
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+    
     const liveJobs = jobsData.filter(job => {
         const deadlineDate = parseCustomDate(job.deadline);
         return deadlineDate > new Date();
@@ -61,7 +68,7 @@ const LiveJobs = () => {
                                     Deadline: {job.deadline}
                                 </p>
                                 <div className="card-actions justify-end">
-                                <Link to={`/jobdetails/${job._id}`}>
+                                <Link onClick={scrollToTop} to={`/jobdetails/${job._id}`}>
                                             <button className="btn text-white h-[44px] text-[14px] font-normal bg-[#1976D2]">View Details</button>
                                         </Link>
                                 </div>

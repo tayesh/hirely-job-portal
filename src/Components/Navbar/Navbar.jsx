@@ -25,17 +25,14 @@ const Navbar = () => {
             <NavLink to="/findjob" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Find Job</li>
             </NavLink>
-            {/* <NavLink to="/coursepage" style={navlinkStyles}>
-                <li className="epilogue font-normal text-[16px]">Courses</li>
-            </NavLink> */}
             <NavLink to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
         </>
     );
 
-    // Links for ADMIN users
-    const adminLinks = (
+    // Links for Agency users
+    const agencyLinks = (
         <>
             <NavLink to="/employeehome" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
@@ -46,9 +43,6 @@ const Navbar = () => {
             <NavLink to="/employeepricing" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Pricing</li>
             </NavLink>
-            {/* <NavLink to="/candidate" style={navlinkStyles}>
-                <li className="epilogue font-normal text-[16px]">Candidate</li>
-            </NavLink> */}
             <NavLink to="/employeerecruit" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Direct Recruiting</li>
             </NavLink>
@@ -58,15 +52,15 @@ const Navbar = () => {
         </>
     );
 
-    // Links for logged-in users (non-ADMIN)
-    const loggedInUserLinks = (
-        <NavLink to="/dashboard" style={navlinkStyles}>
-            <li className="epilogue font-normal text-[16px]">Dashboard</li>
+    // Links for Admin users
+    const adminLinks = (
+        <NavLink to="/admindashboard">
+
         </NavLink>
     );
 
     return (
-        <div className="">
+        <div className="fixed top-0 w-full z-50">
             <div className="navbar bg-base-100 shadow-lg px-8">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -88,19 +82,21 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="epilogue menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            {user?.userRoll === "AGENCY" ? adminLinks : commonLinks}
-                            
+                            {user?.userRoll === "AGENCY" ? agencyLinks : user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
                         </ul>
                     </div>
-                    <NavLink to="/" className="belanosima text-[40px] mr-6">
+                    <NavLink
+                        to={user?.userRoll === "AGENCY" ? "/employeehome" : user?.userRoll === "ADMIN" ? "/admindashboard" : "/"}
+                        className="belanosima text-[40px] mr-6"
+                    >
                         Hire<span className="text-[#0079C1] belanosima">ly</span>
                     </NavLink>
                 </div>
                 <div className="mr-[50px] navbar-center hidden lg:flex">
                     <ul className="menu font-normal menu-horizontal gap-6 px-1">
-                        {user?.userRoll === "AGENCY" ? adminLinks : commonLinks}
-                       
-                        {isLoggedIn && user?.userRoll !== "AGENCY" && (
+                        {user?.userRoll === "AGENCY" ? agencyLinks : user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
+
+                        {isLoggedIn && user?.userRoll !== "AGENCY" && user?.userRoll !== "ADMIN" && (
                             <div className="flex gap-5 justify-center items-center">
                                 <img
                                     onClick={() => nav("/dashboard/getjobalert")}
@@ -126,6 +122,13 @@ const Navbar = () => {
                     {user?.userRoll === "AGENCY" ? (
                         <img
                             onClick={() => nav("/employeedashboard")}
+                            className="w-14 p-[2px] border-2 rounded-full cursor-pointer"
+                            src="https://i.ibb.co.com/S4J9jhj1/image.png"
+                            alt=""
+                        />
+                    ) : user?.userRoll === "ADMIN" ? (
+                        <img
+                            onClick={() => nav("/admindashboard")}
                             className="w-14 p-[2px] border-2 rounded-full cursor-pointer"
                             src="https://i.ibb.co.com/S4J9jhj1/image.png"
                             alt=""

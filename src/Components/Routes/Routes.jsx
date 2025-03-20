@@ -42,6 +42,21 @@ import OTPverification from "../Agency/OTPverification";
 import AccountCreated from "../Agency/AccountCreated";
 import VerifyAccount from "../Agency/VerifyAccount";
 import Verified from "../Agency/Verified";
+import Terms from "../Terms";
+import Privacy from "../Privacy";
+import Refund from "../Refund";
+import About from "../About";
+import Faqcand from "../Faqcand";
+import Faqcom from "../Faqcom";
+import AdminDashboard from "../AdminDashboard/AdminDashboard";
+import AdminAllApplied from "../AdminDashboard/AdminDashboardCh/AdminAllApplied";
+import AdminAllCOmpany from "../AdminDashboard/AdminDashboardCh/AdminAllCOmpany";
+import AdminAllCand from "../AdminDashboard/AdminDashboardCh/AdminAllCand";
+import AdminAllAgency from "../AdminDashboard/AdminDashboardCh/AdminAllAgency";
+import AdminPostJob from "../AdminDashboard/AdminPostJob";
+import AdminAllJobs from "../AdminDashboard/AdminDashboardCh/AdminAllJobs";
+import AdminSettings from "../AdminDashboard/AdminSettings";
+import AdminDashboardCh from "../AdminDashboard/AdminDashboardCh/AdminDashboardCh";
 
 
 const router = createBrowserRouter([
@@ -68,6 +83,30 @@ const router = createBrowserRouter([
         element: <Support></Support>
       },
       {
+        path: "/terms",
+        element: <Terms></Terms>
+      },
+      {
+        path: "/privacy",
+        element: <Privacy></Privacy>
+      },
+      {
+        path: "/refund",
+        element: <Refund></Refund>
+      },
+      {
+        path: "/about",
+        element: <About></About>
+      },
+      {
+        path: "/faqcan",
+        element: <Faqcand></Faqcand>
+      },
+      {
+        path: "/faqcom",
+        element: <Faqcom></Faqcom>
+      },
+      {
         path: "/login",
         element: <Login></Login>
       },
@@ -89,7 +128,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/verified",
-        element:<Verified></Verified>
+        element: <Verified></Verified>
       },
       {
         path: "/register",
@@ -126,21 +165,59 @@ const router = createBrowserRouter([
         element: <Candidate></Candidate>
       },
       {
-        path:"/howtostart",
-        element:<HowtoStart></HowtoStart>
+        path: "/howtostart",
+        element: <HowtoStart></HowtoStart>
       },
       {
-        path:"/employeepricing",
-        element:<PricingEmp></PricingEmp>
+        path: "/employeepricing",
+        element: <PricingEmp></PricingEmp>
       },
       {
-        path:"/employeerecruit",
-        element:<Direct></Direct>
+        path: "/employeerecruit",
+        element: <Direct></Direct>
       },
       {
         path: "/users/email/:email",
         element: <CandidateProfile></CandidateProfile>
-    },
+      },
+      {
+        path:"/admindashboard",
+        element:<AdminDashboard></AdminDashboard>,
+        children:[
+          {
+            path:"/admindashboard",
+            element:<AdminDashboardCh></AdminDashboardCh>
+          },
+          {
+            path:"allappliedjobs",
+            element:<AdminAllApplied></AdminAllApplied>
+          },
+          {
+            path:"allcompany",
+            element:<AdminAllCOmpany></AdminAllCOmpany>
+          },
+          {
+            path:"alljobs",
+            element:<AdminAllJobs></AdminAllJobs>
+          },
+          {
+            path:"allusers",
+            element:<AdminAllCand></AdminAllCand>
+          },
+          {
+            path:"allagencies",
+            element:<AdminAllAgency></AdminAllAgency>
+          },
+          {
+            path:"newjob",
+            element:<AdminPostJob></AdminPostJob>
+          },
+          {
+            path:"adsettings",
+            element:<AdminSettings></AdminSettings>
+          }
+        ]
+      },
       {
         path: "/employeedashboard",
         element: <EmployeeDashboard></EmployeeDashboard>,
@@ -154,36 +231,36 @@ const router = createBrowserRouter([
             element: <EmployeeMessage></EmployeeMessage>
           },
           {
-            path:"talentmanagement",
-            element:<EmployeeTalentCh></EmployeeTalentCh>
+            path: "talentmanagement",
+            element: <EmployeeTalentCh></EmployeeTalentCh>
           },
           {
-            path:"notifications",
-            element:<EmployeeNotifiCh></EmployeeNotifiCh>
+            path: "notifications",
+            element: <EmployeeNotifiCh></EmployeeNotifiCh>
           },
           {
-            path:"settings",
-            element:<EmployeeAccSettCh></EmployeeAccSettCh>
+            path: "settings",
+            element: <EmployeeAccSettCh></EmployeeAccSettCh>
           },
           {
-            path:"companyprofile",
-            element:<CompanyProfilech></CompanyProfilech>
+            path: "companyprofile",
+            element: <CompanyProfilech></CompanyProfilech>
           },
           {
-            path:"agencyverification",
+            path: "agencyverification",
             element: <AgencyVarification></AgencyVarification>
           },
           {
-            path:"allapplied",
-            element:<EmployeeApliedJobs></EmployeeApliedJobs>
+            path: "allapplied",
+            element: <EmployeeApliedJobs></EmployeeApliedJobs>
           },
           {
             path: "newjobpost",
             element: <EmployeeAddjob></EmployeeAddjob>
           },
           {
-            path:"postedjob",
-            element:<EmployeepostedJob></EmployeepostedJob>
+            path: "postedjob",
+            element: <EmployeepostedJob></EmployeepostedJob>
           }
         ]
       },

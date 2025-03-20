@@ -46,7 +46,7 @@ const OTPverification = () => {
         const enteredOTP = otp.join('');
         console.log(tempUser) // Combine the OTP digits into a single string
         try {
-            const response = await fetch('http://localhost:5000/verify-otp', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/verify-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const OTPverification = () => {
                     onClick={async () => {
                         setCountdown(60); // Reset countdown to 60 seconds
                         try {
-                            const response = await fetch('http://localhost:5000/resend-otp', {
+                            const response = await fetch('https://hirely-job-portal-server.vercel.app/resend-otp', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
