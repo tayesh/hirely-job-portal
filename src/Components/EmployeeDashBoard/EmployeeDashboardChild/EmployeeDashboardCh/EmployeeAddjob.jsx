@@ -55,25 +55,74 @@ const EmployeeAddjob = () => {
     const handleJobPost = async (e) => {
         e.preventDefault();
         const jobData = { ...jobDetails, agencyEmail };
-
-        const response = await fetch('https://hirely-job-portal-server.vercel.app/jobs', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(jobData)
-        });
-
-        if (response.ok) {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your job has been posted",
-                showConfirmButton: false,
-                timer: 1500
+    
+        try {
+            // Send the job data to the backend
+            const response = await fetch('http://localhost:5000/jobs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jobData),
             });
-        } else {
-            alert('Failed to post the job');
+    
+            // Parse the response JSON
+            const data = await response.json();
+    
+            if (response.ok) {
+                // Show success message with SweetAlert
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: data.message, // Use data.message from the response
+                    text: data.notificationMessage, // Use data.notificationMessage from the response
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+    
+                // Optionally, reset the form or navigate to another page
+                setJobDetails({
+                    jobTitle: '',
+                    company: '',
+                    salary: '',
+                    experience: '',
+                    dutyTime: '',
+                    location: '',
+                    deadline: '',
+                    vacancy: '',
+                    minimumQualification: '',
+                    preferredQualification: '',
+                    qualifications: '',
+                    compensationBenefits: {
+                        salary: '',
+                        location: '',
+                    },
+                    jobResponsibilities: '',
+                    additionalRequirements: '',
+                });
+            } else {
+                // Handle backend errors
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'Failed to post the job', // Use data.message or a fallback message
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
+        } catch (error) {
+            console.error('Error posting job:', error);
+    
+            // Handle network errors
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Error',
+                text: 'Network error. Please try again.',
+                showConfirmButton: false,
+                timer: 1500,
+            });
         }
     };
 

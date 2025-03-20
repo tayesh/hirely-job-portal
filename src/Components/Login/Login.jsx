@@ -60,7 +60,7 @@ const Login = () => {
 
         try {
             // Send login request to the server
-            const response = await fetch('https://hirely-job-portal-server.vercel.app/login', {
+            const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,14 +78,11 @@ const Login = () => {
             const data = await response.json();
             if (data.user.OTPverified) {
                 login(data.user); // Use the login function from context to update state and localStorage
-            
-                if (data.user.userRoll === "ADMIN") {
-                    nav("/admindashboard"); // Redirect ADMIN to /admindashboard
-                } else if (data.user.userRoll === "AGENCY") {
-                    nav("/employeehome"); // Redirect AGENCY to /employeehome
-                } else {
-                    nav("/"); // Redirect all other users to the home page
-                }
+                data.user.userRoll === "AGENCY" ?
+                    nav("/employeehome")
+                    :
+                    nav("/")
+
             }
             else {
                 setTempUser(data.user);
