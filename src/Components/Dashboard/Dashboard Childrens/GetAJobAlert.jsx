@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../AuthContext/UserContext';
 
 const GetAJobAlert = () => {
     // State to track the active button
     const [activeButton, setActiveButton] = useState('EARLIER');
+    const {user}=useContext(UserContext);
+
+    
+
 
     return (
         <div className='px-24'>
@@ -33,7 +38,12 @@ const GetAJobAlert = () => {
                             </p>
                         </div>
                     </div>
-                    <p className='text-2xl font-medium pl-10 mt-10'>There is No message</p>
+                   {
+                    user?.notifications?
+                    <div></div>
+                    :
+                     <p className='text-2xl font-medium pl-10 mt-10'>There is No message</p>
+                   }
                 </div>
                 <hr className='mt-10' />
             </div>
