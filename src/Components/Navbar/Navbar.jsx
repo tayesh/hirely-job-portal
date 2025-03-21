@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../AuthContext/UserContext";
+import Switch from '@mui/material/Switch';
 
-const Navbar = () => {
+const Navbar = ({ darkmode, changeTheme }) => {
     const navlinkStyles = ({ isActive }) => ({
         border: isActive ? "2px solid #DCEFFF" : "2px solid white",
-        backgroundColor: isActive ? "#DCEFFF" : "white",
-        color: isActive ? "#00457C" : "black",
+        backgroundColor: isActive ? "#DCEFFF" : "transparent",
+        color: isActive ? "#00457C" : "inherit",
         fontWeight: isActive ? "normal" : "normal",
         padding: "8px 16px",
         borderRadius: "5px",
@@ -55,7 +56,7 @@ const Navbar = () => {
     // Links for Admin users
     const adminLinks = (
         <NavLink to="/admindashboard">
-
+            <li className="epilogue font-normal text-[16px]">Admin Dashboard</li>
         </NavLink>
     );
 
@@ -159,6 +160,7 @@ const Navbar = () => {
                             </a>
                         </>
                     )}
+                    <Switch checked={darkmode} onChange={changeTheme} color="default" />
                 </div>
             </div>
         </div>
