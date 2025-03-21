@@ -17,7 +17,7 @@ import AppliedJobs from "../Dashboard/Dashboard Childrens/AppliedJobs";
 import SavedJobs from "../Dashboard/Dashboard Childrens/SavedJobs";
 import Company from "../Dashboard/Dashboard Childrens/Company";
 import Recruiting from "../Dashboard/Dashboard Childrens/Recruiting";
-import Message from "../Support/Message";
+
 import GetAJobAlert from "../Dashboard/Dashboard Childrens/GetAJobAlert";
 import Settings from "../Dashboard/Dashboard Childrens/Settings";
 import CompanyProfile from "../Home/CompanyProfile";
@@ -57,6 +57,8 @@ import AdminPostJob from "../AdminDashboard/AdminPostJob";
 import AdminAllJobs from "../AdminDashboard/AdminDashboardCh/AdminAllJobs";
 import AdminSettings from "../AdminDashboard/AdminSettings";
 import AdminDashboardCh from "../AdminDashboard/AdminDashboardCh/AdminDashboardCh";
+import Message from "../Dashboard/Dashboard Childrens/Message";
+import AdminAllMessages from "../AdminDashboard/AdminDashboardCh/AdminAllMessages";
 
 
 const router = createBrowserRouter([
@@ -205,8 +207,13 @@ const router = createBrowserRouter([
             element: <AdminAllCand></AdminAllCand>
           },
           {
-            path: "allagencies",
-            element: <AdminAllAgency></AdminAllAgency>
+
+            path:"adminmessages",
+            element:<AdminAllMessages></AdminAllMessages>
+          },
+          {
+            path:"allagencies",
+            element:<AdminAllAgency></AdminAllAgency>
           },
           {
             path: "newjob",

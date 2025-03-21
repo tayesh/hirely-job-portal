@@ -11,73 +11,73 @@ const JobDetails = () => {
     console.log(job);
     const { jobTitle, vacancy, company, deadline, salary, _id } = job;
 
-     const { user } = useContext(UserContext);
-        const { refetch } = useApply(); 
-        const navigate = useNavigate();
-        const location = useLocation();
-    
-        const handleAddtoApplied = async (product) => {
-            if (user && user.email) {
-                console.log(user.email, product);
-    
-                const appliedItem = {
-                    applyId: _id,
-                    email: user.email,
-                    name:user.name,
-                    jobTitle,
-                    company,
-                    salary,
-                    deadline,
-                    status:'Applied'
-                };
-    
-                try {
-                    const response = await fetch("https://hirely-job-portal-server.vercel.app/applied", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(appliedItem),
-                    });
-    
-                    const data = await response.json();
-    
-                    if (response.ok && data.insertedId) {
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: `${jobTitle} Applied`,
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                        refetch();
-                    } else {
-                        throw new Error("Failed to apply");
-                    }
-                } catch (error) {
-                    console.error("Error applying for the job:", error);
+    const { user } = useContext(UserContext);
+    const { refetch } = useApply();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleAddtoApplied = async (product) => {
+        if (user && user.email) {
+            console.log(user.email, product);
+
+            const appliedItem = {
+                applyId: _id,
+                email: user.email,
+                name: user.name,
+                jobTitle,
+                company,
+                salary,
+                deadline,
+                status: 'Applied'
+            };
+
+            try {
+                const response = await fetch("https://hirely-job-portal-server.vercel.app/applied", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(appliedItem),
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.insertedId) {
                     Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Something went wrong while applying.",
+                        position: "top-end",
+                        icon: "success",
+                        title: `${jobTitle} Applied`,
+                        showConfirmButton: false,
+                        timer: 1500,
                     });
+                    refetch();
+                } else {
+                    throw new Error("Failed to apply");
                 }
-            } else {
+            } catch (error) {
+                console.error("Error applying for the job:", error);
                 Swal.fire({
-                    title: "Want to Apply?",
-                    text: "You have to Log in to Apply to the Cart!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, Log In!",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        navigate("/login", { state: { from: location } });
-                    }
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong while applying.",
                 });
             }
-        };
+        } else {
+            Swal.fire({
+                title: "Want to Apply?",
+                text: "You have to Log in to Apply to the Cart!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Log In!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/login", { state: { from: location } });
+                }
+            });
+        }
+    };
     return (
         <div className="p-6 px-[73px] bg-white shadow-lg rounded-lg">
             <div>
@@ -123,15 +123,28 @@ const JobDetails = () => {
 
             <section className="mt-[24px] mr-[205px]">
                 <ul className="list-disc list-inside mt-2 text-gray-700">
-                    {job.jobResponsibilities.map((responsibility, index) => (
-                        <li key={index} className="text-[24px] font-normal nunito">{responsibility}</li>
-                    ))}
+                    {Array.isArray(job?.jobResponsibilities) ? (
+                        // If jobResponsibilities is an array, map over it
+                        job.jobResponsibilities.map((responsibility, index) => (
+                            <li key={index} className="text-[24px] font-normal nunito">{responsibility}</li>
+                        ))
+                    ) : typeof job?.jobResponsibilities === 'string' ? (
+                        // If jobResponsibilities is a string, split it into an array (e.g., by commas or newlines)
+                        job.jobResponsibilities
+                            .split('\n') // Split by newlines (or use ',' for commas)
+                            .map((responsibility, index) => (
+                                <li key={index} className="text-[24px] font-normal nunito">{responsibility.trim()}</li>
+                            ))
+                    ) : (
+                        // Fallback if jobResponsibilities is neither an array nor a string
+                        <li className="text-[24px] font-normal nunito">No responsibilities listed.</li>
+                    )}
                 </ul>
             </section>
 
             <section className="mt-6">
                 <h2 className="text-[#0079C1] mt-[43px]  text-[30px] nunito font-bold mb-8">Education</h2>
-                <p className="text-[24px] font-normal nunito">Minimum Qualification: {job.education.minimumQualification}</p>
+                <p className="text-[24px] font-normal nunito">Minimum Qualification: {job.education?.minimumQualification}</p>
                 <p className="text-[24px] font-normal nunito">Preferred Qualification: {job.education.preferredQualification}</p>
             </section>
 

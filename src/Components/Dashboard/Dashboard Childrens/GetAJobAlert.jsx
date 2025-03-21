@@ -1,12 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../AuthContext/UserContext';
+import Notification from './Notification';
 
 const GetAJobAlert = () => {
     // State to track the active button
     const [activeButton, setActiveButton] = useState('EARLIER');
-    const {user}=useContext(UserContext);
-
+    const { user,fetchUserById } = useContext(UserContext);
     
+
+    console.log(user.notifications);
+
+
 
 
     return (
@@ -17,35 +21,40 @@ const GetAJobAlert = () => {
                         <h2 className='text-4xl pl-10 pt-5 text-[#0079C1] font-semibold w-[210px] flex-shrink-0'>Notifications</h2>
                         <div className='flex gap-5'>
                             <p
-                                className={`px-7 py-2 rounded cursor-pointer ${
-                                    activeButton === 'EARLIER'
-                                        ? 'bg-[#1976D2] text-white' // Active style
-                                        : 'bg-[#E5F5FF]' // Inactive style
-                                }`}
+                                className={`px-7 py-2 rounded cursor-pointer ${activeButton === 'EARLIER'
+                                    ? 'bg-[#1976D2] text-white' // Active style
+                                    : 'bg-[#E5F5FF]' // Inactive style
+                                    }`}
                                 onClick={() => setActiveButton('EARLIER')} // Set EARLIER as active
                             >
                                 EARLIER
                             </p>
                             <p
-                                className={`px-7 py-2 rounded cursor-pointer ${
-                                    activeButton === 'RECENT'
-                                        ? 'bg-[#1976D2] text-white' // Active style
-                                        : 'bg-[#E5F5FF]' // Inactive style
-                                }`}
+                                className={`px-7 py-2 rounded cursor-pointer ${activeButton === 'RECENT'
+                                    ? 'bg-[#1976D2] text-white' // Active style
+                                    : 'bg-[#E5F5FF]' // Inactive style
+                                    }`}
                                 onClick={() => setActiveButton('RECENT')} // Set RECENT as active
                             >
                                 RECENT
                             </p>
                         </div>
                     </div>
-                   {
-                    user?.notifications?
-                    <div></div>
-                    :
-                     <p className='text-2xl font-medium pl-10 mt-10'>There is No message</p>
-                   }
+                    {
+                        user.notifications ?
+                            <></>
+
+                            :
+                            <p className='text-2xl font-medium pl-10 mt-10'>There is No message</p>
+                    }
                 </div>
                 <hr className='mt-10' />
+                <div className='overflow-y-auto'>
+                    {
+                        user.notifications.map((item, index) => <Notification key={index} object={item} ></Notification>)
+                    }
+
+                </div>
             </div>
         </div>
     );
