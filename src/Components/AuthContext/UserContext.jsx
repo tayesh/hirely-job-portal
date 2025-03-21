@@ -29,6 +29,20 @@ export const UserProvider = ({ children }) => {
         setIsLoggedIn(true);
         setUser(userData);
     };
+    const fetchUserById = async (userId) => {
+        try {
+            const response = await fetch(`http://localhost:5000/users/${userId}`); // Replace with your API URL
+            if (!response.ok) {
+                throw new Error("Failed to fetch user data.");
+            }
+
+            const data = await response.json();
+            setUser(data); // Store the fetched user data in tempUser
+        } catch (error) {
+            console.error("Error fetching user:", error);
+            // Reset tempUser on error
+        }
+    };
 
     // Logout function with optional callback
     const logout = (callback) => {
@@ -47,6 +61,7 @@ export const UserProvider = ({ children }) => {
     const value = {
         tempUser,
         setTempUser,
+        fetchUserById,
         isLoggedIn,
         user,
         setIsLoggedIn,

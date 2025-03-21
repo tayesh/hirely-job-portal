@@ -35,7 +35,7 @@ const AdminAllJobs = () => {
         if (!confirmDelete) return;
 
         try {
-            const response = await fetch(`https://hirely-job-portal-server.vercel.app/jobs/${id}`, {
+            const response = await fetch(`http://localhost:5000/job/${id}`, {
                 method: "DELETE",
             });
             if (!response.ok) {
@@ -102,7 +102,10 @@ const AdminAllJobs = () => {
                                 <button className="text-[18px] flex items-center gap-2 px-6 bg-[#1976D2] text-white py-2 rounded"><FiEdit />Edit</button>
                             </Link>
                             <button
-                                onClick={() => handleDelete(_id)}
+                                onClick={() => {
+                                    console.log(_id);
+                                    handleDelete(_id);
+                                }}
                                 className="text-[18px] flex items-center gap-2 bg-red-500 text-white py-2 px-6 rounded"
                             >
                                 
