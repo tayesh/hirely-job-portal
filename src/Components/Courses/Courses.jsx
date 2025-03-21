@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import Swal from "sweetalert2";
+import { UserContext } from "../AuthContext/UserContext";
 
 const Courses = () => {
     const [activeTab, setActiveTab] = useState("Popular Courses");
@@ -11,6 +13,7 @@ const Courses = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -63,6 +66,51 @@ const Courses = () => {
         });
     };
 
+    const handleCreatePayment = (course) => {
+        if (!course.price) {
+            Swal.fire({
+                title: "Error!",
+                text: "This course has no price.",
+                icon: "error",
+            });
+            return;
+        }
+
+        fetch('http://localhost:5000/create-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                amount: course.price,
+                currency: "BDT",
+                customerName: user?.displayName || "Anonymous",
+                customerEmail: user?.email,
+                description: `Payment for ${course.title}`,
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to initiate payment');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const redirectUrl = data.paymentUrl;
+            if (redirectUrl) {
+                window.location.replace(redirectUrl);
+            }
+        })
+        .catch(error => {
+            console.error("Error during payment creation:", error);
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to initiate payment.",
+                icon: "error",
+            });
+        });
+    };
+
     return (
         <div className="mx-14 mb-[42px]">
             <div className="flex items-center justify-between mx-12 mb-8">
@@ -108,19 +156,20 @@ const Courses = () => {
                                         <p className="text-[#747C82] text-[12px] roboto">{course.duration}</p>
                                         <p className="text-[#747C82] text-[12px] roboto">{course.learners} learners</p>
                                     </div>
-                                    <div className="flex justify-between gap-5">
-
+                                    <div className="flex justify-between gap-2">
                                         <button
                                             className="btn font-normal rounded-md text-[14px] roboto border-[#747C82] bg-white"
                                             onClick={() => {
-                                                navigate(`/more-info/${course._id}`, { state: { course } })
-                                                scrollToTop()
+                                                navigate(`/more-info/${course._id}`, { state: { course } });
+                                                scrollToTop();
                                             }}
                                         >
                                             More Info
                                         </button>
-
-                                        <button className="btn font-normal rounded-md text-[14px] roboto text-white bg-[#009B5D]">
+                                        <button
+                                            onClick={() => handleCreatePayment(course)}
+                                            className="btn font-normal rounded-md text-[14px] roboto text-white bg-[#009B5D]"
+                                        >
                                             Take This Course
                                         </button>
                                     </div>

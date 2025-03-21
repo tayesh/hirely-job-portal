@@ -181,40 +181,40 @@ const router = createBrowserRouter([
         element: <CandidateProfile></CandidateProfile>
       },
       {
-        path:"/admindashboard",
-        element:<AdminDashboard></AdminDashboard>,
-        children:[
+        path: "/admindashboard",
+        element: <AdminDashboard></AdminDashboard>,
+        children: [
           {
-            path:"/admindashboard",
-            element:<AdminDashboardCh></AdminDashboardCh>
+            path: "/admindashboard",
+            element: <AdminDashboardCh></AdminDashboardCh>
           },
           {
-            path:"allappliedjobs",
-            element:<AdminAllApplied></AdminAllApplied>
+            path: "allappliedjobs",
+            element: <AdminAllApplied></AdminAllApplied>
           },
           {
-            path:"allcompany",
-            element:<AdminAllCOmpany></AdminAllCOmpany>
+            path: "allcompany",
+            element: <AdminAllCOmpany></AdminAllCOmpany>
           },
           {
-            path:"alljobs",
-            element:<AdminAllJobs></AdminAllJobs>
+            path: "alljobs",
+            element: <AdminAllJobs></AdminAllJobs>
           },
           {
-            path:"allusers",
-            element:<AdminAllCand></AdminAllCand>
+            path: "allusers",
+            element: <AdminAllCand></AdminAllCand>
           },
           {
-            path:"allagencies",
-            element:<AdminAllAgency></AdminAllAgency>
+            path: "allagencies",
+            element: <AdminAllAgency></AdminAllAgency>
           },
           {
-            path:"newjob",
-            element:<AdminPostJob></AdminPostJob>
+            path: "newjob",
+            element: <AdminPostJob></AdminPostJob>
           },
           {
-            path:"adsettings",
-            element:<AdminSettings></AdminSettings>
+            path: "adsettings",
+            element: <AdminSettings></AdminSettings>
           }
         ]
       },

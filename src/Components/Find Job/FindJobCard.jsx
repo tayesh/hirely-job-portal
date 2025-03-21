@@ -4,17 +4,17 @@ import { FaBriefcase } from "react-icons/fa6";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { FaLocationDot } from "react-icons/fa6";
 import { CiClock2 } from "react-icons/ci";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../AuthContext/UserContext';
 import Swal from 'sweetalert2';
 import useApply from '../hooks/useApply';
 
 const FindJobCard = ({ object }) => {
-    const { jobTitle, vacancy, company, deadline, salary, _id } = object;
+    const { jobTitle, location, compensationBenefits, vacancy, company, deadline, salary, _id } = object;
     const { user } = useContext(UserContext);
     const { refetch } = useApply();
     const navigate = useNavigate();
-    const location = useLocation();
+    // const locationat = useLocation();
     const [isSaved, setIsSaved] = useState(false);
 
     useEffect(() => {
@@ -208,7 +208,7 @@ const FindJobCard = ({ object }) => {
             <div className='flex gap-4'>
                 <div className='flex justify-center gap-2 items-center bg-[#EEFAF7] py-2 px-3 text-[#15A449] rounded-full'>
                     <FaBriefcase />
-                    <p>Full Time</p>
+                    <p>{compensationBenefits.employmentStatus}</p>
                 </div>
                 <div className='flex justify-center gap-2 items-center bg-[#F2E9FF] py-2 px-3 text-[#8743DF] rounded-full'>
                     <RiGraduationCapFill />
@@ -216,7 +216,7 @@ const FindJobCard = ({ object }) => {
                 </div>
                 <div className='flex justify-center gap-2 items-center bg-[#FFF5E2] py-2 px-3 text-[#ED7200] rounded-full'>
                     <FaLocationDot />
-                    <p>Dhaka</p>
+                    <p>{location}</p>
                 </div>
             </div>
             <hr />
@@ -226,9 +226,9 @@ const FindJobCard = ({ object }) => {
             </div>
             <div className='flex justify-between'>
                 <Link onClick={scrollToTop} to={`/jobdetails/${_id}`}>
-                    <button className='text-[18px] border-2 border-[#1976D280] text-[#1976D2] py-2 px-3 rounded'>View Details</button>
+                    <button className='text-[18px] border-2 border-[#1976D280] text-[#1976D2] py-2 px-6 rounded'>View Details</button>
                 </Link>
-                <button onClick={() => handleAddtoApplied(object)} className='text-[18px] text-[#ffffff] bg-[#00A264] py-2 px-3 rounded shadow-[0px_3px_2px_rgba(0,0,0,0.5)]'>Apply Now</button>
+                <button onClick={() => handleAddtoApplied(object)} className='text-[18px] text-[#ffffff] bg-[#00A264] py-2 px-6 rounded shadow-[0px_3px_2px_rgba(0,0,0,0.5)]'>Apply Now</button>
             </div>
         </div>
     );

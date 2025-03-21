@@ -1,6 +1,16 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Banner = () => {
+    const [jobTitle, setJobTitle] = useState("");
+    const [location, setLocation] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        navigate(`/findjob?title=${jobTitle}&location=${location}`);
+    };
+
     return (
         <div>
             <div
@@ -10,33 +20,32 @@ const Banner = () => {
                 }}>
 
                 <div className="hero-content text-center">
-                    <div className="">
+                    <div>
                         <h1 className="mb-5 text-[36px] nunito mx-[203px]">"Find Your Dream Job Abroad – Verified Recruiters, Trusted & Hassle-Free Process!"</h1>
                         <p className="mb-5 text-[24px] nunito text-[#0079C1]">
                             11,000+ Active Vacancies, Available Right Now!
                         </p>
                         <div className="flex gap-6 justify-center bg-white mx-28 py-4 items-center h-16 rounded-lg">
-                            <div className="dropdown dropdown-right">
-                                <div tabIndex={0} role="button" className="btn text-md w-[400px] flex justify-between bg-white poppins text-[18px] font-normal text-[#424447]">Skills <span className="text-2xl"><RiArrowDropDownLine /></span></div>
-                                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box ">
-                                    <li>HTML</li>
-                                    <li>CSS</li>
-                                    <li>Javascript</li>
-                                    <li>React</li>
-                                    <li>MongoDB</li>
-                                </ul>
-                            </div>
-                            <div className="dropdown dropdown-right">
-                                <div tabIndex={0} role="button" className="btn text-md w-[400px] flex justify-between bg-white text-[18px] font-normal poppins text-[#424447]">Country <span className="text-2xl"><RiArrowDropDownLine /></span></div>
-                                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-white rounded-box ">
-                                    <li>Bangladesh</li>
-                                    <li>India</li>
-                                    <li>USA</li>
-                                    <li>UK</li>
-                                    <li>Australia</li>
-                                </ul>
-                            </div>
-                            <button className="btn bg-[#0275D8] text-white text-[15px] font-normal roboto rounded-md">SEARCH JOB</button>
+                            <input 
+                                type="text" 
+                                placeholder="Search by Job Title" 
+                                value={jobTitle} 
+                                onChange={(e) => setJobTitle(e.target.value)}
+                                className="input input-bordered w-[400px] text-[18px] poppins text-[#424447]"
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="Search by Location" 
+                                value={location} 
+                                onChange={(e) => setLocation(e.target.value)}
+                                className="input input-bordered w-[400px] text-[18px] poppins text-[#424447]"
+                            />
+                            <button 
+                                className="btn bg-[#0275D8] text-white text-[15px] font-normal roboto rounded-md"
+                                onClick={handleSearch}
+                            >
+                                SEARCH JOB
+                            </button>
                         </div>
                         <div className="flex justify-center items-center mt-3 gap-2">
                             <img src="https://i.ibb.co.com/b58TqMBd/Clip-path-group.png" alt="" />
@@ -49,7 +58,7 @@ const Banner = () => {
                                     <p className="text-[#424447] nunito text-[15px]">VACANCIES</p>
                                     <p className="text-[30px] poppins text-[#0079C1] ml-4">6,999+</p>
                                 </div>
-                            </div >
+                            </div>
                             <div className="flex items-center">
                                 <img src="https://i.ibb.co.com/MxGjJV1p/company.png" alt="" />
                                 <div>
@@ -59,7 +68,7 @@ const Banner = () => {
                             </div>
                             <div className="flex items-center">
                                 <img src="https://i.ibb.co.com/Zp58VWvK/peo.png" alt="" />
-                                <div >
+                                <div>
                                     <p className="text-[#424447] nunito text-[15px]">LIVE JOBS</p>
                                     <p className="text-[30px] poppins text-[#0079C1] ml-4">6,999+</p>
                                 </div>

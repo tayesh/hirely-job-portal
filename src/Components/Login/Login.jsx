@@ -13,7 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState(''); // Password input
     const [error, setError] = useState(''); // Error message
 
-    const { tempUser,setTempUser, login } = useContext(UserContext); // Use login function from context
+    const { tempUser, setTempUser, login } = useContext(UserContext); // Use login function from context
     const nav = useNavigate();
 
     // Handle contact method change (email or phone)
@@ -81,7 +81,8 @@ const Login = () => {
                 data.user.userRoll === "AGENCY" ?
                     nav("/employeehome")
                     :
-                    nav("/")
+                    data.user.userRoll === "ADMIN" ? nav("/admindashboard") :
+                        nav("/")
 
             }
             else {
