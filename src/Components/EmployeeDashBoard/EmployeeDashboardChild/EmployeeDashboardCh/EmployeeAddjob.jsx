@@ -82,7 +82,7 @@ const EmployeeAddjob = () => {
         const jobData = { ...jobDetails, agencyEmail };
 
         try {
-            const response = await fetch('http://localhost:5000/jobs', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/jobs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

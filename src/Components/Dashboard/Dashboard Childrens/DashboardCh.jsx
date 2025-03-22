@@ -6,23 +6,29 @@ const DashboardCh = () => {
     const [appliedJobs, setAppliedJobs] = useState([]);
     const [savedJobs, setSavedJobs] = useState([]);
     const [followedCompanies, setFollowedCompanies] = useState([]);
+    const [taken, setTaken] = useState([]);
 
     useEffect(() => {
         if (user?.email) {
             // Fetch applied jobs
-            fetch(`http://localhost:5000/applied?email=${user.email}`)
+            fetch(`https://hirely-job-portal-server.vercel.app/applied?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setAppliedJobs(data))
                 .catch(err => console.error("Error fetching applied jobs:", err));
 
+            fetch(`http://localhost:5000/taken?email=${user.email}`)
+                .then(res => res.json())
+                .then(data => setTaken(data))
+                .catch(err => console.error("Error fetching applied jobs:", err));
+
             // Fetch saved jobs
-            fetch(`http://localhost:5000/saved?email=${user.email}`)
+            fetch(`https://hirely-job-portal-server.vercel.app/saved?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setSavedJobs(data))
                 .catch(err => console.error("Error fetching saved jobs:", err));
 
             // Fetch all companies and filter followed ones
-            fetch(`http://localhost:5000/companies`)
+            fetch(`https://hirely-job-portal-server.vercel.app/companies`)
                 .then(res => res.json())
                 .then(data => {
                     const userFollowedCompanies = data.filter(company =>
@@ -57,6 +63,13 @@ const DashboardCh = () => {
                     <div className="mt-0">
                         <h2 className="text-xl font-semibold mt-0">Followed Companies</h2>
                         <p className="text-lg text-center">{followedCompanies.length}</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-5 shadow-md shadow-gray-400 h-fit px-5 py-2 rounded">
+                    <img className="mt-1 h-14" src="https://i.ibb.co.com/N6HdDNp5/learning-logo-template-isolated-brand-identity-icon-abstract-vector-graphic-7109-3121.jpg" alt="Followed Companies" />
+                    <div className="mt-0">
+                        <h2 className="text-xl font-semibold mt-0">Taken Courses</h2>
+                        <p className="text-lg text-center">{taken.length}</p>
                     </div>
                 </div>
             </div>

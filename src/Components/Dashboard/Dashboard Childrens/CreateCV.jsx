@@ -16,7 +16,7 @@ const CreateCV = () => {
         const fetchCV = async () => {
             try {
                 if (user && user.email) {
-                    const response = await fetch(`http://localhost:5000/get-cv/${user.email}`);
+                    const response = await fetch(`https://hirely-job-portal-server.vercel.app/get-cv/${user.email}`);
                     if (response.ok) {
                         const blob = await response.blob();
                         const fileUrl = URL.createObjectURL(blob);
@@ -42,7 +42,7 @@ const CreateCV = () => {
         formData.append('email', user.email);
 
         try {
-            const response = await fetch('http://localhost:5000/upload-cv', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/upload-cv', {
                 method: 'POST',
                 body: formData,
             });

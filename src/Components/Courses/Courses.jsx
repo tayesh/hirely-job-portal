@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Swal from "sweetalert2";
 import { UserContext } from "../AuthContext/UserContext";
+import axios from "axios";
 
 const Courses = () => {
     const [activeTab, setActiveTab] = useState("Popular Courses");
@@ -18,10 +19,8 @@ const Courses = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch("https://hirely-job-portal-server.vercel.app/courses");
-                if (!response.ok) {
-                    throw new Error("Failed to fetch courses");
-                }
+                const response = await fetch("http://localhost:5000/courses");
+                if (!response.ok) throw new Error("Failed to fetch courses");
                 const data = await response.json();
                 setCourses(data);
             } catch (error) {
@@ -30,7 +29,6 @@ const Courses = () => {
                 setLoading(false);
             }
         };
-
         fetchCourses();
     }, []);
 
@@ -44,72 +42,59 @@ const Courses = () => {
 
     const filteredCourses =
         activeTab === "Popular Courses"
-            ? [...courses]
-                .sort((a, b) => b.learners - a.learners)
-                .slice(0, 10)
+            ? [...courses].sort((a, b) => b.learners - a.learners).slice(0, 10)
             : activeTab === "New Courses"
                 ? [...courses].filter(isNewCourse)
                 : [];
 
-    if (loading) {
-        return <p className="text-center text-[18px] text-gray-500">Loading courses...</p>;
-    }
-
-    if (error) {
-        return <p className="text-center text-[18px] text-red-500">Error: {error}</p>;
-    }
-
     const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleCreatePayment = (course) => {
-        if (!course.price) {
+    const handleCreatePayment = async (course) => {
+        if (!user) {
             Swal.fire({
-                title: "Error!",
-                text: "This course has no price.",
-                icon: "error",
+                title: 'Login Required',
+                text: 'You need to be logged in to take this course.',
+                icon: 'warning',
+                confirmButtonText: 'Login',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login');
+                }
             });
             return;
         }
 
-        fetch('http://localhost:5000/create-payment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        try {
+            const response = await axios.post('http://localhost:5000/create-payment', {
+                name: user.name,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                course: course.title,
+                category: course.category,
                 amount: course.price,
-                currency: "BDT",
-                customerName: user?.displayName || "Anonymous",
-                customerEmail: user?.email,
-                description: `Payment for ${course.title}`,
-            }),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to initiate payment');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const redirectUrl = data.paymentUrl;
+                currency: 'BDT'
+            });
+
+            const redirectUrl = response.data.paymentUrl;
+
             if (redirectUrl) {
                 window.location.replace(redirectUrl);
             }
-        })
-        .catch(error => {
-            console.error("Error during payment creation:", error);
+        } catch (error) {
+            console.error('Error creating payment:', error);
             Swal.fire({
-                title: "Error!",
-                text: "Failed to initiate payment.",
-                icon: "error",
+                title: 'Error',
+                text: 'Failed to create payment. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK',
             });
-        });
+        }
     };
+
+    if (loading) return <p className="text-center text-[18px] text-gray-500">Loading courses...</p>;
+    if (error) return <p className="text-center text-[18px] text-red-500">Error: {error}</p>;
 
     return (
         <div className="mx-14 mb-[42px]">
@@ -131,10 +116,7 @@ const Courses = () => {
             <Swiper
                 slidesPerView={4}
                 spaceBetween={30}
-                autoplay={{
-                    delay: 1600,
-                    disableOnInteraction: false,
-                }}
+                autoplay={{ delay: 1600, disableOnInteraction: false }}
                 modules={[Autoplay]}
                 className="mySwiper"
             >

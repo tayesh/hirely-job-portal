@@ -4,7 +4,6 @@ import Expire from "./Expire";
 import Explored from "./Explored";
 import Featured from "./Featured";
 import LiveJobs from "./LiveJobs";
-import Looking from "./Looking";
 import Post from "./Post";
 
 const Home = () => {

@@ -59,6 +59,13 @@ import AdminSettings from "../AdminDashboard/AdminSettings";
 import AdminDashboardCh from "../AdminDashboard/AdminDashboardCh/AdminDashboardCh";
 import Message from "../Dashboard/Dashboard Childrens/Message";
 import AdminAllMessages from "../AdminDashboard/AdminDashboardCh/AdminAllMessages";
+import Success from "../Payments/Success";
+import Cancel from "../Payments/Cancel";
+import Fail from "../Payments/Fail";
+import Verification from "../Verification";
+import TakenCourses from "../Dashboard/Dashboard Childrens/TakenCourses";
+import AdminBillings from "../AdminDashboard/AdminDashboardCh/AdminBillings";
+import AdminAddComp from "../AdminDashboard/AdminDashboardCh/AdminAddComp";
 
 
 const router = createBrowserRouter([
@@ -163,6 +170,22 @@ const router = createBrowserRouter([
         element: <EmployerHome></EmployerHome>
       },
       {
+        path:"/success",
+        element:<Success></Success>
+      },
+      {
+        path: '/verification',
+        element:<Verification></Verification>
+      },
+      {
+        path:"/cancel",
+        element:<Cancel></Cancel>
+      },
+      {
+        path:"/fail",
+        element:<Fail></Fail>
+      },
+      {
         path: "/candidate",
         element: <Candidate></Candidate>
       },
@@ -222,7 +245,16 @@ const router = createBrowserRouter([
           {
             path: "adsettings",
             element: <AdminSettings></AdminSettings>
+          },
+          {
+            path:"billings",
+            element: <AdminBillings></AdminBillings>
+          },
+          {
+            path:"newcompany",
+            element:<AdminAddComp></AdminAddComp>
           }
+          
         ]
       },
       {
@@ -314,6 +346,10 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: <Settings></Settings>
+          },
+          {
+            path:"takencourses",
+            element: <TakenCourses></TakenCourses>
           }
         ]
       }

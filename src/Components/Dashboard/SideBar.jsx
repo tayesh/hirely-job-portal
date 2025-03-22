@@ -39,6 +39,11 @@ const SideBar = () => {
             path: "/dashboard/company"
         },
         {
+            title: "Taken Courses",
+            icon: "https://i.ibb.co.com/N6HdDNp5/learning-logo-template-isolated-brand-identity-icon-abstract-vector-graphic-7109-3121.jpg",
+            path: "/dashboard/takencourses"
+        },
+        {
             title: "Message",
             icon: "https://i.ibb.co.com/mFS4ycJY/e5fe06b2b901ba416af1480602df7613.png",
             path: "/dashboard/message"

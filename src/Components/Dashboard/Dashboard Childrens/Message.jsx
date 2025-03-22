@@ -21,7 +21,7 @@ const Message = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/messages/${user.email}`);
+            const response = await fetch(`https://hirely-job-portal-server.vercel.app/messages/${user.email}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch messages');
             }
@@ -56,7 +56,7 @@ const Message = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/messages', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/messages', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

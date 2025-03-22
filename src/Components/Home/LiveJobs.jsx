@@ -7,17 +7,15 @@ import "swiper/css/pagination";
 
 const LiveJobs = () => {
     const jobsData = useLoaderData();
-
-    const parseCustomDate = (dateString) => {
-        const cleanedDateString = dateString.replace(/(\d+)(st|nd|rd|th)/, "$1"); 
-        return new Date(cleanedDateString);
-    };
-    
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth',
         });
+    };
+    const parseCustomDate = (dateString) => {
+        const cleanedDateString = dateString.replace(/(\d+)(st|nd|rd|th)/, "$1"); 
+        return new Date(cleanedDateString);
     };
     
     const liveJobs = jobsData.filter(job => {

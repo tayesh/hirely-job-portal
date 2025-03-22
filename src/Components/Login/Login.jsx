@@ -6,61 +6,51 @@ import { UserContext } from '../AuthContext/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [eye, setEye] = useState(false); // Toggle password visibility
-    const [contactMethod, setContactMethod] = useState('email'); // Toggle between email and phone
-    const [email, setEmail] = useState(''); // Email input
-    const [phone, setPhone] = useState(''); // Phone input
-    const [password, setPassword] = useState(''); // Password input
-    const [error, setError] = useState(''); // Error message
+    const [eye, setEye] = useState(false); 
+    const [contactMethod, setContactMethod] = useState('email'); 
+    const [email, setEmail] = useState(''); 
+    const [phone, setPhone] = useState(''); 
+    const [password, setPassword] = useState(''); 
+    const [error, setError] = useState(''); 
 
-    const { tempUser, setTempUser, login } = useContext(UserContext); // Use login function from context
+    const { tempUser, setTempUser, login } = useContext(UserContext); 
     const nav = useNavigate();
 
-    // Handle contact method change (email or phone)
     const handleContactMethodChange = (event) => {
         setContactMethod(event.target.value);
     };
 
-    // Handle email input change
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
 
-    // Handle phone input change
     const handlePhoneChange = (event) => {
         setPhone(event.target.value);
     };
 
-    // Handle password input change
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
 
-    // Validate email format
     const validateEmail = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     };
 
-    // Handle sign-in
     const handleSignIn = async () => {
-        setError(''); // Clear previous errors
-
-        // Validate email if contact method is email
+        setError(''); 
         if (contactMethod === 'email' && !validateEmail(email)) {
             setError('Please enter a valid email address.');
             return;
         }
 
-        // Prepare user data for login
         const user = {
             [contactMethod]: contactMethod === 'email' ? email : phone,
             password,
         };
 
         try {
-            // Send login request to the server
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,16 +58,13 @@ const Login = () => {
                 body: JSON.stringify(user),
             });
 
-            // Handle response errors
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Login failed. Please check your credentials.');
             }
-
-            // Parse response data
             const data = await response.json();
             if (data.user.OTPverified) {
-                login(data.user); // Use the login function from context to update state and localStorage
+                login(data.user); 
                 data.user.userRoll === "AGENCY" ?
                     nav("/employeehome")
                     :
@@ -88,17 +75,13 @@ const Login = () => {
             else {
                 setTempUser(data.user);
                 console.log(data.user);
-                console.log(tempUser); // Store the user data temporarily
+                console.log(tempUser);
 
-                // Navigate to the OTP verification page
                 nav("/otp");
             }
 
-            // Update user context and state
-            // Redirect to home page after successful login
-
         } catch (error) {
-            setError(error.message); // Display error message
+            setError(error.message);
         }
     };
 
@@ -111,7 +94,6 @@ const Login = () => {
                     If you already have an account, sign in using your email address or mobile number.
                 </p>
 
-                {/* Contact Method Selection (Email or Phone) */}
                 <div className='flex justify-center items-center gap-5'>
                     <div className='flex gap-3'>
                         <input
@@ -119,7 +101,7 @@ const Login = () => {
                             name="contactMethod"
                             id="email"
                             value="email"
-                            checked={contactMethod === 'email'} // Default checked
+                            checked={contactMethod === 'email'}
                             onChange={handleContactMethodChange}
                         />
                         <label htmlFor="email">Email Address</label>
@@ -137,9 +119,7 @@ const Login = () => {
                     </div>
                 </div>
 
-                {/* Input Fields */}
                 <div className='space-y-5'>
-                    {/* Email or Phone Input */}
                     {contactMethod === 'email' ? (
                         <input
                             className='w-[500px] border-2 p-3'
@@ -158,7 +138,6 @@ const Login = () => {
                         />
                     )}
 
-                    {/* Password Input */}
                     <div className='relative'>
                         <input
                             className='w-[500px] border-2 p-3'
@@ -178,18 +157,13 @@ const Login = () => {
                                 className='absolute top-4 right-3 text-[24px] cursor-pointer'
                             />
                         )}
-
-                        {/* Forgot Password Link */}
                         <div className='w-[500px] flex justify-end'>
                             <p className='text-[#0275D8] cursor-pointer'>Forgot Password?</p>
                         </div>
                     </div>
                 </div>
-
-                {/* Error Message */}
                 {error && <p className='text-red-500'>{error}</p>}
 
-                {/* Sign In Button */}
                 <button
                     className='w-[500px] bg-[#1976D2] text-white py-2 rounded shadow-lg hover:bg-[#1565C0]'
                     onClick={handleSignIn}
@@ -197,10 +171,8 @@ const Login = () => {
                     SIGN IN
                 </button>
 
-                {/* OR Divider */}
                 <p>OR</p>
 
-                {/* Sign In with Google Button */}
                 <div className='relative'>
                     <button className='w-[500px] border-[1px] py-2 rounded hover:bg-gray-100'>
                         Sign in with Google
@@ -208,7 +180,6 @@ const Login = () => {
                     <FcGoogle className='absolute top-[10px] left-2 text-[24px]' />
                 </div>
 
-                {/* Register Link */}
                 <h2 className='mt-10'>
                     Don't have an account yet?{' '}
                     <span className='text-[#1976D8] cursor-pointer' onClick={() => nav("/register")}>

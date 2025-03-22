@@ -67,10 +67,10 @@ import { useEffect, useState } from "react";
                                    <td className="border border-gray-300 px-4 py-2">{job.company}</td>
                                    <td className="border border-gray-300 px-4 py-2">
                                        <button
-                                           className="px-4 py-1 text-black rounded"
+                                           className="flex flex-col justify-center px-4 py-1 text-black rounded"
                                            onClick={() => window.location.href = `/users/email/${job.email}`}
                                        >
-                                           <img src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" />
+                                           <img src="https://i.ibb.co.com/S4J9jhj1/image.png" alt="" className="h-10 w-10"/>
                                            <p className="text-[12px]">View Profile</p>
                                        </button>
                                    </td>

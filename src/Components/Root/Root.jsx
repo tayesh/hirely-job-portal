@@ -21,13 +21,11 @@ const Root = () => {
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
-          
                 <div className="epilogue mb-[76px]">
                     <Navbar darkmode={darkmode} changeTheme={changeTheme} />
                 </div>
                 <Outlet />
                 <Footer />
-          
         </ThemeProvider>
     );
 };

@@ -41,9 +41,6 @@ const MoreInfo = () => {
                     >
                         Back
                     </button>
-                    <button className="btn rounded-md text-[16px] roboto text-white bg-[#009B5D]">
-                        Enroll Now
-                    </button>
                 </div>
             </div>
         </div>

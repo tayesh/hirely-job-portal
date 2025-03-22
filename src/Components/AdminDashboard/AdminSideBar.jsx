@@ -19,6 +19,11 @@ const AdminSideBar = () => {
             path: "/admindashboard/newjob"
         },
         {
+            title: "Add New Company",
+            icon: "https://i.ibb.co.com/nNKd1r0F/add-symbol.png",
+            path: "/admindashboard/newcompany"
+        },
+        {
             title: "Applied Jobs",
             icon: "https://i.ibb.co.com/99mMhNxv/a3c415ecce352a368e708cb12d4f62d4.png",
             path: "/admindashboard/allappliedjobs"
@@ -43,6 +48,11 @@ const AdminSideBar = () => {
             title: "All Jobs",
             icon: "https://i.ibb.co.com/99mMhNxv/a3c415ecce352a368e708cb12d4f62d4.png",
             path: "/admindashboard/alljobs"
+        },
+        {
+            title: "All Billings",
+            icon: "https://i.ibb.co.com/239rw3Nw/billing.png",
+            path: "/admindashboard/billings"
         },
         {
             title: "Message",
