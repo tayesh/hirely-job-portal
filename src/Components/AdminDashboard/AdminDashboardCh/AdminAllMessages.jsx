@@ -37,7 +37,7 @@ const AdminAllMessages = () => { // Assuming user is passed as a prop
                     {error && <p className='text-red-500 pl-10 pt-5'>{error}</p>}
                 </div>
                 <hr className='mt-10' />
-                <div className='w-full'>
+                <div className='w-full flex flex-col gap-5 py-5'>
                     {AllMessages?.map((item, index) => (
                         <MessageModal key={index} object={item} fetchM={fetchAllMessages} />
                     ))}

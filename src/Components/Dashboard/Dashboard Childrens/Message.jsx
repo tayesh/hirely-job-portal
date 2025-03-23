@@ -61,7 +61,7 @@ const Message = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: user.email, messageText: message, userRoll: user.userRoll }),
+                body: JSON.stringify({name:user.name, email: user.email, messageText: message, userRoll: user.userRoll }),
             });
             const data = await response.json();
 

@@ -6,7 +6,7 @@ const Notification = ({ object }) => {
     const { companyName, jobId, timestamp, notificationread } = object;
     const [notificationReadStatus, setNotificationReadStatus] = useState(notificationread ? notificationread : false);
     const nav = useNavigate();
-    const { user,fetchUserById } = useContext(UserContext);
+    const { user, fetchUserById } = useContext(UserContext);
 
     // Update the state when the notificationread prop changes
     useEffect(() => {
@@ -47,6 +47,7 @@ const Notification = ({ object }) => {
             });
 
             console.log('Response status:', response.status);
+            
 
             if (response.ok) {
                 const data = await response.json();
@@ -73,12 +74,15 @@ const Notification = ({ object }) => {
                 </p>
             </div>
             <div>
-                <p onClick={(e) => {
-                    e.stopPropagation(); // Prevent the parent div's onClick from firing
-                    handleNotificationRead(jobId);
-                    fetchUserById(user._id)
-                    
-                }} className='text-white bg-blue-600 px-3 py-1 w-fit'>Mark as Read</p>
+                {
+                    !notificationread && 
+                    <p onClick={(e) => {
+                        e.stopPropagation(); // Prevent the parent div's onClick from firing
+                        handleNotificationRead(jobId);
+                        fetchUserById(user._id)
+
+                    }} className='text-white bg-blue-600 px-3 py-1 w-fit'>Mark as Read</p>
+                }
             </div>
         </div>
     );
