@@ -3,11 +3,14 @@ import { UserContext } from '../../AuthContext/UserContext';
 import { IoSend } from 'react-icons/io5';
 
 const MessageModal = ({ object, fetchM }) => {
-    const { _id, email, messages } = object;
+    const { _id, email, messages, name } = object;
     const { user } = useContext(UserContext);
     const [message, setMessage] = useState('');
     const [error, setError] = useState(null);
-    const [counter, setCounter] = useState(0); // Counter state
+    const [counter, setCounter] = useState(0);
+
+    const Roll = messages[0].sentBy;
+    // Counter state
 
     const handleInputChange = (event) => {
         setMessage(event.target.value);
@@ -61,12 +64,15 @@ const MessageModal = ({ object, fetchM }) => {
 
     return (
         <div>
-            <p onClick={() => document.getElementById(_id).showModal()}>{email}</p>
+            <div onClick={() => document.getElementById(_id).showModal()} className='w-full rounded-xl shadow-gray-600 shadow-md px-10 py-5 bg-gray-200'>
+                <p className=' text-lg font-medium'>{name}</p>
+                <p className='text-xs text-gray-600'>{Roll}</p>
+            </div>
 
             {/* Modal */}
             <dialog id={_id} className="modal">
-                <div className="modal-box">
-                    <form method="dialog">
+                <div className="modal-box max-w-[800px] [-webkit-scrollbar]:hidden">
+                    <form method="dialog fixed top-0">
                         {/* Close button */}
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
@@ -86,12 +92,12 @@ const MessageModal = ({ object, fetchM }) => {
                                 <IoSend />
                             </button>
                         </div>
-                        <div className='w-full'>
+                        <div className='w-full overflow-y-scroll max-h-[450px]'>
                             {messages.length > 0 ? (
                                 messages.map((messagee, index) => (
-                                    <div key={index} className={`w-full my-4 flex ${messagee.sentBy.toLowerCase() === "candidate" ? "justify-start" : "justify-end"}`}>
-                                        <div className={`${messagee.sentBy.toLowerCase() === "candidate" ? "bg-gray-300" : "bg-blue-300"} w-[60%] px-5 py-3 rounded`}>
-                                            <p className='text-xs text-gray-600 font-medium mb-1'>{messagee.sentBy}</p>
+                                    <div key={index} className={`w-full my-4 flex ${messagee.sentBy.toLowerCase() === "candidate" || messagee.sentBy.toLowerCase() === "agency" ? "justify-start" : "justify-end"}`}>
+                                        <div className={`${messagee.sentBy.toLowerCase() === "candidate" || messagee.sentBy.toLowerCase() === "agency" ? "bg-gray-300" : "bg-blue-300"} w-[60%] px-5 py-3 rounded`}>
+                                            <p className='text-xs text-gray-600 font-medium mb-1'>{messagee.sentBy.toLowerCase()!=="admin"?name:"Admin"}</p>
                                             <p className='text-xl font-semibold'>{messagee.messageText}</p>
                                         </div>
                                     </div>

@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import useApply from '../hooks/useApply';
 
 const FindJobCard = ({ object }) => {
-    const { jobTitle, location, compensationBenefits, vacancy, company, deadline, salary, _id } = object;
+    const { jobTitle, location, compensationBenefits, vacancy, company, deadline, salary, _id, email } = object;
     const { user } = useContext(UserContext);
     const { refetch } = useApply();
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const FindJobCard = ({ object }) => {
                         throw new Error('Failed to fetch saved status');
                     }
                     const data = await response.json();
-                    setIsSaved(data); 
+                    setIsSaved(data);
                 } catch (error) {
                     console.error("Error checking saved status:", error);
                 }
@@ -133,6 +133,7 @@ const FindJobCard = ({ object }) => {
             const appliedItem = {
                 applyId: _id,
                 email: user.email,
+                userEmail: user.email,
                 name: user.name,
                 jobTitle,
                 company,
@@ -142,7 +143,7 @@ const FindJobCard = ({ object }) => {
             };
 
             try {
-                const response = await fetch("https://hirely-job-portal-server.vercel.app/applied", {
+                const response = await fetch("http://localhost:5000/applied", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -151,8 +152,10 @@ const FindJobCard = ({ object }) => {
                 });
 
                 if (!response.ok) {
-                    throw new Error('Failed to apply');
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to apply');
                 }
+
                 const data = await response.json();
                 Swal.fire({
                     position: "top-end",
@@ -167,7 +170,7 @@ const FindJobCard = ({ object }) => {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Something went wrong while applying.",
+                    text: error.message || "Something went wrong while applying.",
                 });
             }
         } else {
