@@ -31,7 +31,7 @@ const EmployeepostedJob = () => {
     });
     const fetchPostedJobs = async () => {
         try {
-            const response = await fetch(`https://hirely-job-portal-server.vercel.app/job/${user.email}`);
+            const response = await fetch(`http://localhost:5000/job/${user.email}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch jobs');
             }
@@ -110,7 +110,7 @@ const EmployeepostedJob = () => {
             const { _id, ...updatedJobDetails } = jobDetails;
     
             // Send the updated job details to the backend
-            const response = await fetch(`https://hirely-job-portal-server.vercel.app/job/${selectedJob._id}`, {
+            const response = await fetch(`http://localhost:5000/job/${selectedJob._id}`, {
                 method: 'PUT', // Use PUT or PATCH depending on your backend API
                 headers: {
                     'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const EmployeepostedJob = () => {
 
             if (result.isConfirmed) {
                 // Send DELETE request to the backend
-                const response = await fetch(`https://hirely-job-portal-server.vercel.app/job/${jobId}`, {
+                const response = await fetch(`http://localhost:5000/job/${jobId}`, {
                     method: 'DELETE',
                 });
 

@@ -8,7 +8,7 @@ const EmployeeApliedJobs = () => {
     }, []);
 
     const fetchJobs = () => {
-        fetch("https://hirely-job-portal-server.vercel.app/applied")
+        fetch("http://localhost:5000/applied")
             .then((res) => res.json())
             .then((data) => setJobs(data))
             .catch((error) => console.error("Error fetching jobs:", error));
@@ -16,7 +16,7 @@ const EmployeeApliedJobs = () => {
 
     const handleStatusChange = async (id, newStatus) => {
         try {
-            const response = await fetch(`https://hirely-job-portal-server.vercel.app/applied/${id}`, {
+            const response = await fetch(`http://localhost:5000/applied/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ status: newStatus }),

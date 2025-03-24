@@ -4,7 +4,7 @@ const Candidate = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("https://hirely-job-portal-server.vercel.app/users")
+    fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((users) => {
         const candidates = users.filter((user) => user.userRoll === "Candidate");

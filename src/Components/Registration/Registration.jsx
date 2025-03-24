@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../AuthContext/UserContext";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Registration = () => {
     const countries = [
@@ -42,8 +43,8 @@ const Registration = () => {
     const [termsChecked, setTermsChecked] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const {tempUser,setTempUser}= useContext(UserContext);
-    
+    const { tempUser, setTempUser } = useContext(UserContext);
+
     const nav = useNavigate();
 
     // Import bcryptjs for password hashing
@@ -54,61 +55,61 @@ const Registration = () => {
             setErrorMessage("Please agree to the terms and conditions.");
             return;
         }
-    
+
         // Validate email format using regex
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setErrorMessage("Please enter a valid email address.");
             return;
         }
-    
+
         // Validate password strength using regex
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
         if (!passwordRegex.test(password)) {
             setErrorMessage("Password must be at least 8 characters long, include at least one capital letter, one number, and one special character.");
             return;
         }
-    
+
         try {
             // Hash the password using bcryptjs
             const saltRounds = 10; // Number of salt rounds for hashing
             const hashedPassword = await bcrypt.hash(password, saltRounds);
-    
+
             // Create the user object with the hashed password
             const user = {
                 name,
                 phoneNumber: selectedCountry.dialCode + phoneNumber,
                 email,
                 password: hashedPassword,
-                userRoll:"Candidate" // Store the hashed password
+                userRoll: "CANDIDATE" // Store the hashed password
             };
-    
+
             // Log the user object and the original password
             console.log("User Object:", user);
             console.log("Original Password:", password);
-    
+
             // Send the user object to the backend using fetch POST
-            const response = await fetch('https://hirely-job-portal-server.vercel.app/register', {
+            const response = await fetch('http://localhost:5000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(user), // Send the user object as JSON
             });
-    
+
             // Check if the request was successful
             if (response.ok) {
                 const data = await response.json();
                 console.log('User registered successfully:', data);
-              
+
                 setTempUser(data.user);
                 console.log(data.user);
                 console.log(tempUser); // Store the user data temporarily
 
                 // Navigate to the OTP verification page
                 nav("/otp");
-                
-                
+
+
                 setErrorMessage(""); // Clear any error messages
             } else {
                 // Handle errors from the backend
@@ -137,11 +138,9 @@ const Registration = () => {
                 </h3>
 
                 <div className="mx-[278px]">
-                    <button className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg w-full py-2 mt-4">
-                        <img src="https://i.ibb.co.com/HL1BG08s/google.png"
-                            alt="Google" className="w-8 h-8" />
-                        <p className="roboto text-[16px] text-[#000000DE] font-normal"> Sign up with Google</p>
-                    </button>
+                    <div className='relative'>
+                        <SocialLogin></SocialLogin>
+                    </div>
                 </div>
 
                 <div className="text-center text-[16px] text-[#000000DE] mt-[10px] mb-[25px]">OR</div>

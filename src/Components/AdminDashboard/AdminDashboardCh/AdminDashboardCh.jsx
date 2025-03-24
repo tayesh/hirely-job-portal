@@ -10,7 +10,7 @@ const AdminDashboardCh = () => {
 
     useEffect(() => {
         // Fetch jobs data
-        fetch("https://hirely-job-portal-server.vercel.app/jobs")
+        fetch("http://localhost:5000/jobs")
             .then(response => response.json())
             .then(data => {
                 setJobs(data);
@@ -18,7 +18,7 @@ const AdminDashboardCh = () => {
             .catch(error => console.error("Error fetching jobs:", error));
 
         // Fetch users data
-        fetch("https://hirely-job-portal-server.vercel.app/users")
+        fetch("http://localhost:5000/users")
             .then(response => response.json())
             .then(data => {
                 setUsers(data);
@@ -26,7 +26,7 @@ const AdminDashboardCh = () => {
             .catch(error => console.error("Error fetching users:", error));
 
         // Fetch applied jobs data
-        fetch("https://hirely-job-portal-server.vercel.app/applied")
+        fetch("http://localhost:5000/applied")
             .then(response => response.json())
             .then(data => {
                 setAppliedJobs(data);
@@ -34,7 +34,7 @@ const AdminDashboardCh = () => {
             .catch(error => console.error("Error fetching applied jobs:", error));
 
         // Fetch companies data
-        fetch("https://hirely-job-portal-server.vercel.app/companies")
+        fetch("http://localhost:5000/companies")
             .then(response => response.json())
             .then(data => {
                 setCompanies(data);

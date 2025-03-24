@@ -35,7 +35,7 @@ const Notification = ({ object }) => {
 
             console.log('Marking notification as read:', { userId: user._id, jobId });
 
-            const response = await fetch('https://hirely-job-portal-server.vercel.app/notifications/mark-as-read', {
+            const response = await fetch('http://localhost:5000/notifications/mark-as-read', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

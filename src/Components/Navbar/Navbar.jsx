@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../AuthContext/UserContext";
 import Switch from '@mui/material/Switch';
+import { useTheme } from '@mui/material/styles';
 
 const Navbar = ({ darkmode, changeTheme }) => {
     const navlinkStyles = ({ isActive }) => ({
@@ -13,6 +14,16 @@ const Navbar = ({ darkmode, changeTheme }) => {
         borderRadius: "5px",
         textDecoration: "none",
     });
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+
+    const theme = useTheme();
+
+    
 
     const { isLoggedIn, user } = useContext(UserContext);
     const nav = useNavigate();
@@ -20,13 +31,13 @@ const Navbar = ({ darkmode, changeTheme }) => {
     // Common links for all users
     const commonLinks = (
         <>
-            <NavLink to="/" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
-            <NavLink to="/findjob" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/findjob" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Find Job</li>
             </NavLink>
-            <NavLink to="/support" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
         </>
@@ -35,19 +46,19 @@ const Navbar = ({ darkmode, changeTheme }) => {
     // Links for Agency users
     const agencyLinks = (
         <>
-            <NavLink to="/employeehome" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/employeehome" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
-            <NavLink to="/howtostart" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/howtostart" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">How to Start</li>
             </NavLink>
-            <NavLink to="/employeepricing" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/employeepricing" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Pricing</li>
             </NavLink>
-            <NavLink to="/employeerecruit" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/employeerecruit" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Direct Recruiting</li>
             </NavLink>
-            <NavLink to="/support" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
         </>
@@ -55,7 +66,7 @@ const Navbar = ({ darkmode, changeTheme }) => {
 
     // Links for Admin users
     const adminLinks = (
-        <NavLink to="/admindashboard">
+        <NavLink onClick={scrollToTop} to="/admindashboard">
             <li className="epilogue font-normal text-[16px]">Admin Dashboard</li>
         </NavLink>
     );
@@ -91,6 +102,7 @@ const Navbar = ({ darkmode, changeTheme }) => {
                         to={user?.userRoll === "AGENCY" ? "/employeehome" : user?.userRoll === "ADMIN" ? "/admindashboard" : "/"}
                         className="belanosima text-[40px] mr-6"
                         style={{ color: darkmode ? "#ffffff" : "#000000" }}
+                        onClick={scrollToTop}
                     >
                         Hire<span className="text-[#0079C1] belanosima">ly</span>
                     </NavLink>
@@ -115,32 +127,36 @@ const Navbar = ({ darkmode, changeTheme }) => {
                             src="https://i.ibb.co.com/S4J9jhj1/image.png"
                             alt=""
                         />
-                    ) : isLoggedIn ? (
-                        <a className="btn bg-white text-[#0079C1] mr-5 font-normal border-[#0079C1]">
-                            English
-                        </a>
-                    ) : (
-                        <>
-                            <NavLink to="/login">
-                                <a className="btn font-normal bg-white w-28 mr-5 text-[#0079C1] border-[#0079C1]">
-                                    Login
-                                </a>
-                            </NavLink>
-                            <NavLink to="/register">
-                                <a className="btn bg-[#0079C1] w-28 mr-5 text-white font-normal">
-                                    Register
-                                </a>
-                            </NavLink>
-                            <NavLink to="/agency">
-                                <a className="btn font-normal w-28 mr-5 bg-[#F2F2F2] text-[#424447]">
-                                    For Agency
-                                </a>
-                            </NavLink>
-                            <a className="btn bg-white text-[#0079C1] mr-5 font-normal border-[#0079C1]">
-                                English
-                            </a>
-                        </>
-                    )}
+                    ) : user?.userRoll === "CANDIDATE" ? (
+                        <div>
+                            <img
+                                onClick={() => nav("/dashboard")}
+                                className="w-12 p-[2px] border-2 rounded-full cursor-pointer "
+                                src="https://i.ibb.co.com/S4J9jhj1/image.png"
+                                alt=""
+                            />
+                            <p>{user.userRoll}</p>
+                        </div>
+                    )
+                        : (
+                            <>
+                                <NavLink to="/login" onClick={scrollToTop}>
+                                    <a className="btn font-normal bg-white w-28 mr-5 text-[#0079C1] border-[#0079C1]">
+                                        Login
+                                    </a>
+                                </NavLink>
+                                <NavLink to="/register" onClick={scrollToTop}>
+                                    <a className="btn bg-[#0079C1] w-28 mr-5 text-white font-normal">
+                                        Register
+                                    </a>
+                                </NavLink>
+                                <NavLink to="/agency" onClick={scrollToTop}>
+                                    <a className="btn font-normal w-28 mr-5 bg-[#F2F2F2] text-[#424447]">
+                                        For Agency
+                                    </a>
+                                </NavLink>
+                            </>
+                        )}
                     <Switch checked={darkmode} onChange={changeTheme} color="default" />
                 </div>
             </div>

@@ -8,11 +8,26 @@ import { useState } from "react";
 const Root = () => {
     const [darkmode, setDarkmode] = useState(false);
 
+    // const darkTheme = createTheme({
+    //     palette: {
+    //         mode: darkmode ? 'dark' : 'light',
+    //     },
+    // });
+
     const darkTheme = createTheme({
         palette: {
-            mode: darkmode ? 'dark' : 'light',
+            mode: darkmode ? "dark" : "light",
+            background: {
+                default: darkmode ? "#000000" : "#ffffff", // Full background black
+                paper: darkmode ? "#000000" : "#f5f5f5",  // Card background black
+            },
+            text: {
+                primary: "#000000", // Text remains black in both modes
+            },
         },
     });
+    
+    
 
     const changeTheme = () => {
         setDarkmode(!darkmode);

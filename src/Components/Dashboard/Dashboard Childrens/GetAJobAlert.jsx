@@ -6,12 +6,8 @@ const GetAJobAlert = () => {
     // State to track the active button
     const [activeButton, setActiveButton] = useState('EARLIER');
     const { user,fetchUserById } = useContext(UserContext);
-    
 
     console.log(user.notifications);
-
-
-
 
     return (
         <div className='px-24'>

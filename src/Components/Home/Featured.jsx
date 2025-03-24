@@ -13,7 +13,7 @@ const Featured = () => {
     const { user } = useContext(UserContext);
 
     useEffect(() => {
-        fetch("https://hirely-job-portal-server.vercel.app/companies")
+        fetch("http://localhost:5000/companies")
             .then((response) => response.json())
             .then((data) => {
                 setCompanies(data);
@@ -37,7 +37,7 @@ const Featured = () => {
 
         try {
             const response = await fetch(
-                "https://hirely-job-portal-server.vercel.app/followCompany",
+                "http://localhost:5000/followCompany",
                 {
                     method: "POST",
                     headers: {
