@@ -1,36 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useLocation } from 'react-router-dom';
 import { UserContext } from '../AuthContext/UserContext';
 
 const AdminPostJob = () => {
     const { user } = useContext(UserContext);
-    const location = useLocation();
-    const [sponsored, setSponsored] = useState("false");
 
-    const skillsOptions = [
-        "Sales",
-        "Education & Training",
-        "Operations Management",
-        "Legal Services",
-        "Medical Services",
-        "Accounting & Finance",
-        "IT & Software Development",
-        "Engineering",
-        "Office Management",
-        "Transportation & Logistics",
-        "Security & Protection",
-        "Administrative & Office Support"
-    ];
-
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const sponsoredParam = queryParams.get('sponsored');
-        if (sponsoredParam === "true") {
-            setSponsored("true");
-        }
-    }, [location]);
-
+    // Initialize state with the correct structure
     const [jobDetails, setJobDetails] = useState({
         jobTitle: '',
         company: '',
@@ -40,15 +15,14 @@ const AdminPostJob = () => {
         location: '',
         deadline: '',
         vacancy: '',
-        skill: '',
-        jobResponsibilities: [],
+        jobResponsibilities: [], // Initialize as an array
         education: {
             minimumQualification: '',
             preferredQualification: '',
         },
         jobRequirements: {
             qualifications: '',
-            additionalRequirements: [],
+            additionalRequirements: [], // Initialize as an array
         },
         compensationBenefits: {
             salary: '',
@@ -56,11 +30,11 @@ const AdminPostJob = () => {
             location: '',
         },
         email: user.email,
-        sponsored: sponsored,
     });
 
-    const [agencyEmail, setAgencyEmail] = useState(user.email);
+    const [adminEmail, setAdminEmail] = useState(user.email);
 
+    // Handle input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -81,17 +55,10 @@ const AdminPostJob = () => {
         }
     };
 
-    const handleSkillsChange = (e) => {
-        const selectedSkill = e.target.value;
-        setJobDetails(prevDetails => ({
-            ...prevDetails,
-            skill: selectedSkill,  // Store only the selected skill in the state
-        }));
-    };
-
+    // Handle multi-line inputs (e.g., jobResponsibilities, additionalRequirements)
     const handleMultiLineInput = (e) => {
         const { name, value } = e.target;
-        const lines = value.split('\n').map((line) => line.trim());
+        const lines = value.split('\n').map((line) => line.trim()); // Split by newlines and trim whitespace
 
         if (name === 'jobResponsibilities') {
             setJobDetails((prevDetails) => ({
@@ -109,24 +76,19 @@ const AdminPostJob = () => {
         }
     };
 
+    // Handle form submission
     const handleJobPost = async (e) => {
         e.preventDefault();
-        const jobData = { 
-            ...jobDetails, 
-            agencyEmail, 
-            sponsored,
-            skill: jobDetails.skill
-        };
+        const jobData = { ...jobDetails, adminEmail };
 
         try {
-            const response = await fetch('http://localhost:5000/jobs', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/jobs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(jobData),
             });
-
             const data = await response.json();
 
             if (response.ok) {
@@ -139,6 +101,7 @@ const AdminPostJob = () => {
                     timer: 1500,
                 });
 
+                // Reset the form
                 setJobDetails({
                     jobTitle: '',
                     company: '',
@@ -148,7 +111,6 @@ const AdminPostJob = () => {
                     location: '',
                     deadline: '',
                     vacancy: '',
-                    skill: '',
                     jobResponsibilities: [],
                     education: {
                         minimumQualification: '',
@@ -163,18 +125,9 @@ const AdminPostJob = () => {
                         employmentStatus: '',
                         location: '',
                     },
-                    email: user.email,
-                    sponsored: "false",
                 });
             } else {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.message || 'Failed to post the job',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
+                alert('Failed to post the job');
             }
         } catch (error) {
             console.error('Error posting job:', error);
@@ -190,7 +143,7 @@ const AdminPostJob = () => {
     };
 
     return (
-        <div className="max-w-6xl my-12 mx-auto p-6 bg-white shadow-xl rounded-lg">
+        <div className="max-w-6xl my-12 mx-12 p-6 bg-white shadow-xl rounded-lg">
             <h2 className="text-4xl font-semibold text-center mb-6">Post a New Job</h2>
             <form onSubmit={handleJobPost} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Job Title */}
@@ -222,24 +175,6 @@ const AdminPostJob = () => {
                         required
                     />
                 </div>
-
-                <div className="flex flex-col col-span-2">
-    <label htmlFor="skill" className="text-sm font-semibold mb-2">Required Skills</label>
-    <select
-        name="skill"
-        id="skill"
-        value={jobDetails.skill}
-        onChange={handleSkillsChange}
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-auto"
-        required
-    >
-        {skillsOptions.map((skill, index) => (
-            <option key={index} value={skill}>{skill}</option>
-        ))}
-    </select>
-    <small className="text-gray-500">Select a single skill</small>
-</div>
-
 
                 {/* Salary */}
                 <div className="flex flex-col">
@@ -331,15 +266,15 @@ const AdminPostJob = () => {
                     />
                 </div>
 
-                {/* Agency Email */}
+                {/* Admin Email */}
                 <div className="flex flex-col">
-                    <label htmlFor="agencyEmail" className="text-sm font-semibold mb-2">Agency Email</label>
+                    <label htmlFor="adminEmail" className="text-sm font-semibold mb-2">Admin Email</label>
                     <input
                         type="email"
-                        name="agencyEmail"
-                        id="agencyEmail"
-                        value={agencyEmail}
-                        onChange={(e) => setAgencyEmail(e.target.value)}
+                        name="adminEmail"
+                        id="adminEmail"
+                        value={adminEmail}
+                        onChange={(e) => setAdminEmail(e.target.value)}
                         className="px-4 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
                         readOnly
                         required
@@ -428,7 +363,7 @@ const AdminPostJob = () => {
                         name="jobResponsibilities"
                         id="jobResponsibilities"
                         placeholder="Enter Job Responsibilities (one per line)"
-                        value={jobDetails.jobResponsibilities.join('\n')}
+                        value={jobDetails.jobResponsibilities.join('\n')} // Join array into a string for textarea
                         onChange={handleMultiLineInput}
                         className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                         required
@@ -443,7 +378,7 @@ const AdminPostJob = () => {
                         name="additionalRequirements"
                         id="additionalRequirements"
                         placeholder="Enter Additional Requirements (one per line)"
-                        value={jobDetails.jobRequirements.additionalRequirements.join('\n')}
+                        value={jobDetails.jobRequirements.additionalRequirements.join('\n')} // Join array into a string for textarea
                         onChange={handleMultiLineInput}
                         className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                         required

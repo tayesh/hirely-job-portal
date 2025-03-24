@@ -1,24 +1,14 @@
 import { useState, useEffect } from "react";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Banner = () => {
     const [jobTitle, setJobTitle] = useState("");
     const [location, setLocation] = useState("");
-    const [skill, setSkill] = useState("");
     const [totalVacancies, setTotalVacancies] = useState(0);
     const [liveJobsCount, setLiveJobsCount] = useState(0);
     const [companiesCount, setCompaniesCount] = useState(0);
-    const [locations, setLocations] = useState([]);
-    const [skills, setSkills] = useState([]);
     const navigate = useNavigate();
-
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-    };
 
     useEffect(() => {
         // Fetch jobs data
@@ -35,18 +25,6 @@ const Banner = () => {
                     return deadlineDate > new Date();
                 });
                 setLiveJobsCount(liveJobs.length);
-
-                // Extract unique locations
-                const uniqueLocations = [...new Set(
-                    data
-                        .map(job => job.location ? job.location.split(', ')[1] : null)
-                        .filter(location => location !== null)
-                )];
-                setLocations(uniqueLocations);
-
-                // Extract unique skills
-                const uniqueSkills = [...new Set(data.map(job => job.skill))];
-                setSkills(uniqueSkills);
             })
             .catch(error => console.error("Error fetching jobs data:", error));
 
@@ -60,17 +38,12 @@ const Banner = () => {
     }, []);
 
     const parseCustomDate = (dateString) => {
-        const cleanedDateString = dateString.replace(/(\d+)(st|nd|rd|th)/, "$1");
+        const cleanedDateString = dateString.replace(/(\d+)(st|nd|rd|th)/, "$1"); 
         return new Date(cleanedDateString);
     };
 
     const handleSearch = () => {
-        const params = new URLSearchParams();
-        if (skill) params.append('skill', skill);
-        if (location) params.append('location', location);
-        if (jobTitle) params.append('title', jobTitle);
-
-        navigate(`/findjob?${params.toString()}`);
+        navigate(`/findjob?title=${jobTitle}&location=${location}`);
     };
 
     return (
@@ -88,39 +61,23 @@ const Banner = () => {
                             {totalVacancies}+ Active Vacancies, Available Right Now!
                         </p>
                         <div className="flex gap-6 justify-center bg-white mx-28 py-4 items-center h-16 rounded-lg">
-                            <div className="relative w-[400px]">
-                                <select
-                                    value={skill}
-                                    onChange={(e) => setSkill(e.target.value)}
-                                    className="input input-bordered w-full text-[18px] poppins text-[#424447] appearance-none pr-10"
-                                >
-                                    <option value="">Select Skill</option>
-                                    {skills.map((skill, index) => (
-                                        <option key={index} value={skill}>{skill}</option>
-                                    ))}
-                                </select>
-                                <RiArrowDropDownLine className="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl pointer-events-none" />
-                            </div>
-
-                            <div className="relative w-[400px] ">
-                                <select
-                                    value={location}
-                                    onChange={(e) => setLocation(e.target.value)}
-                                    className="input input-bordered w-full text-[18px] poppins text-[#424447] appearance-none pr-10"
-                                >
-                                    <option value="">Select Location</option>
-                                    {locations.map((loc, index) => (
-                                        <option key={index} value={loc}>{loc}</option>
-                                    ))}
-                                </select>
-                                <RiArrowDropDownLine className="absolute right-3 top-1/2 transform -translate-y-1/2 text-2xl pointer-events-none" />
-                            </div>
-                            <button
+                            <input 
+                                type="text" 
+                                placeholder="Search by Job Title" 
+                                value={jobTitle} 
+                                onChange={(e) => setJobTitle(e.target.value)}
+                                className="input input-bordered w-[400px] text-[18px] poppins text-[#424447]"
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="Search by Location" 
+                                value={location} 
+                                onChange={(e) => setLocation(e.target.value)}
+                                className="input input-bordered w-[400px] text-[18px] poppins text-[#424447]"
+                            />
+                            <button 
                                 className="btn bg-[#0275D8] text-white text-[15px] font-normal roboto rounded-md"
-                                onClick={() => {
-                                    handleSearch();
-                                    scrollToTop();
-                                }}
+                                onClick={handleSearch}
                             >
                                 SEARCH JOB
                             </button>

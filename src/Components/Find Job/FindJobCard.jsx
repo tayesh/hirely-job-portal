@@ -21,7 +21,7 @@ const FindJobCard = ({ object }) => {
         const checkSavedStatus = async () => {
             if (user && user.email) {
                 try {
-                    const response = await fetch(`http://localhost:5000/saved?email=${user.email}&applyId=${_id}`);
+                    const response = await fetch(`https://hirely-job-portal-server.vercel.app/saved?email=${user.email}&applyId=${_id}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch saved status');
                     }
@@ -55,7 +55,7 @@ const FindJobCard = ({ object }) => {
 
         if (isSaved) {
             try {
-                const response = await fetch(`http://localhost:5000/saved/${_id}?email=${user.email}`, {
+                const response = await fetch(`https://hirely-job-portal-server.vercel.app/saved/${_id}?email=${user.email}`, {
                     method: "DELETE",
                 });
                 if (!response.ok) {
@@ -91,7 +91,7 @@ const FindJobCard = ({ object }) => {
             };
 
             try {
-                const response = await fetch("http://localhost:5000/saved", {
+                const response = await fetch("https://hirely-job-portal-server.vercel.app/saved", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(savedItem),

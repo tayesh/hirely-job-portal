@@ -11,7 +11,7 @@ const useApply = () => {
             if (!user?.email) return [];
 
             try {
-                const response = await fetch(`http://localhost:5000/applied?email=${user.email}`);
+                const response = await fetch(`https://hirely-job-portal-server.vercel.app/applied?email=${user.email}`);
                 
                 if (!response.ok) {
                     throw new Error("Failed to fetch applied data");
