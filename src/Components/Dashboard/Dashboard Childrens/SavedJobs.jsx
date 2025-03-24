@@ -8,7 +8,7 @@ import { CiClock2 } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
 const fetchSavedJobs = async (email) => {
-    const response = await fetch(`https://hirely-job-portal-server.vercel.app/saved?email=${email}`);
+    const response = await fetch(`http://localhost:5000/saved?email=${email}`);
     if (!response.ok) {
         throw new Error('Error fetching saved jobs');
     }

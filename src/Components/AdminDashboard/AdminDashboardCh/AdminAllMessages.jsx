@@ -13,7 +13,7 @@ const AdminAllMessages = () => { // Assuming user is passed as a prop
 
     const fetchAllMessages = async () => {
         try {
-            const response = await fetch(`https://hirely-job-portal-server.vercel.app/messages`);
+            const response = await fetch(`http://localhost:5000/messages`);
             if (!response.ok) {
                 throw new Error('Failed to fetch messages');
             }

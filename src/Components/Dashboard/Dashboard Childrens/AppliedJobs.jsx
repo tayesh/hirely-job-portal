@@ -1,12 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import useApply from '../../hooks/useApply';
+import React, { useState, useEffect, useContext } from 'react';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import Swal from 'sweetalert2';
+import { UserContext } from '../../AuthContext/UserContext';
 
 const AppliedJobs = () => {
+    const [appliedJobs, setAppliedJobs] = useState([]);
+    const [filteredJobs, setFilteredJobs] = useState([]);
     const [activeTag, setActiveTag] = useState('All');
-    const { cart, refetch } = useApply();
-    const [filteredJobs, setFilteredJobs] = useState(cart);
+    const [loading, setLoading] = useState(true);
+    const { user } = useContext(UserContext);
+
+    useEffect(() => {
+        if (user?.email) {
+            setLoading(true);
+            fetch(`http://localhost:5000/applied-jobs?email=${user.email}`)
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Failed to fetch applied jobs');
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    setAppliedJobs(data.data || []);
+                    setFilteredJobs(data.data || []);
+                })
+                .catch(error => {
+                    console.error("Error fetching applied jobs:", error);
+                    Swal.fire("Error", "Failed to load applied jobs", "error");
+                    setAppliedJobs([]);
+                    setFilteredJobs([]);
+                })
+                .finally(() => setLoading(false));
+        }
+    }, [user?.email]);
+
     const handleDelete = id => {
         Swal.fire({
             title: "Are you sure?",
@@ -18,35 +45,26 @@ const AppliedJobs = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://hirely-job-portal-server.vercel.app/applied/${id}`, {
+                fetch(`http://localhost:5000/applied-jobs/${id}`, {
                     method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                 })
-                    .then(res => res.json())
+                    .then(res => {
+                        if (!res.ok) {
+                            throw new Error('Failed to delete');
+                        }
+                        return res.json();
+                    })
                     .then(data => {
                         if (data.deletedCount > 0) {
-                            refetch();
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "Your applied job has been removed.",
-                                icon: "success"
-                            });
-                        } else {
-                            Swal.fire({
-                                title: "Failed!",
-                                text: "Failed to remove the job.",
-                                icon: "error"
-                            });
+                            const updatedJobs = appliedJobs.filter(job => job._id !== id);
+                            setAppliedJobs(updatedJobs);
+                            setFilteredJobs(updatedJobs);
+                            Swal.fire("Deleted!", "Your applied job has been removed.", "success");
                         }
                     })
                     .catch(error => {
-                        Swal.fire({
-                            title: "Error!",
-                            text: "An error occurred while removing the job.",
-                            icon: "error"
-                        });
+                        Swal.fire("Error!", "Failed to remove the job.", "error");
                         console.error(error);
                     });
             }
@@ -55,35 +73,31 @@ const AppliedJobs = () => {
 
     const tags = [
         { id: 'All', label: 'All' },
-        { id: 'APPLIED', label: `APPLIED - [${filteredJobs.length}]` },
-        { id: 'Tracking', label: 'Tracking Application - [0]' },
-        { id: 'Shortlist', label: 'Shortlist - [0]' },
-        { id: 'Interview', label: 'Interview - [0]' },
-        { id: 'Selected', label: 'Selected - [0]' },
-        { id: 'Rejected', label: 'Rejected - [0]' },
+        { id: 'APPLIED', label: `APPLIED - [${appliedJobs.filter(job => job.status === 'APPLIED').length}]` },
+        { id: 'Tracking', label: `Tracking Application - [${appliedJobs.filter(job => job.status === 'Tracking').length}]` },
+        { id: 'Shortlist', label: `Shortlist - [${appliedJobs.filter(job => job.status === 'Shortlist').length}]` },
+        { id: 'Interview', label: `Interview - [${appliedJobs.filter(job => job.status === 'Interview').length}]` },
+        { id: 'Selected', label: `Selected - [${appliedJobs.filter(job => job.status === 'Selected').length}]` },
+        { id: 'Rejected', label: `Rejected - [${appliedJobs.filter(job => job.status === 'Rejected').length}]` },
     ];
 
-    const filterJobs = (tag) => {
-        if (tag === 'All') {
-            setFilteredJobs(cart);
+    useEffect(() => {
+        if (activeTag === 'All') {
+            setFilteredJobs(appliedJobs);
         } else {
-            const filtered = cart.filter(job => job.status === tag);
-            setFilteredJobs(filtered);
+            setFilteredJobs(appliedJobs.filter(job => job.status === activeTag));
         }
-    };
+    }, [activeTag, appliedJobs]);
 
-    useEffect(() => {
-        filterJobs(activeTag);
-    }, [cart, activeTag]);
-
-    useEffect(() => {
-        tags.forEach((tag) => {
-            const tagCount = tag.id === 'All'
-                ? cart.length
-                : cart.filter((job) => job.status === tag.id).length;
-            tag.label = `${tag.id} - [${tagCount}]`;
-        });
-    }, [cart]);
+    if (loading) {
+        return (
+            <div className='px-8'>
+                <div className='min-h-[930px] border-2 rounded-xl shadow-md mt-10 p-5 flex items-center justify-center'>
+                    <p>Loading applied jobs...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className='px-8'>
@@ -91,13 +105,10 @@ const AppliedJobs = () => {
                 <div className='flex'>
                     <h2 className='text-2xl font-semibold w-[210px] flex-shrink-0'>Applied jobs</h2>
                     <div className='flex flex-wrap gap-x-5 gap-y-3 text-lg'>
-                        {tags.map((tag) => (
+                        {tags.map(tag => (
                             <p
                                 key={tag.id}
-                                className={`px-10 py-1 rounded cursor-pointer ${activeTag === tag.id
-                                    ? 'bg-[#1976D2] text-white'
-                                    : 'bg-[#E5F5FF]'
-                                    }`}
+                                className={`px-10 py-1 rounded cursor-pointer ${activeTag === tag.id ? 'bg-[#1976D2] text-white' : 'bg-[#E5F5FF]'}`}
                                 onClick={() => setActiveTag(tag.id)}
                             >
                                 {tag.label}
@@ -107,7 +118,7 @@ const AppliedJobs = () => {
                 </div>
                 <hr className='mt-10' />
                 <h2 className='text-[#A743DF] text-xl font-semibold my-10'>
-                    You have applied {filteredJobs.length} jobs
+                    You have applied for {filteredJobs.length} jobs
                 </h2>
                 {filteredJobs.length === 0 ? (
                     <div className='flex flex-col items-center py-10'>
@@ -115,7 +126,7 @@ const AppliedJobs = () => {
                         <p className='text-xl font-semibold my-10'>No Results Found</p>
                     </div>
                 ) : (
-                    <div className="overflow-x-auto rounded-sm ">
+                    <div className="overflow-x-auto rounded-sm">
                         <table className="min-w-full table-auto border-collapse border border-gray-300">
                             <thead>
                                 <tr className="bg-[#DCEFFF] text-black">
@@ -129,18 +140,19 @@ const AppliedJobs = () => {
                             </thead>
                             <tbody>
                                 {filteredJobs.map((job, index) => (
-                                    <tr key={job.id}>
+                                    <tr key={job._id}>
                                         <td className="roboto border-r border p-1 text-center">{index + 1}</td>
                                         <td className="roboto border-r border p-2">{job.jobTitle}</td>
                                         <td className="roboto border-r border p-2">{job.company}</td>
                                         <td className="roboto border-r border p-2">{job.salary}</td>
                                         <td className="roboto border p-2">{job.status}</td>
-                                        <td className="roboto border-b py-7 flex justify-center items-center text-xl text-red-600 mt-1" onClick={() => handleDelete(job._id)}><MdOutlineDeleteOutline /></td>
+                                        <td className="roboto border-b py-7 flex justify-center items-center text-xl text-red-600 mt-1" onClick={() => handleDelete(job._id)}>
+                                            <MdOutlineDeleteOutline />
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-
                     </div>
                 )}
             </div>

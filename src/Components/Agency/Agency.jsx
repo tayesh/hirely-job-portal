@@ -126,7 +126,7 @@ const Agency = () => {
             console.log("Original Password:", formData.password);
 
             // Send the agency object to the backend using fetch POST
-            const response = await fetch('https://hirely-job-portal-server.vercel.app/register/agency', {
+            const response = await fetch('http://localhost:5000/register/agency', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -275,21 +275,14 @@ const Agency = () => {
                         {errors.termsAccepted && <p className="text-red-500 text-sm">{errors.termsAccepted}</p>}
                     </div>
 
-                    <button
+                   <div className='flex justify-center'>
+                   <button
                         type="submit"
                         className='w-[250px] bg-[#1976D2] text-white py-2 rounded shadow-lg hover:bg-[#1565C0]'
                     >
                         SIGN IN
                     </button>
-
-                    <p>OR</p>
-
-                    <div className='relative'>
-                        <button className='w-[250px] border-[1px] py-2 rounded hover:bg-gray-100'>
-                            Sign in with Google
-                        </button>
-                        <FcGoogle className='absolute top-[10px] left-2 text-[24px]' />
-                    </div>
+                   </div>
                 </form>
             </div>
         </div>

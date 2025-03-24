@@ -135,11 +135,6 @@ const AdminSideBar = () => {
             path: "/admindashboard/billings"
         },
         {
-            title: "Veification Aprovals",
-            icon: "https://i.ibb.co.com/tMmhnS60/image.png",
-            path: "/admindashboard/adminverificationaprovals"
-        },
-        {
             title: "Message",
             icon: "https://i.ibb.co.com/mFS4ycJY/e5fe06b2b901ba416af1480602df7613.png",
             path: "/admindashboard/adminmessages"

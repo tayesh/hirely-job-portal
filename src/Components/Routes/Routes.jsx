@@ -17,7 +17,6 @@ import AppliedJobs from "../Dashboard/Dashboard Childrens/AppliedJobs";
 import SavedJobs from "../Dashboard/Dashboard Childrens/SavedJobs";
 import Company from "../Dashboard/Dashboard Childrens/Company";
 import Recruiting from "../Dashboard/Dashboard Childrens/Recruiting";
-
 import GetAJobAlert from "../Dashboard/Dashboard Childrens/GetAJobAlert";
 import Settings from "../Dashboard/Dashboard Childrens/Settings";
 import CompanyProfile from "../Home/CompanyProfile";
@@ -66,7 +65,8 @@ import Verification from "../Verification";
 import TakenCourses from "../Dashboard/Dashboard Childrens/TakenCourses";
 import AdminBillings from "../AdminDashboard/AdminDashboardCh/AdminBillings";
 import AdminAddComp from "../AdminDashboard/AdminDashboardCh/AdminAddComp";
-import VerificationApprovals from "../AdminDashboard/AdminDashboardCh/VerificationApprovals";
+import SocialLogin from "../SocialLogin/SocialLogin";
+import EmployeeBilling from "../EmployeeDashBoard/EmployeeDashboardChild/EmployeeDashboardCh/EmployeeBilling";
 
 
 const router = createBrowserRouter([
@@ -86,7 +86,7 @@ const router = createBrowserRouter([
       {
         path: "/coursepage",
         element: <CoursesPage></CoursesPage>,
-        loader: () => fetch('https://hirely-job-portal-server.vercel.app/courses')
+        loader: () => fetch('http://localhost:5000/courses')
       },
       {
         path: "/support",
@@ -103,6 +103,10 @@ const router = createBrowserRouter([
       {
         path: "/refund",
         element: <Refund></Refund>
+      },
+      {
+        path: "/social",
+        element: <SocialLogin></SocialLogin>
       },
       {
         path: "/about",
@@ -147,19 +151,19 @@ const router = createBrowserRouter([
       {
         path: '/jobdetails/:id',
         element: <JobDetails></JobDetails>,
-        loader: ({ params }) => fetch(`https://hirely-job-portal-server.vercel.app/jobs/${params.id}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/jobs/${params.id}`)
       },
       {
         path: '/companyprofile/:id',
         element: <CompanyProfile></CompanyProfile>,
-        loader: ({ params }) => fetch(`https://hirely-job-portal-server.vercel.app/companies/${params.id}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/companies/${params.id}`)
       },
       {
         path: "/more-info/:courseId",
         element: <MoreInfo />,
         loader: async ({ params }) => {
           const { courseId } = params;
-          const response = await fetch(`https://hirely-job-portal-server.vercel.app/courses/${courseId}`);
+          const response = await fetch(`http://localhost:5000/courses/${courseId}`);
           if (!response.ok) {
             throw new Error("Course not found");
           }
@@ -171,20 +175,20 @@ const router = createBrowserRouter([
         element: <EmployerHome></EmployerHome>
       },
       {
-        path:"/success",
-        element:<Success></Success>
+        path: "/success",
+        element: <Success></Success>
       },
       {
         path: '/verification',
-        element:<Verification></Verification>
+        element: <Verification></Verification>
       },
       {
-        path:"/cancel",
-        element:<Cancel></Cancel>
+        path: "/cancel",
+        element: <Cancel></Cancel>
       },
       {
-        path:"/fail",
-        element:<Fail></Fail>
+        path: "/fail",
+        element: <Fail></Fail>
       },
       {
         path: "/candidate",
@@ -215,10 +219,6 @@ const router = createBrowserRouter([
             element: <AdminDashboardCh></AdminDashboardCh>
           },
           {
-            path: "adminverificationaprovals",
-            element: <VerificationApprovals></VerificationApprovals>
-          },
-          {
             path: "allappliedjobs",
             element: <AdminAllApplied></AdminAllApplied>
           },
@@ -236,12 +236,12 @@ const router = createBrowserRouter([
           },
           {
 
-            path:"adminmessages",
-            element:<AdminAllMessages></AdminAllMessages>
+            path: "adminmessages",
+            element: <AdminAllMessages></AdminAllMessages>
           },
           {
-            path:"allagencies",
-            element:<AdminAllAgency></AdminAllAgency>
+            path: "allagencies",
+            element: <AdminAllAgency></AdminAllAgency>
           },
           {
             path: "newjob",
@@ -252,14 +252,14 @@ const router = createBrowserRouter([
             element: <AdminSettings></AdminSettings>
           },
           {
-            path:"billings",
+            path: "billings",
             element: <AdminBillings></AdminBillings>
           },
           {
-            path:"newcompany",
-            element:<AdminAddComp></AdminAddComp>
+            path: "newcompany",
+            element: <AdminAddComp></AdminAddComp>
           }
-          
+
         ]
       },
       {
@@ -305,6 +305,10 @@ const router = createBrowserRouter([
           {
             path: "postedjob",
             element: <EmployeepostedJob></EmployeepostedJob>
+          },
+          {
+            path: "billingdetails",
+            element: <EmployeeBilling></EmployeeBilling>
           }
         ]
       },
@@ -353,7 +357,7 @@ const router = createBrowserRouter([
             element: <Settings></Settings>
           },
           {
-            path:"takencourses",
+            path: "takencourses",
             element: <TakenCourses></TakenCourses>
           }
         ]

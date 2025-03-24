@@ -2,17 +2,28 @@ import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../AuthContext/UserContext";
 import Switch from '@mui/material/Switch';
+import { useTheme } from '@mui/material/styles';
 
 const Navbar = ({ darkmode, changeTheme }) => {
     const navlinkStyles = ({ isActive }) => ({
-        border: isActive ? "2px solid #DCEFFF" : "2px solid white",
+        border: isActive ? "2px solid #DCEFFF" : "2px solid transparent",
         backgroundColor: isActive ? "#DCEFFF" : "transparent",
-        color: isActive ? "#00457C" : "inherit",
+        color: isActive ? "#00457C" : darkmode ? "#ffffff" : "inherit", // Dynamic text color
         fontWeight: isActive ? "normal" : "normal",
         padding: "8px 16px",
         borderRadius: "5px",
         textDecoration: "none",
     });
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    };
+
+    const theme = useTheme();
+
+    
 
     const { isLoggedIn, user } = useContext(UserContext);
     const nav = useNavigate();
@@ -20,13 +31,13 @@ const Navbar = ({ darkmode, changeTheme }) => {
     // Common links for all users
     const commonLinks = (
         <>
-            <NavLink to="/" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
-            <NavLink to="/findjob" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/findjob" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Find Job</li>
             </NavLink>
-            <NavLink to="/support" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
         </>
@@ -35,19 +46,19 @@ const Navbar = ({ darkmode, changeTheme }) => {
     // Links for Agency users
     const agencyLinks = (
         <>
-            <NavLink to="/employeehome" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/employeehome" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Home</li>
             </NavLink>
-            <NavLink to="/howtostart" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/howtostart" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">How to Start</li>
             </NavLink>
-            <NavLink to="/employeepricing" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/employeepricing" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Pricing</li>
             </NavLink>
-            <NavLink to="/employeerecruit" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/employeerecruit" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Direct Recruiting</li>
             </NavLink>
-            <NavLink to="/support" style={navlinkStyles}>
+            <NavLink onClick={scrollToTop} to="/support" style={navlinkStyles}>
                 <li className="epilogue font-normal text-[16px]">Get Support</li>
             </NavLink>
         </>
@@ -55,14 +66,14 @@ const Navbar = ({ darkmode, changeTheme }) => {
 
     // Links for Admin users
     const adminLinks = (
-        <NavLink to="/admindashboard">
+        <NavLink onClick={scrollToTop} to="/admindashboard">
             <li className="epilogue font-normal text-[16px]">Admin Dashboard</li>
         </NavLink>
     );
 
     return (
-        <div className="fixed top-0 w-full z-50">
-            <div className="navbar bg-base-100 shadow-lg px-8">
+        <div className="fixed top-0 w-full z-50" style={{ backgroundColor: darkmode ? "#121212" : "#ffffff" }}>
+            <div className="navbar shadow-lg px-8" style={{ backgroundColor: darkmode ? "#1e1e1e" : "#ffffff" }}>
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -82,13 +93,16 @@ const Navbar = ({ darkmode, changeTheme }) => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="epilogue menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            className="epilogue menu menu-sm dropdown-content mt-3 w-52 p-2 shadow"
+                            style={{ backgroundColor: darkmode ? "#1e1e1e" : "#ffffff", color: darkmode ? "#ffffff" : "#000000" }}>
                             {user?.userRoll === "AGENCY" ? agencyLinks : user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
                         </ul>
                     </div>
                     <NavLink
                         to={user?.userRoll === "AGENCY" ? "/employeehome" : user?.userRoll === "ADMIN" ? "/admindashboard" : "/"}
                         className="belanosima text-[40px] mr-6"
+                        style={{ color: darkmode ? "#ffffff" : "#000000" }}
+                        onClick={scrollToTop}
                     >
                         Hire<span className="text-[#0079C1] belanosima">ly</span>
                     </NavLink>
@@ -96,27 +110,6 @@ const Navbar = ({ darkmode, changeTheme }) => {
                 <div className="mr-[50px] navbar-center hidden lg:flex">
                     <ul className="menu font-normal menu-horizontal gap-6 px-1">
                         {user?.userRoll === "AGENCY" ? agencyLinks : user?.userRoll === "ADMIN" ? adminLinks : commonLinks}
-
-                        {isLoggedIn && user?.userRoll !== "AGENCY" && user?.userRoll !== "ADMIN" && (
-                            <div className="flex gap-5 justify-center items-center">
-                                <img
-                                    onClick={() => nav("/dashboard/getjobalert")}
-                                    className="w-10 mx-10 cursor-pointer"
-                                    src="https://i.ibb.co.com/MDPGFFLj/5954d2569e42aff975cf471cc740f66c.png"
-                                    alt=""
-                                />
-                                <img
-                                    onClick={() => nav("/dashboard")}
-                                    className="w-10 p-[2px] border-2 rounded-full cursor-pointer"
-                                    src="https://i.ibb.co.com/S4J9jhj1/image.png"
-                                    alt=""
-                                />
-                                <div>
-                                    <h2 className="text-[15px]">{user.name}</h2>
-                                    <p className="text-[11px] text-gray-600">{user.userRoll}</p>
-                                </div>
-                            </div>
-                        )}
                     </ul>
                 </div>
                 <div className="navbar-end">
@@ -134,32 +127,36 @@ const Navbar = ({ darkmode, changeTheme }) => {
                             src="https://i.ibb.co.com/S4J9jhj1/image.png"
                             alt=""
                         />
-                    ) : isLoggedIn ? (
-                        <a className="btn bg-white text-[#0079C1] mr-5 font-normal border-[#0079C1]">
-                            English
-                        </a>
-                    ) : (
-                        <>
-                            <NavLink to="/login">
-                                <a className="btn font-normal bg-white w-28 mr-5 text-[#0079C1] border-[#0079C1]">
-                                    Login
-                                </a>
-                            </NavLink>
-                            <NavLink to="/register">
-                                <a className="btn bg-[#0079C1] w-28 mr-5 text-white font-normal">
-                                    Register
-                                </a>
-                            </NavLink>
-                            <NavLink to="/agency">
-                                <a className="btn font-normal w-28 mr-5 bg-[#F2F2F2] text-[#424447]">
-                                    For Agency
-                                </a>
-                            </NavLink>
-                            <a className="btn bg-white text-[#0079C1] mr-5 font-normal border-[#0079C1]">
-                                English
-                            </a>
-                        </>
-                    )}
+                    ) : user?.userRoll === "CANDIDATE" ? (
+                        <div>
+                            <img
+                                onClick={() => nav("/dashboard")}
+                                className="w-12 p-[2px] border-2 rounded-full cursor-pointer "
+                                src="https://i.ibb.co.com/S4J9jhj1/image.png"
+                                alt=""
+                            />
+                            <p>{user.userRoll}</p>
+                        </div>
+                    )
+                        : (
+                            <>
+                                <NavLink to="/login" onClick={scrollToTop}>
+                                    <a className="btn font-normal bg-white w-28 mr-5 text-[#0079C1] border-[#0079C1]">
+                                        Login
+                                    </a>
+                                </NavLink>
+                                <NavLink to="/register" onClick={scrollToTop}>
+                                    <a className="btn bg-[#0079C1] w-28 mr-5 text-white font-normal">
+                                        Register
+                                    </a>
+                                </NavLink>
+                                <NavLink to="/agency" onClick={scrollToTop}>
+                                    <a className="btn font-normal w-28 mr-5 bg-[#F2F2F2] text-[#424447]">
+                                        For Agency
+                                    </a>
+                                </NavLink>
+                            </>
+                        )}
                     <Switch checked={darkmode} onChange={changeTheme} color="default" />
                 </div>
             </div>

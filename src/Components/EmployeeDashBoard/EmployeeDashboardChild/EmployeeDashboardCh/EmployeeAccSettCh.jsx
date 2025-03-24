@@ -36,7 +36,7 @@ const EmployeeAccSettCh = () => {
         }
 
         try {
-            const response = await fetch(`https://hirely-job-portal-server.vercel.app/users/password`, {
+            const response = await fetch(`http://localhost:5000/users/password`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

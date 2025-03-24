@@ -45,7 +45,6 @@ const Expire = () => {
             <div>
                 <div className="flex justify-between mb-6 nunito">
                     <p className="text-[28px]">Expire Soon Jobs <span className="text-[#DB1616]"> ({expiringJobs.length}) </span></p>
-                    <a className="btn px-4 text-[15px] roboto font-normal border-blue-300 bg-white text-[#0079C1]">Explore All</a>
                 </div>
             </div>
             {/* Swiper Container */}

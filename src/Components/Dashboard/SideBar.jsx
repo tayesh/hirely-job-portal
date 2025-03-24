@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { IoCameraOutline } from "react-icons/io5";
 import { NavLink, useNavigate } from 'react-router-dom';
 import SideBarLink from './SideBarLink'
@@ -73,10 +73,6 @@ const SideBar = () => {
     }
 
     const { user, fetchUserById } = useContext(UserContext);
-
-    useEffect(()=>{
-        fetchUserById(user._id)
-    },[])
 
     const handleImageUpload = () => {
 
@@ -159,21 +155,9 @@ const SideBar = () => {
                     <div onClick={handleImageUpload} className='w-[30px] h-[30px] cursor-pointer bg-blue-50 text-blue-700 flex justify-center items-center rounded-full shadow-sm shadow-black absolute top-5 right-0'>
                         <IoCameraOutline className='text-xl' />
                     </div>
-                    {
-                        user.verificationInfo?.verified ?
-                            <div className='w-[30px] h-[30px] cursor-pointer bg-blue-50 text-blue-700 flex justify-center items-center rounded-full shadow-sm shadow-black absolute bottom-5 right-0'>
-                                <img className='rounded-full' src={"https://i.ibb.co.com/bggtSDG4/image.png"} alt="" />
-                            </div>
-                            : <></>
-                    }
                 </div>
                 <h2 className='text-xl font-bold'>{user.name}</h2>
                 <p className='text-[#72737C]  w-full text-center'>ID:{user._id}</p>
-                {
-                     user.verificationInfo?.verified ?
-                     <></>:
-                    <button onClick={() => nav("/verification")} className='btn bg-blue-400'>Verify Account</button>
-                }
             </div>
             <div className='pl-12 space-y-5 my-5' >
                 {
