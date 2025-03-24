@@ -1,8 +1,5 @@
-import {  useRef, useState } from "react";
+import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import emailjs from '@emailjs/browser';
-import Swal from "sweetalert2";
-import { UserContext } from "../AuthContext/UserContext";
 
 const Message = () => {
     const countries = [
@@ -31,68 +28,29 @@ const Message = () => {
         { code: "UZ", name: "Uzbekistan", dialCode: "+998", flag: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_Uzbekistan.svg/320px-Flag_of_Uzbekistan.svg.png" },
         { code: "NP", name: "Nepal", dialCode: "+977", flag: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/320px-Flag_of_Nepal.svg.png" }
     ];
-    const form = useRef();
+
+
     const [selectedCountry, setSelectedCountry] = useState(countries[0]);
-    const [phoneNumber, setPhoneNumber] = useState("");
-
-    const sendEmail = (e) => {
-        e.preventDefault();
-        
-        // Combine country code and phone number
-        const fullPhoneNumber = `${selectedCountry.dialCode}${phoneNumber}`;
-        
-        emailjs
-          .sendForm('service_0d81dd3', 'template_kejj1xc', form.current, {
-            publicKey: 'mVya6T-MayHct4v6K',
-          })
-          .then(
-            () => {
-              console.log('SUCCESS!');
-              Swal.fire({
-                title: 'Success!',
-                text: 'Message sent successfully!',
-                icon: 'success',
-                confirmButtonText: 'OK'
-              });
-              form.current.reset();
-            },
-            (error) => {
-              console.log('FAILED...', error.text);
-              Swal.fire({
-                title: 'Error!',
-                text: 'Failed to send message. Please try again.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              });
-            },
-          );
-    };
-
     return (
         <div className="bg-[#D9D9D9] h-[627px] pt-[49px] mx-[25px] mb-[100px] rounded-[20px]">
             <div className="mb-[61px] w-[509px] h-[517px] rounded-[20px] bg-white ml-[41px]">
                 <h2 className="text-[20px] roboto font-normal text-[#232323] text-center pt-9">
                     Send us a Message
                 </h2>
-                <form className="mx-[46px] mt-[21px] space-y-6" ref={form} onSubmit={sendEmail}>
+                <div className="mx-[46px] mt-[21px] space-y-6">
                     <input
                         type="text"
                         placeholder="Enter Your Full Name"
-                        name="from_name"
-                        required
                         className="w-[417px] h-[52px] rounded-[5px] roboto text-[14px] font-normal text-[#72737C] border border-[#0000003B] p-3 pl-[26px]"
                     />
                     <input
                         type="email"
-                        name="from_email"
                         placeholder="Enter Email"
-                        required
                         className="w-[417px] h-[52px] rounded-[5px] roboto text-[14px] font-normal text-[#72737C] border border-[#0000003B] p-3 pl-[26px] mt-3"
                     />
-                    <textarea
-                        name="message"
+                    <input
+                        type="text"
                         placeholder="Message"
-                        required
                         className="w-[417px] h-[72px] rounded-[5px] roboto text-[14px] font-normal text-[#72737C] border border-[#0000003B] p-3 pl-[26px] mt-3"
                     />
                     <div className="flex items-center border border-gray-300 p-3 rounded-lg relative mt-3 w-[417px] h-[52px]">
@@ -118,22 +76,16 @@ const Message = () => {
                         <div>
                             <input
                                 type="tel"
-                                name="phone_number"
                                 placeholder="Enter Your Phone Number"
-                                value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
-                                required
-                                className="ml-12 w-full outline-none text-[#72737C] roboto text-[14px] font-normal"
+                                className=" ml-12 w-full outline-none text-[#72737C] roboto text-[14px] font-normal"
                             />
                         </div>
+
                     </div>
-                    <input type="hidden" name="full_phone_number" value={`${selectedCountry.dialCode}${phoneNumber}`} />
-                    <div className="flex justify-center">
-                        <button type="submit" className="btn text-[19px] roboto px-4 py-1 w-[121px] h-[51px] font-normal bg-[#0275D8] text-white rounded-[16px]">
-                            Send
-                        </button>
-                    </div>
-                </form>
+                   <div className="flex justify-center">
+                   <input type="submit" className="btn text-[19px] roboto px-4 py-1 w-[121px] h-[51px] font-normal bg-[#0275D8] text-white rounded-[16px]" />
+                   </div>
+                </div>
             </div>
         </div>
     );

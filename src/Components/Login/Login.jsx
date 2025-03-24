@@ -4,7 +4,6 @@ import { FaEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { UserContext } from '../AuthContext/UserContext';
 import { useNavigate } from 'react-router-dom';
-import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
     const [eye, setEye] = useState(false); 
@@ -175,7 +174,10 @@ const Login = () => {
                 <p>OR</p>
 
                 <div className='relative'>
-                    <SocialLogin></SocialLogin>
+                    <button className='w-[500px] border-[1px] py-2 rounded hover:bg-gray-100'>
+                        Sign in with Google
+                    </button>
+                    <FcGoogle className='absolute top-[10px] left-2 text-[24px]' />
                 </div>
 
                 <h2 className='mt-10'>

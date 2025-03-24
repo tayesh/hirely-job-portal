@@ -1,55 +1,4 @@
-import axios from "axios";
-import Swal from "sweetalert2";
-import { UserContext } from "../AuthContext/UserContext";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-
 const Pricing = () => {
-    const { user } = useContext(UserContext);
-    const navigate = useNavigate();
-
-    const handleCreatePayment = async () => {
-        if (!user) {
-            Swal.fire({
-                title: 'Login Required',
-                text: 'You need to be logged in to take this course.',
-                icon: 'warning',
-                confirmButtonText: 'Login',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate('/login');
-                }
-            });
-            return;
-        }
-
-        try {
-            const response = await axios.post('http://localhost:5000/create-payment', {
-                name: user.name,
-                email: user.email,
-                phoneNumber: user.phoneNumber,
-                course: 'Sponsored Job',
-                category: 'Top Position Guaranteed',
-                amount: '2980',
-                currency: 'BDT'
-            });
-
-            const redirectUrl = response.data.paymentUrl;
-
-            if (redirectUrl) {
-                window.location.replace(redirectUrl);
-            }
-        } catch (error) {
-            console.error('Error creating payment:', error);
-            Swal.fire({
-                title: 'Error',
-                text: 'Failed to create payment. Please try again.',
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
-        }
-    };
-
     return (
         <div className="py-[120px]">
             <h2 className="roboto text-[14px] font-normal mt-[36px] text-[#1C54E3] text-center">PRICING</h2>
@@ -62,7 +11,7 @@ const Pricing = () => {
                 </div>
                 <div className="bg-[#F7F7FC] flex-1 px-24 py-16 rounded-[8px]">
                     <h2 className="text-[#000000DE] text-[24px] roboto mb-5">Sponsored Job</h2>
-                    <p  className="text-[#000000DE] text-[24px] mb-8 roboto">2,980৳</p>
+                    <p  className="text-[#000000DE] text-[24px] mb-8 roboto">2,980৳ <small>per week</small></p>
                     <ul className="space-y-8">
                         <li className="flex gap-3 items-center text-[18px]"> <img src="https://i.ibb.co.com/C3kw3mqZ/Vector.png" alt="" />Top Position Guaranteed</li>
                         <li className="flex gap-3 items-center text-[18px]"> <img src="https://i.ibb.co.com/C3kw3mqZ/Vector.png" alt="" />3x More Visibility</li>
@@ -70,7 +19,7 @@ const Pricing = () => {
                         <li className="flex gap-3 items-center text-[18px]"> <img src="https://i.ibb.co.com/C3kw3mqZ/Vector.png" alt="" />Advance Analytics</li>
                         <li className="flex gap-3 items-center text-[18px]"> <img src="https://i.ibb.co.com/C3kw3mqZ/Vector.png" alt="" />Dedicated Customer Support</li>
                     </ul>
-                    <button onClick={handleCreatePayment} className="btn mt-8 h-[59px] px-[40px] py-3 text-[20px] roboto font-normal rounded-[4px] bg-[#0084FF] text-[#FFFFFF]">Post a sponsored job</button>
+                    <button className="btn mt-8 h-[59px] px-[40px] py-3 text-[20px] roboto font-normal rounded-[4px] bg-[#0084FF] text-[#FFFFFF]">Post a sponsored job</button>
                 </div>
             </div>
             <div className="divider"></div>

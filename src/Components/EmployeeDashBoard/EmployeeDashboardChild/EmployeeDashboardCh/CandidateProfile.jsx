@@ -11,7 +11,7 @@ const CandidateProfile = () => {
 
     const fetchCandidateDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/users/email/${email}`);
+            const response = await fetch(`https://hirely-job-portal-server.vercel.app/users/email/${email}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch candidate details");
             }

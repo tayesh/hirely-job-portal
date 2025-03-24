@@ -8,7 +8,7 @@ const Company = () => {
     const [followedCompanies, setFollowedCompanies] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/companyfollowedbyuser/${user.email}`)
+        fetch(`https://hirely-job-portal-server.vercel.app/companyfollowedbyuser/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -21,7 +21,7 @@ const Company = () => {
 
     const handleCompanyUnfollow = async (companyId) => {
         try {
-            const response = await fetch('http://localhost:5000/unfollowcompany', {
+            const response = await fetch('https://hirely-job-portal-server.vercel.app/unfollowcompany', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const Company = () => {
             if (response.ok) {
                 alert('Company followed/unfollowed successfully!');
                 // Refresh the list of followed companies
-                fetch(`http://localhost:5000/companyfollowedbyuser/${user.email}`)
+                fetch(`https://hirely-job-portal-server.vercel.app/companyfollowedbyuser/${user.email}`)
                     .then(res => res.json())
                     .then(data => {
                         setFollowedCompanies(data);

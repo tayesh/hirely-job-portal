@@ -7,7 +7,7 @@ const AdminAllCand = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/users")
+        fetch("https://hirely-job-portal-server.vercel.app/users")
             .then((response) => response.json())
             .then((data) => {
                 const filteredCandidates = data.filter(user => user.userRoll === "Candidate");
@@ -31,7 +31,7 @@ const AdminAllCand = () => {
             confirmButtonText: "Yes, ban the Candidate!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/users/${id}?email=${email}`, {
+                fetch(`https://hirely-job-portal-server.vercel.app/users/${id}?email=${email}`, {
                     method: "DELETE",
                 })
                     .then((response) => response.json())

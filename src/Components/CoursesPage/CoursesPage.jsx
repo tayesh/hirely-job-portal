@@ -6,7 +6,7 @@ const CoursesPage = () => {
     const [activeTab, setActiveTab] = useState("Learn & Get Certificates"); // State to track active tab
 
     useEffect(() => {
-        fetch('http://localhost:5000/course-category')
+        fetch('https://hirely-job-portal-server.vercel.app/course-category')
             .then(res => res.json())
             .then(data => {
                 setCategories(data);
