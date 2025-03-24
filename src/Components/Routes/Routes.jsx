@@ -219,6 +219,10 @@ const router = createBrowserRouter([
             element: <AdminDashboardCh></AdminDashboardCh>
           },
           {
+            path: "adminverificationaprovals",
+            element: <VerificationApprovals></VerificationApprovals>
+          },
+          {
             path: "allappliedjobs",
             element: <AdminAllApplied></AdminAllApplied>
           },
